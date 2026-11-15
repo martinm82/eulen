@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#1e293b" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Mathe-Eule" />
-  <title>Mathe-Eule – 2. Klasse</title>
+  <meta name="apple-mobile-web-app-title" content="Lern-Eule" />
+  <title>Mathe- &amp; Deutsch-Eule – 2. Klasse</title>
   <style>
     :root {
       --bg-top: #1e293b;
@@ -151,6 +151,48 @@
       box-shadow: var(--shadow);
     }
 
+    /* Category Switcher Tabs */
+    .category-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .cat-tab {
+      border: 2.5px solid var(--border);
+      background: var(--card-soft);
+      color: var(--ink-muted);
+      border-radius: 16px;
+      padding: 12px 14px;
+      font-size: 1.05rem;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform 0.1s ease, background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .cat-tab:active {
+      transform: scale(0.98);
+    }
+
+    .cat-tab.active-mathe {
+      background: linear-gradient(135deg, #dcfce7 0%, #fef9c3 100%);
+      border-color: var(--forest);
+      color: var(--forest-dark);
+      box-shadow: 0 4px 12px rgba(22, 163, 74, 0.18);
+    }
+
+    .cat-tab.active-deutsch {
+      background: linear-gradient(135deg, #e0f2fe 0%, #ede9fe 100%);
+      border-color: var(--sky);
+      color: #0369a1;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.18);
+    }
+
     /* Hero Owl Banner */
     .hero {
       display: flex;
@@ -161,6 +203,11 @@
       border-radius: 20px;
       padding: 14px 16px;
       margin-bottom: 14px;
+    }
+
+    .hero.deutsch-hero {
+      background: linear-gradient(135deg, #e0f2fe 0%, #fef3c7 100%);
+      border-color: #7dd3fc;
     }
 
     .hero h1 {
@@ -248,6 +295,8 @@
     .m-plum .module-tag { background: var(--plum-bg); color: var(--plum); }
     .m-sky { border-color: #7dd3fc; }
     .m-sky .module-tag { background: var(--sky-bg); color: var(--sky); }
+    .m-coral { border-color: #fdba74; }
+    .m-coral .module-tag { background: var(--coral-bg); color: var(--coral); }
 
     /* Secondary Action Row */
     .sub-actions {
@@ -602,6 +651,162 @@
       box-shadow: 0 1px 0 var(--forest-dark);
     }
 
+    /* German Reading Story Box & Multiple-Choice UI */
+    .story-box {
+      width: 100%;
+      background: #ffffff;
+      border: 2.5px solid #93c5fd;
+      border-left: 7px solid var(--sky);
+      border-radius: 18px;
+      padding: 14px 16px;
+      margin: 4px 0 10px;
+      text-align: left;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08);
+    }
+
+    .story-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-weight: 900;
+      font-size: 1.05rem;
+      color: #0369a1;
+      margin-bottom: 6px;
+    }
+
+    .story-body {
+      font-size: 1.1rem;
+      line-height: 1.58;
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .equation.de-mode {
+      font-size: 1.15rem;
+      font-weight: 800;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+      margin: 4px 0;
+    }
+
+    .de-sentence-card {
+      background: #ffffff;
+      border: 2px solid var(--border);
+      border-radius: 15px;
+      padding: 11px 16px;
+      font-size: clamp(1.18rem, 3.2vw, 1.48rem);
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1.42;
+      width: 100%;
+    }
+
+    .de-question {
+      font-size: clamp(1.06rem, 2.8vw, 1.25rem);
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1.38;
+    }
+
+    .word-hl {
+      background: #fef08a;
+      color: #854d0e;
+      padding: 2px 8px;
+      border-radius: 8px;
+      border-bottom: 3px solid #eab308;
+    }
+
+    .gap-hl {
+      display: inline-block;
+      min-width: 34px;
+      padding: 0 6px;
+      margin: 0 2px;
+      border-radius: 8px;
+      background: var(--sky-bg);
+      border: 2px dashed var(--sky);
+      color: #0369a1;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .mc-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    .mc-btn {
+      width: 100%;
+      min-height: 62px;
+      padding: 12px 16px;
+      border-radius: 16px;
+      border: 2.5px solid var(--border);
+      background: #ffffff;
+      color: var(--ink);
+      font-size: 1.12rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-align: left;
+      box-shadow: 0 4px 0 #cbd5e1;
+      transition: transform 0.08s ease, box-shadow 0.08s ease, border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .mc-btn:hover {
+      border-color: #94a3b8;
+    }
+
+    .mc-btn:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 #cbd5e1;
+    }
+
+    .mc-badge {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: var(--sky-bg);
+      color: #0369a1;
+      border: 2px solid #7dd3fc;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.98rem;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    .mc-btn.ok {
+      border-color: var(--forest);
+      background: var(--forest-bg);
+      color: var(--forest-dark);
+      box-shadow: 0 4px 0 var(--forest-dark);
+    }
+
+    .mc-btn.ok .mc-badge {
+      background: var(--forest);
+      color: #ffffff;
+      border-color: var(--forest-dark);
+    }
+
+    .mc-btn.err {
+      border-color: var(--rose);
+      background: var(--rose-bg);
+      color: var(--rose);
+      box-shadow: 0 4px 0 #be123c;
+      animation: shake 0.35s ease;
+    }
+
+    .mc-btn.err .mc-badge {
+      background: var(--rose);
+      color: #ffffff;
+      border-color: #be123c;
+    }
+
     /* Sticker Nest Grid */
     .sticker-grid {
       display: grid;
@@ -633,10 +838,121 @@
       margin-bottom: 4px;
     }
 
-    /* Parent 36 Core Matrix */
+    /* Parent Speed KPIs, Module Breakdown & 36 Core Matrix */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+      gap: 10px;
+      margin: 14px 0;
+    }
+
+    .kpi-card {
+      background: var(--card-soft);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .kpi-label {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    .kpi-val {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--ink);
+      line-height: 1.15;
+    }
+
+    .kpi-sub {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--ink-muted);
+    }
+
+    .module-stats-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
+      gap: 10px;
+      margin: 10px 0 16px;
+    }
+
+    .module-stat-card {
+      background: #ffffff;
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .module-stat-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .module-stat-title {
+      font-weight: 800;
+      font-size: 0.94rem;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .module-stat-limit {
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--sky-bg);
+      color: #0369a1;
+    }
+
+    .module-stat-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      background: var(--card-soft);
+      border-radius: 12px;
+      padding: 8px;
+      text-align: center;
+    }
+
+    .ms-item-val {
+      font-weight: 900;
+      font-size: 0.96rem;
+      color: var(--ink);
+    }
+
+    .ms-item-lbl {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--ink-muted);
+    }
+
+    .module-stat-foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--ink-muted);
+    }
+
     .matrix-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(106px, 1fr));
       gap: 8px;
       margin-top: 10px;
     }
@@ -649,6 +965,18 @@
       font-size: 0.92rem;
       border: 2px solid transparent;
       cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      line-height: 1.2;
+    }
+
+    .chip-sub {
+      font-size: 0.7rem;
+      font-weight: 700;
+      opacity: 0.88;
     }
 
     .st-new { background: #f1f5f9; color: #475569; border-color: #cbd5e1; }
@@ -713,29 +1041,51 @@
       <div class="brand" onclick="showView('home')" title="Zur Startseite">
         <div id="header-owl"></div>
         <div>
-          <div class="brand-title">Mathe-Eule</div>
-          <div class="brand-sub">2. Klasse • Zahlenwald</div>
+          <div class="brand-title" id="brand-title">Mathe- &amp; Deutsch-Eule</div>
+          <div class="brand-sub" id="brand-sub">2. Klasse • Zahlen- &amp; Wörterwald</div>
         </div>
       </div>
       <div class="stats-bar">
         <div class="pill pill-stars" title="Gesammelte Sterne">⭐ <span id="stat-stars">0</span></div>
-        <div class="pill pill-blitz" title="Blitz-Federn (schnell im Kopf)">⚡ <span id="stat-blitz">0</span></div>
+        <div class="pill pill-blitz" title="Blitz-Federn (schnell &amp; sicher)">⚡ <span id="stat-blitz">0</span></div>
         <button class="pill pill-btn" onclick="showView('nest')">🪺 Eulen-Nest</button>
         <button class="pill pill-btn" onclick="showView('parents')">👨‍👩‍👧 Eltern</button>
       </div>
     </header>
 
+    <!-- STORAGE WARNING BANNER (Only shown when localStorage is blocked, in Incognito, or opened via content:// / file://) -->
+    <div id="storage-warning-banner" class="card hidden" style="background:#fff1f2; border-color:#fda4af; padding:12px 16px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+      <div style="font-size:0.86rem; color:#9f1239; font-weight:700; line-height:1.4;">
+        ⚠️ <strong id="storage-warn-title">Hinweis zur Speicherung auf diesem Tablet:</strong>
+        <span id="storage-warn-msg">Der Browser befindet sich im Inkognito-/Privatmodus oder wurde als lokale Datei geöffnet. Sterne gehen beim Schließen des Tabs verloren.</span>
+      </div>
+      <button class="btn" style="padding:6px 12px; font-size:0.8rem; background:#ffffff; border-color:#fda4af; color:#9f1239;" onclick="showView('parents')">💾 Backup / Details</button>
+    </div>
+
     <!-- VIEW: HOME -->
     <main id="view-home" class="card">
-      <div class="hero">
+      <!-- Category Switcher -->
+      <div class="category-tabs" role="tablist" aria-label="Lernbereich wählen">
+        <button id="tab-mathe" class="cat-tab active-mathe" onclick="switchCategory('mathe')">
+          <span>🔢</span>
+          <span>Mathe (Zahlenwald)</span>
+        </button>
+        <button id="tab-deutsch" class="cat-tab" onclick="switchCategory('deutsch')">
+          <span>📖</span>
+          <span>Deutsch (Wörterwald)</span>
+        </button>
+      </div>
+
+      <div class="hero" id="hero-banner">
         <div id="hero-owl"></div>
         <div>
-          <h1>Hallo im Zahlenwald! 🦉</h1>
-          <p>Übe die <strong>verliebten Zahlen</strong>, die <strong>36 Blitz-Aufgaben bis 20</strong> und das <strong>Rechnen bis 100</strong>. Sammle Sterne für dein Eulen-Nest!</p>
+          <h1 id="hero-title">Hallo im Zahlenwald! 🦉</h1>
+          <p id="hero-desc">Übe die <strong>verliebten Zahlen</strong>, die <strong>36 Blitz-Aufgaben bis 20</strong> und das <strong>Rechnen bis 100</strong>. Sammle Sterne für dein Eulen-Nest!</p>
         </div>
       </div>
 
-      <div class="module-grid">
+      <!-- MATHE MODULES -->
+      <div class="module-grid" id="grid-mathe">
         <button class="module-btn m-rose" onclick="startModule('verliebt')">
           <div class="module-head">
             <span class="module-icon">❤️</span>
@@ -760,7 +1110,7 @@
             <span class="module-tag">Ohne Übergang</span>
           </div>
           <div class="module-title">Bis 100 ohne Zehnerübergang</div>
-          <div class="module-desc">Aufgaben wie 70 + 20 oder 73 + 5 mit Zehnerstangen & Einerwürfeln.</div>
+          <div class="module-desc">Aufgaben wie 70 + 20 oder 73 + 5 mit Zehnerstangen &amp; Einerwürfeln.</div>
         </button>
 
         <button class="module-btn m-plum" onclick="startModule('twins')">
@@ -779,6 +1129,45 @@
           </div>
           <div class="module-title">Bis 100 mit Zehnerübergang</div>
           <div class="module-desc">Aufgaben wie 76 + 8 lösen – mit der Grundaufgabe als Eselsbrücke.</div>
+        </button>
+      </div>
+
+      <!-- DEUTSCH MODULES (2. Klasse) -->
+      <div class="module-grid hidden" id="grid-deutsch">
+        <button class="module-btn m-sky" onclick="startModule('de_lesen')">
+          <div class="module-head">
+            <span class="module-icon">📖</span>
+            <span class="module-tag">Sinnentnehmend lesen</span>
+          </div>
+          <div class="module-title">Leseverständnis: Kurzgeschichten</div>
+          <div class="module-desc">Lies kurze Geschichten aus Wald, Schule &amp; Alltag und beantworte 2 Verständnisfragen zum Text.</div>
+        </button>
+
+        <button class="module-btn m-plum" onclick="startModule('de_wortarten')">
+          <div class="module-head">
+            <span class="module-icon">🔤</span>
+            <span class="module-tag">Grammatik 2. Klasse</span>
+          </div>
+          <div class="module-title">Wortarten-Detektiv</div>
+          <div class="module-desc">Erkenne Nomen (Namenwörter), Verben (Tuwörter) und Adjektive (Wiewörter) mit Begleiter-, Tu- &amp; Wie-Probe.</div>
+        </button>
+
+        <button class="module-btn m-coral" onclick="startModule('de_rechtschreibung')">
+          <div class="module-head">
+            <span class="module-icon">🔍</span>
+            <span class="module-tag">Rechtschreib-Tricks</span>
+          </div>
+          <div class="module-title">Rechtschreib-Fuchs</div>
+          <div class="module-desc">Spürnasen-Wörter knacken: Verlängern (d/t, g/k, b/p), Ableiten (ä/e, äu/eu), ie oder i &amp; der/die/das.</div>
+        </button>
+
+        <button class="module-btn m-forest" onclick="startModule('de_silben')">
+          <div class="module-head">
+            <span class="module-icon">🧩</span>
+            <span class="module-tag">Wortbau &amp; Rhythmus</span>
+          </div>
+          <div class="module-title">Silben &amp; Wörter-Bau</div>
+          <div class="module-desc">Silben klatschen &amp; zählen (Schmet-ter-ling) und zusammengesetzte Nomen (Baum + Haus = das Baumhaus) bauen.</div>
         </button>
       </div>
     </main>
@@ -806,6 +1195,8 @@
 
           <div id="twin-banner" class="twin-mini hidden"></div>
 
+          <div id="story-box" class="story-box hidden"></div>
+
           <div class="equation" id="equation-display"></div>
 
           <div class="feedback-banner" id="feedback-banner"></div>
@@ -818,7 +1209,7 @@
         </div>
 
         <div>
-          <div class="keypad">
+          <div class="keypad" id="math-keypad">
             <button class="key-btn" onclick="pressDigit('1')">1</button>
             <button class="key-btn" onclick="pressDigit('2')">2</button>
             <button class="key-btn" onclick="pressDigit('3')">3</button>
@@ -832,6 +1223,8 @@
             <button class="key-btn" onclick="pressDigit('0')">0</button>
             <button class="key-btn key-ok" onclick="submitAnswer()">✓ Fertig</button>
           </div>
+
+          <div class="mc-panel hidden" id="de-choices"></div>
         </div>
       </div>
     </section>
@@ -859,32 +1252,79 @@
     <section id="view-parents" class="card hidden">
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
         <div>
-          <h2 style="margin:0;">👨‍👩‍👧 Eltern-Übersicht</h2>
-          <p style="margin:4px 0 0; color:var(--ink-muted); font-size:0.9rem;">Lernstand der <strong>36 Kernaufgaben bis 20</strong> (Zehnerübergang) & verliebten Zahlen.</p>
+          <h2 style="margin:0;">👨‍👩‍👧 Eltern-Übersicht: Mathe &amp; Deutsch</h2>
+          <p style="margin:4px 0 0; color:var(--ink-muted); font-size:0.9rem;">Auswertung von Lernfortschritt, Lese- &amp; Rechentempo (direkt gelöste Aufgaben vs. Gesamtzeit inkl. Hilfe/Korrektur).</p>
         </div>
         <button class="btn" onclick="showView('home')">⬅️ Zurück</button>
       </div>
 
-      <div style="display:flex; gap:8px; flex-wrap:wrap; margin:12px 0; font-size:0.82rem; font-weight:700;">
-        <span class="task-chip st-blitz" style="cursor:default;">🟢 Blitz-Ass (&lt; 4,5s)</span>
-        <span class="task-chip st-slow" style="cursor:default;">🟡 Richtig (noch gerechnet)</span>
-        <span class="task-chip st-practice" style="cursor:default;">🟠 Verstärkt üben</span>
-        <span class="task-chip st-new" style="cursor:default;">⚪ Noch offen</span>
+      <!-- Summary KPI Cards -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">⏱️ Ø Tempo (direkt)</div>
+          <div class="kpi-val" id="kpi-avg-clean">–</div>
+          <div class="kpi-sub" id="kpi-best-clean">🏆 Bestzeit: –</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">⚡ Blitz-Quote</div>
+          <div class="kpi-val" id="kpi-blitz-rate">–</div>
+          <div class="kpi-sub" id="kpi-blitz-core">0 / 36 Kernaufgaben Blitz-Ass</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">⏳ Gesamt-Lernzeit</div>
+          <div class="kpi-val" id="kpi-total-time">0s</div>
+          <div class="kpi-sub" id="kpi-avg-total">Ø inkl. Hilfe/Korrektur: –</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">✅ Gelöste Aufgaben</div>
+          <div class="kpi-val" id="kpi-total-solved">0</div>
+          <div class="kpi-sub" id="kpi-clean-rate">Noch keine Versuche</div>
+        </div>
+      </div>
+
+      <!-- Per-Module Speed Breakdown -->
+      <h3 style="margin:14px 0 6px; font-size:1rem;">📊 Tempo &amp; Trefferquote nach Lernmodul (Mathe &amp; Deutsch)</h3>
+      <div class="module-stats-list" id="module-stats-list"></div>
+
+      <div style="display:flex; gap:8px; flex-wrap:wrap; margin:14px 0 8px; font-size:0.82rem; font-weight:700;">
+        <span class="task-chip st-blitz" style="cursor:default; padding:6px 10px;">🟢 Blitz-Ass (&lt; 4,5s)</span>
+        <span class="task-chip st-slow" style="cursor:default; padding:6px 10px;">🟡 Richtig (noch gerechnet)</span>
+        <span class="task-chip st-practice" style="cursor:default; padding:6px 10px;">🟠 Verstärkt üben</span>
+        <span class="task-chip st-new" style="cursor:default; padding:6px 10px;">⚪ Noch offen</span>
       </div>
 
       <p style="font-size:0.86rem; color:var(--ink-muted); margin:6px 0;">
-        💡 <strong>Tipp:</strong> Tippen Sie eine beliebige Aufgabe an, um genau diese Aufgabe sofort gezielt zu üben.
+        💡 <strong>Hinweis:</strong> <code>Ø</code> und <code>🏆</code> zeigen die direkte Kopfrechenzeit (ohne Fehlversuch/Rechenhilfe). Tippen Sie eine Aufgabe an, um sie gezielt zu üben.
       </p>
 
-      <h3 style="margin:14px 0 6px; font-size:1rem;">36 Grundaufgaben bis 20 (Zehnerübergang)</h3>
+      <h3 style="margin:14px 0 6px; font-size:1rem;">🦉 36 Grundaufgaben bis 20 (Zehnerübergang)</h3>
       <div class="matrix-grid" id="core36-matrix"></div>
 
       <h3 style="margin:16px 0 6px; font-size:1rem;">❤️ Verliebte Zahlen (Ergänzen zur 10)</h3>
       <div class="matrix-grid" id="verliebt-matrix"></div>
 
-      <div style="margin-top:18px; padding-top:14px; border-top:2px dashed var(--border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
-        <span style="font-size:0.85rem; color:var(--ink-muted);">Alle Lerndaten liegen ausschließlich lokal auf diesem Gerät.</span>
-        <button class="btn" onclick="openPrivacyModal()">🔒 Datenschutz & Daten löschen</button>
+      <!-- Tablet Storage Status & 1-Click Backup / Restore -->
+      <div style="margin-top:18px; background:var(--card-soft); border:1.5px solid var(--border); border-radius:16px; padding:12px 14px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+          <div>
+            <div style="font-weight:800; font-size:0.92rem;">💾 Tablet-Speicher &amp; Backup (Android / iPad)</div>
+            <div id="parent-storage-diag" style="font-size:0.8rem; color:var(--ink-muted); margin-top:2px;">Prüfe lokalen Gerätespeicher…</div>
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button class="btn" style="padding:6px 12px; font-size:0.8rem;" onclick="exportBackupCode()">📋 Backup-Code kopieren</button>
+            <button class="btn" style="padding:6px 12px; font-size:0.8rem;" onclick="toggleImportBox()">📥 Backup einspielen</button>
+          </div>
+        </div>
+        <div id="backup-feedback" class="hidden" style="margin-top:8px; font-size:0.82rem; font-weight:700; color:var(--forest-dark);"></div>
+        <div id="backup-import-box" class="hidden" style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap;">
+          <input id="backup-input" type="text" placeholder="Backup-Code hier einfügen…" style="flex:1; min-width:200px; padding:8px 10px; border-radius:10px; border:1.5px solid var(--border); font-size:0.85rem; user-select:text;" />
+          <button class="btn btn-primary" style="padding:6px 12px; font-size:0.8rem;" onclick="importBackupCode()">Wiederherstellen</button>
+        </div>
+      </div>
+
+      <div style="margin-top:14px; padding-top:14px; border-top:2px dashed var(--border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+        <span style="font-size:0.85rem; color:var(--ink-muted);">Alle Lerndaten liegen ausschließlich lokal auf diesem Gerät (LocalStorage + IndexedDB).</span>
+        <button class="btn" onclick="openPrivacyModal()">🔒 Datenschutz &amp; Daten löschen</button>
       </div>
     </section>
 
@@ -899,11 +1339,12 @@
     <div class="modal-box" style="text-align:center;">
       <div id="modal-owl" style="margin-bottom:6px;"></div>
       <h2 style="margin:4px 0;">Runde geschafft! 🎉</h2>
-      <p style="color:var(--ink-muted); margin:4px 0 14px;">10 Aufgaben im Zahlenwald gemeistert!</p>
+      <p id="round-modal-sub" style="color:var(--ink-muted); margin:4px 0 14px;">10 Aufgaben im Zahlenwald gemeistert!</p>
       <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom:16px;">
         <div class="pill pill-stars">⭐ +<span id="r-stars">0</span> Sterne</div>
         <div class="pill pill-blitz">⚡ <span id="r-blitz">0</span> Blitz-Federn</div>
         <div class="pill" style="background:var(--coral-bg); color:var(--coral);">🔥 Max-Turbo: <span id="r-turbo">0</span></div>
+        <div class="pill" style="background:var(--plum-bg); color:var(--plum);">⏱️ Ø <span id="r-avg-time">–</span></div>
       </div>
       <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
         <button class="btn btn-primary" onclick="closeRoundModal(true)">Weiter üben 🚀</button>
@@ -925,7 +1366,7 @@
       <ul style="font-size:0.88rem; line-height:1.45; color:var(--ink); padding-left:18px;">
         <li><strong>Keine Server-Übertragung:</strong> Es werden keinerlei Namen, IP-Adressen, Cookies, Analyse-Tracker oder externe Schriftarten/Skripte geladen.</li>
         <li><strong>Speicherort (Art. 13 DSGVO):</strong> Der anonyme Lernstand wird ausschließlich lokal im Browser dieses Geräts gespeichert (Schlüssel: <code>mathe_eule_2klasse_dsgvo_v1</code>).</li>
-        <li><strong>Gespeicherte Datenfelder:</strong> Gesamtsterne, Blitz-Federn, Turbo-Rekord sowie anonyme Übungszähler der 36 Grundaufgaben und verliebten Zahlen.</li>
+        <li><strong>Gespeicherte Datenfelder:</strong> Gesamtsterne, Blitz-Federn, Turbo-Rekord sowie anonyme Übungszähler und Rechenzeiten (Ø Tempo, Bestzeit, Gesamtzeit) je Lernmodul, für die 36 Grundaufgaben und die verliebten Zahlen.</li>
         <li><strong>Aktueller Speicherstatus:</strong> <span id="storage-status" style="font-weight:800; color:var(--forest-dark);">Aktiv (lokaler Gerätespeicher)</span></li>
       </ul>
 
@@ -1013,52 +1454,367 @@
     }
 
     /* ==========================================================================
-       2. GDPR / DSGVO LOCAL STORAGE WITH IN-MEMORY FALLBACK
+       2. MULTI-LAYER ANDROID/TABLET PERSISTENCE (LocalStorage + IndexedDB + Cookie)
        ========================================================================== */
     const STORAGE_KEY = 'mathe_eule_2klasse_dsgvo_v1';
+    const LEGACY_KEYS = ['mathe_rakete_2klasse_dsgvo_v1', 'mathe_rakete_2klasse_v1'];
+    const COOKIE_KEY = 'mathe_eule_bkp_v1';
+    const IDB_NAME = 'MatheEuleDB_v1';
+    const IDB_STORE = 'appStateStore';
+    const MAX_ATTEMPT_MS = 60000; // Cap idle pauses at 60s so unattended screens don't skew averages
+
     let memoryFallbackState = null;
-    let usingLocalStorage = true;
+    let usingLocalStorage = false;
+    let usingIndexedDB = false;
+    let storagePersistedGranted = false;
+    let suspectedIncognitoOrFile = false;
+    let storageDiagMessage = '';
+
+    function createEmptyStatEntry() {
+      return {
+        attempts: 0,
+        correct: 0,
+        blitz: 0,
+        streak: 0,
+        cleanCount: 0,
+        cleanTimeMs: 0,
+        bestMs: 0,
+        lastCleanMs: 0,
+        totalTimeMs: 0,
+        lastTotalTaskMs: 0
+      };
+    }
 
     function createDefaultState() {
       return {
         stars: 0,
         blitzCount: 0,
         bestTurbo: 0,
-        coreStats: {},     // key "a+b": { attempts, correct, blitz, streak }
-        verliebtStats: {}  // key "n": { attempts, correct, blitz }
+        coreStats: {},     // key "a+b": StatEntry (only from module 'core20')
+        verliebtStats: {}, // key "n": StatEntry (only from module 'verliebt')
+        moduleStats: {}    // key moduleId: StatEntry (each of the 9 modules tracked separately)
       };
     }
 
-    function loadState() {
+    function verifyLocalStorageWrite() {
       try {
-        const raw = window.localStorage.getItem(STORAGE_KEY);
-        usingLocalStorage = true;
-        if (!raw) return createDefaultState();
-        const parsed = JSON.parse(raw);
-        return Object.assign(createDefaultState(), parsed);
+        const testKey = '__mathe_eule_write_test__';
+        const testVal = String(Date.now());
+        window.localStorage.setItem(testKey, testVal);
+        const readBack = window.localStorage.getItem(testKey);
+        window.localStorage.removeItem(testKey);
+        return readBack === testVal;
       } catch (e) {
-        usingLocalStorage = false;
-        if (!memoryFallbackState) memoryFallbackState = createDefaultState();
-        return memoryFallbackState;
+        return false;
       }
     }
 
-    function saveState(st) {
+    function getStateProgressScore(st) {
+      if (!st || typeof st !== 'object') return -1;
+      let score = (Number(st.stars) || 0) * 100 + (Number(st.blitzCount) || 0) * 10;
+      if (st.moduleStats && typeof st.moduleStats === 'object') {
+        Object.values(st.moduleStats).forEach(m => {
+          score += (Number(m && m.attempts) || 0) * 2;
+        });
+      }
+      if (st.coreStats && typeof st.coreStats === 'object') {
+        Object.values(st.coreStats).forEach(c => {
+          score += (Number(c && c.attempts) || 0);
+        });
+      }
+      return score;
+    }
+
+    function normalizeStateObject(parsed) {
+      if (!parsed || typeof parsed !== 'object') return createDefaultState();
+
+      // Migrate from legacy "Mathe-Rakete" schema ({ activeProfile: { stars, totalBlitz, bestTurboStreak, coreStats, verliebteStats } })
+      if (parsed.activeProfile && typeof parsed.activeProfile === 'object') {
+        const prof = parsed.activeProfile;
+        const migrated = createDefaultState();
+        migrated.stars = Number(prof.stars) || 0;
+        migrated.blitzCount = Number(prof.totalBlitz) || 0;
+        migrated.bestTurbo = Number(prof.bestTurboStreak) || 0;
+        if (prof.coreStats && typeof prof.coreStats === 'object') {
+          Object.entries(prof.coreStats).forEach(([k, v]) => {
+            if (!v) return;
+            const entry = createEmptyStatEntry();
+            entry.attempts = Number(v.attempts) || 0;
+            entry.correct = Number(v.correct) || 0;
+            entry.blitz = Number(v.fastCount) || (v.mastery === 3 ? 1 : 0);
+            entry.streak = entry.correct > 0 ? 1 : 0;
+            migrated.coreStats[k] = entry;
+          });
+        }
+        parsed = migrated;
+      }
+
+      const st = Object.assign(createDefaultState(), parsed);
+      st.stars = Number(st.stars) || 0;
+      st.blitzCount = Number(st.blitzCount) || 0;
+      st.bestTurbo = Number(st.bestTurbo) || 0;
+      if (!st.coreStats || typeof st.coreStats !== 'object') st.coreStats = {};
+      if (!st.verliebtStats || typeof st.verliebtStats !== 'object') st.verliebtStats = {};
+      if (!st.moduleStats || typeof st.moduleStats !== 'object') st.moduleStats = {};
+
+      // Backfill moduleStats for legacy saved states if not yet populated
+      if (!st.moduleStats.core20 && Object.keys(st.coreStats).length > 0) {
+        const agg = createEmptyStatEntry();
+        Object.values(st.coreStats).forEach(item => {
+          agg.attempts += item.attempts || 0;
+          agg.correct += item.correct || 0;
+          agg.blitz += item.blitz || 0;
+          agg.cleanCount += item.cleanCount || 0;
+          agg.cleanTimeMs += item.cleanTimeMs || 0;
+          agg.totalTimeMs += item.totalTimeMs || 0;
+          if (item.bestMs && (!agg.bestMs || item.bestMs < agg.bestMs)) agg.bestMs = item.bestMs;
+        });
+        if (agg.attempts > 0) st.moduleStats.core20 = agg;
+      }
+      if (!st.moduleStats.verliebt && Object.keys(st.verliebtStats).length > 0) {
+        const agg = createEmptyStatEntry();
+        Object.values(st.verliebtStats).forEach(item => {
+          agg.attempts += item.attempts || 0;
+          agg.correct += item.correct || 0;
+          agg.blitz += item.blitz || 0;
+          agg.cleanCount += item.cleanCount || 0;
+          agg.cleanTimeMs += item.cleanTimeMs || 0;
+          agg.totalTimeMs += item.totalTimeMs || 0;
+          if (item.bestMs && (!agg.bestMs || item.bestMs < agg.bestMs)) agg.bestMs = item.bestMs;
+        });
+        if (agg.attempts > 0) st.moduleStats.verliebt = agg;
+      }
+      return st;
+    }
+
+    function writeCookieBackup(st) {
       try {
-        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(st));
+        const compact = JSON.stringify({
+          stars: st.stars,
+          blitzCount: st.blitzCount,
+          bestTurbo: st.bestTurbo,
+          moduleStats: st.moduleStats
+        });
+        document.cookie = `${COOKIE_KEY}=${encodeURIComponent(compact)}; max-age=31536000; path=/; SameSite=Lax`;
+      } catch (e) {}
+    }
+
+    function readCookieBackup() {
+      try {
+        const match = document.cookie.split('; ').find(row => row.startsWith(`${COOKIE_KEY}=`));
+        if (!match) return null;
+        const val = decodeURIComponent(match.split('=').slice(1).join('='));
+        return normalizeStateObject(JSON.parse(val));
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function saveToIndexedDB(st) {
+      try {
+        if (!window.indexedDB) return;
+        const req = window.indexedDB.open(IDB_NAME, 1);
+        req.onupgradeneeded = (ev) => {
+          const db = ev.target.result;
+          if (!db.objectStoreNames.contains(IDB_STORE)) {
+            db.createObjectStore(IDB_STORE);
+          }
+        };
+        req.onsuccess = (ev) => {
+          try {
+            const db = ev.target.result;
+            const tx = db.transaction(IDB_STORE, 'readwrite');
+            tx.objectStore(IDB_STORE).put(JSON.stringify(st), STORAGE_KEY);
+            usingIndexedDB = true;
+          } catch (_) {}
+        };
+      } catch (e) {}
+    }
+
+    function restoreFromIndexedDBIfNewer() {
+      try {
+        if (!window.indexedDB) return;
+        const req = window.indexedDB.open(IDB_NAME, 1);
+        req.onupgradeneeded = (ev) => {
+          const db = ev.target.result;
+          if (!db.objectStoreNames.contains(IDB_STORE)) {
+            db.createObjectStore(IDB_STORE);
+          }
+        };
+        req.onsuccess = (ev) => {
+          try {
+            const db = ev.target.result;
+            usingIndexedDB = true;
+            const tx = db.transaction(IDB_STORE, 'readonly');
+            const getReq = tx.objectStore(IDB_STORE).get(STORAGE_KEY);
+            getReq.onsuccess = () => {
+              if (!getReq.result) return;
+              const idbState = normalizeStateObject(JSON.parse(getReq.result));
+              if (getStateProgressScore(idbState) > getStateProgressScore(appState)) {
+                appState = idbState;
+                saveState(appState);
+                if (!document.getElementById('view-parents').classList.contains('hidden')) renderParentsView();
+                if (!document.getElementById('view-nest').classList.contains('hidden')) renderNestView();
+              }
+            };
+          } catch (_) {}
+        };
+      } catch (e) {}
+    }
+
+    function loadState() {
+      usingLocalStorage = verifyLocalStorageWrite();
+      let bestCandidate = createDefaultState();
+
+      if (usingLocalStorage) {
+        try {
+          const raw = window.localStorage.getItem(STORAGE_KEY);
+          if (raw) {
+            bestCandidate = normalizeStateObject(JSON.parse(raw));
+          } else {
+            // Check legacy keys from earlier versions
+            for (const oldKey of LEGACY_KEYS) {
+              const legacyRaw = window.localStorage.getItem(oldKey);
+              if (legacyRaw) {
+                const migrated = normalizeStateObject(JSON.parse(legacyRaw));
+                if (getStateProgressScore(migrated) > getStateProgressScore(bestCandidate)) {
+                  bestCandidate = migrated;
+                }
+              }
+            }
+          }
+        } catch (e) {
+          usingLocalStorage = false;
+        }
+      }
+
+      // Check Cookie backup & window.name fallback in case LocalStorage was cleared
+      const cookieCandidate = readCookieBackup();
+      if (cookieCandidate && getStateProgressScore(cookieCandidate) > getStateProgressScore(bestCandidate)) {
+        bestCandidate = cookieCandidate;
+      }
+
+      try {
+        if (window.name && window.name.startsWith('MATHE_EULE_BKP:')) {
+          const wnCandidate = normalizeStateObject(JSON.parse(window.name.slice('MATHE_EULE_BKP:'.length)));
+          if (getStateProgressScore(wnCandidate) > getStateProgressScore(bestCandidate)) {
+            bestCandidate = wnCandidate;
+          }
+        }
+      } catch (e) {}
+
+      memoryFallbackState = bestCandidate;
+      return bestCandidate;
+    }
+
+    function saveState(st) {
+      memoryFallbackState = st;
+      const serialized = JSON.stringify(st);
+
+      try {
+        window.localStorage.setItem(STORAGE_KEY, serialized);
         usingLocalStorage = true;
       } catch (e) {
         usingLocalStorage = false;
-        memoryFallbackState = st;
       }
+
+      try {
+        window.name = 'MATHE_EULE_BKP:' + serialized;
+      } catch (e) {}
+
+      writeCookieBackup(st);
+      saveToIndexedDB(st);
       updateTopStats();
+      updateStorageWarningUI();
+    }
+
+    function updateStorageWarningUI() {
+      const banner = document.getElementById('storage-warning-banner');
+      const warnTitle = document.getElementById('storage-warn-title');
+      const warnMsg = document.getElementById('storage-warn-msg');
+      const parentDiag = document.getElementById('parent-storage-diag');
+
+      const proto = window.location.protocol;
+      const isLocalFile = proto === 'file:' || proto === 'content:';
+
+      if (!usingLocalStorage) {
+        suspectedIncognitoOrFile = true;
+        if (banner) {
+          banner.classList.remove('hidden');
+          warnTitle.textContent = 'Browser-Speicher blockiert:';
+          warnMsg.textContent = 'Lokaler Speicher ist deaktiviert. Sterne gehen beim Schließen des Tabs verloren. Bitte in normalem Chrome/Safari-Tab über die Web-Adresse öffnen.';
+        }
+        storageDiagMessage = '⚠️ Blockiert (nur Arbeitsspeicher – Daten gehen beim Schließen verloren)';
+      } else if (isLocalFile) {
+        suspectedIncognitoOrFile = true;
+        if (banner) {
+          banner.classList.remove('hidden');
+          warnTitle.textContent = 'Als lokale Datei geöffnet (' + proto + '):';
+          warnMsg.textContent = 'Auf Android-Tablets löscht der Browser den Speicher von heruntergeladenen HTML-Dateien beim Schließen des Tabs. Bitte über die feste Web-Adresse (HTTPS) öffnen!';
+        }
+        storageDiagMessage = '⚠️ Lokale Datei (' + proto + ') – Android löscht Tab-Speicher beim Schließen';
+      } else if (suspectedIncognitoOrFile) {
+        if (banner) {
+          banner.classList.remove('hidden');
+          warnTitle.textContent = 'Inkognito- / Geheimer Modus erkannt:';
+          warnMsg.textContent = 'Im privaten Modus werden alle Sterne beim Schließen des Tabs gelöscht. Bitte in einem normalen Browser-Tab öffnen!';
+        }
+        storageDiagMessage = '⚠️ Inkognito-/Privatmodus – Speicher wird beim Schließen gelöscht';
+      } else {
+        if (banner) banner.classList.add('hidden');
+        const layers = ['LocalStorage'];
+        if (usingIndexedDB) layers.push('IndexedDB');
+        if (storagePersistedGranted) layers.push('Dauerhaft geschützt');
+        storageDiagMessage = `✅ Aktiv & doppelt gesichert (${layers.join(' + ')}) • ${appState ? appState.stars : 0} ⭐ gespeichert`;
+      }
+
+      if (parentDiag) {
+        parentDiag.textContent = storageDiagMessage;
+        parentDiag.style.color = suspectedIncognitoOrFile ? '#b91c1c' : 'var(--forest-dark)';
+        parentDiag.style.fontWeight = '700';
+      }
+    }
+
+    async function initPersistentStorageProtection() {
+      restoreFromIndexedDBIfNewer();
+
+      // Request persistent storage on Android Chrome so OS never evicts site data
+      try {
+        if (navigator.storage && navigator.storage.persist) {
+          storagePersistedGranted = await navigator.storage.persist();
+        }
+      } catch (e) {}
+
+      // Detect Android Chrome Incognito mode via storage quota heuristic (< 320 MB ephemeral quota)
+      try {
+        if (navigator.storage && navigator.storage.estimate) {
+          const est = await navigator.storage.estimate();
+          if (est && est.quota && est.quota < 320 * 1024 * 1024 && !storagePersistedGranted) {
+            suspectedIncognitoOrFile = true;
+          }
+        }
+      } catch (e) {}
+
+      updateStorageWarningUI();
     }
 
     let appState = loadState();
 
     /* ==========================================================================
-       3. CORE MATH DEFINITIONS (36 CORE TASKS & STICKER REWARDS)
+       3. CORE MATH & GERMAN DEFINITIONS (2. KLASSE CURRICULUM & STICKERS)
        ========================================================================== */
+    const MODULE_DEFINITIONS = [
+      { id: 'verliebt', category: 'mathe', icon: '❤️', title: 'Verliebte Zahlen (bis 10)', blitzLimitMs: 4500 },
+      { id: 'core20', category: 'mathe', icon: '🦉', title: 'Grundaufgaben bis 20', blitzLimitMs: 4500 },
+      { id: 'to100_no', category: 'mathe', icon: '🌲', title: 'Bis 100 ohne Übergang', blitzLimitMs: 6500 },
+      { id: 'twins', category: 'mathe', icon: '👯', title: 'Aufgaben-Zwillinge', blitzLimitMs: 5000 },
+      { id: 'to100_cross', category: 'mathe', icon: '🏆', title: 'Bis 100 mit Übergang', blitzLimitMs: 6500 },
+      { id: 'de_lesen', category: 'deutsch', icon: '📖', title: 'Leseverständnis (Geschichten)', blitzLimitMs: 22000 },
+      { id: 'de_wortarten', category: 'deutsch', icon: '🔤', title: 'Wortarten-Detektiv', blitzLimitMs: 8000 },
+      { id: 'de_rechtschreibung', category: 'deutsch', icon: '🔍', title: 'Rechtschreib-Fuchs', blitzLimitMs: 8000 },
+      { id: 'de_silben', category: 'deutsch', icon: '🧩', title: 'Silben & Wörter-Bau', blitzLimitMs: 8000 }
+    ];
+
     const CORE_36_TASKS = [];
     for (let a = 2; a <= 9; a++) {
       for (let b = 2; b <= 9; b++) {
@@ -1083,25 +1839,861 @@
       { stars: 150, emoji: '🌌', name: 'Galaxie-Meister' }
     ];
 
+    /* --- DEUTSCH MODULE 1: 18 SHORT READING STORIES (2. KLASSE) --- */
+    const DE_LESEN_STORIES = [
+      {
+        id: 's1',
+        title: '🦉 Die kleine Eule Fina',
+        text: 'Die kleine Eule Fina wohnt in einer alten Eiche. Am Tag schläft sie tief in ihrer gemütlichen Baumhöhle. Erst wenn der Mond am Himmel leuchtet, wacht Fina auf. Dann fliegt sie leise durch den dunklen Wald.',
+        q1: {
+          q: 'Wo schläft die Eule Fina am Tag?',
+          options: ['In einer gemütlichen Baumhöhle', 'Auf einem hohen Hausdach', 'Unter einem großen Stein'],
+          hint: 'Schau in den 2. Satz: „Am Tag schläft sie tief in ihrer gemütlichen Baumhöhle.“'
+        },
+        q2: {
+          q: 'Wann wacht die kleine Eule Fina auf?',
+          options: ['Wenn der Mond am Himmel leuchtet', 'Am frühen Morgen bei Sonnenaufgang', 'Mittags in der warmen Sonne'],
+          hint: 'Schau in den 3. Satz: „Erst wenn der Mond am Himmel leuchtet, wacht Fina auf.“'
+        }
+      },
+      {
+        id: 's2',
+        title: '🚲 Das rote Fahrrad',
+        text: 'Lukas hat zum Geburtstag ein rotes Fahrrad bekommen. Am Nachmittag übt er mit seinem Opa auf dem breiten Weg im Park. Zuerst wackelt der Lenker noch ein kleines bisschen. Doch schon bald fährt Lukas stolz eine große Runde allein.',
+        q1: {
+          q: 'Welche Farbe hat das neue Fahrrad von Lukas?',
+          options: ['Rot', 'Blau', 'Grün'],
+          hint: 'Lies noch einmal den 1. Satz: „Lukas hat zum Geburtstag ein rotes Fahrrad bekommen.“'
+        },
+        q2: {
+          q: 'Mit wem übt Lukas am Nachmittag im Park?',
+          options: ['Mit seinem Opa', 'Mit seiner Lehrerin', 'Mit seinem großen Bruder'],
+          hint: 'Im 2. Satz steht: „Am Nachmittag übt er mit seinem Opa auf dem breiten Weg im Park.“'
+        }
+      },
+      {
+        id: 's3',
+        title: '👟 Der vergessene Turnbeutel',
+        text: 'Heute hat die Klasse 2b Sport in der großen Turnhalle. Mia sucht vor der Stunde überall ihren blauen Turnbeutel. Plötzlich fällt ihr ein, dass er noch zu Hause im Flur liegt. Zum Glück leiht ihr ihre Freundin Lea ein Paar Turnschuhe.',
+        q1: {
+          q: 'Wo liegt Mias blauer Turnbeutel?',
+          options: ['Zu Hause im Flur', 'Im gelben Schulbus', 'Unter der Schultafel'],
+          hint: 'Schau in den 3. Satz: „Plötzlich fällt ihr ein, dass er noch zu Hause im Flur liegt.“'
+        },
+        q2: {
+          q: 'Wie hilft Lea ihrer Freundin Mia?',
+          options: ['Sie leiht ihr ein Paar Turnschuhe', 'Sie läuft für Mia nach Hause', 'Sie sucht im Garten nach dem Beutel'],
+          hint: 'Schau in den letzten Satz: „Zum Glück leiht ihr ihre Freundin Lea ein Paar Turnschuhe.“'
+        }
+      },
+      {
+        id: 's4',
+        title: '🐿️ Der fleißige Wintervorrat',
+        text: 'Im Herbst fallen viele braune Eicheln und Nüsse von den Bäumen. Das Eichhörnchen Knusper sammelt sie eifrig in seinen Backentaschen. Es vergräbt seine Schätze im weichen Waldboden unter dem Moos. So hat Knusper auch im kalten Winter genug zu fressen.',
+        q1: {
+          q: 'In welcher Jahreszeit sammelt Knusper die Nüsse?',
+          options: ['Im Herbst', 'Im Frühling', 'Im Hochsommer'],
+          hint: 'Der 1. Satz verrät es: „Im Herbst fallen viele braune Eicheln und Nüsse von den Bäumen.“'
+        },
+        q2: {
+          q: 'Wo versteckt das Eichhörnchen seine Schätze?',
+          options: ['Im Waldboden unter dem Moos', 'Auf einem hohen Felsen', 'In einem fremden Vogelhaus'],
+          hint: 'Schau in den 3. Satz: „Es vergräbt seine Schätze im weichen Waldboden unter dem Moos.“'
+        }
+      },
+      {
+        id: 's5',
+        title: '🦆 Regentag auf dem Bauernhof',
+        text: 'Dicke graue Wolken ziehen über den Bauernhof von Bauer Hansen. Kaum fallen die ersten Regentropfen, laufen die Hühner schnell in den trockenen Stall. Nur die gelben Enten freuen sich über das nasse Wetter. Sie watscheln fröhlich durch jede große Pfütze.',
+        q1: {
+          q: 'Wohin laufen die Hühner, als es zu regnen beginnt?',
+          options: ['In den trockenen Stall', 'Auf die grüne Wiese', 'In den tiefen Wald'],
+          hint: 'Im 2. Satz steht: „... laufen die Hühner schnell in den trockenen Stall.“'
+        },
+        q2: {
+          q: 'Welche Tiere watscheln fröhlich durch die Pfützen?',
+          options: ['Die gelben Enten', 'Die kleinen Katzen', 'Die braunen Pferde'],
+          hint: 'Lies den 3. und 4. Satz: „Nur die gelben Enten freuen sich über das nasse Wetter.“'
+        }
+      },
+      {
+        id: 's6',
+        title: '⚽ Das spannende Fußballspiel',
+        text: 'Auf dem Sportplatz spielt heute die Waldschule gegen die Bachschule. Kurz vor dem Ende steht es noch eins zu eins. Da passt Ben den Ball geschickt zu seiner Mitspielerin Sara. Sara schießt kräftig aufs Tor und trifft genau in die obere Ecke!',
+        q1: {
+          q: 'Wie steht das Spiel kurz vor dem Ende?',
+          options: ['Eins zu eins', 'Null zu null', 'Drei zu eins'],
+          hint: 'Schau in den 2. Satz: „Kurz vor dem Ende steht es noch eins zu eins.“'
+        },
+        q2: {
+          q: 'Wer schießt das entscheidende Tor in die obere Ecke?',
+          options: ['Sara', 'Ben', 'Der Torwart'],
+          hint: 'Schau in den letzten Satz: „Sara schießt kräftig aufs Tor und trifft genau in die obere Ecke!“'
+        }
+      },
+      {
+        id: 's7',
+        title: '⛄ Schneemann mit Karottennase',
+        text: 'Über Nacht hat es endlich dicke weiße Flocken geschneit. Jonas und seine Schwester Mila rollen drei große Schneekugeln im Garten. Für die Nase holen sie eine lange Karotte aus der Küche. Zum Schluss bekommt der Schneemann noch einen alten Topf als Hut.',
+        q1: {
+          q: 'Wie viele Schneekugeln rollen Jonas und Mila?',
+          options: ['Drei große Schneekugeln', 'Zwei kleine Schneekugeln', 'Fünf bunte Schneekugeln'],
+          hint: 'Im 2. Satz steht: „Jonas und seine Schwester Mila rollen drei große Schneekugeln im Garten.“'
+        },
+        q2: {
+          q: 'Was bekommt der Schneemann am Ende als Hut?',
+          options: ['Einen alten Topf', 'Eine rote Wollmütze', 'Einen gelben Fahrradhelm'],
+          hint: 'Schau in den letzten Satz: „Zum Schluss bekommt der Schneemann noch einen alten Topf als Hut.“'
+        }
+      },
+      {
+        id: 's8',
+        title: '🦔 Der kleine Igel im Laub',
+        text: 'Am Abend raschelt es leise unter der großen Hecke im Garten. Ein kleiner Igel schnuppert mit seiner feuchten Nase nach Regenwürmern. Als der Hund Bello neugierig näherkommt, rollt sich der Igel sofort zu einer stacheligen Kugel zusammen. Bello weicht vorsichtig zurück.',
+        q1: {
+          q: 'Wonach sucht der kleine Igel unter der Hecke?',
+          options: ['Nach Regenwürmern', 'Nach süßen Erdbeeren', 'Nach bunten Blumen'],
+          hint: 'Lies den 2. Satz: „Ein kleiner Igel schnuppert mit seiner feuchten Nase nach Regenwürmern.“'
+        },
+        q2: {
+          q: 'Was macht der Igel, als der Hund Bello näherkommt?',
+          options: ['Er rollt sich zur Kugel zusammen', 'Er klettert schnell auf den Baum', 'Er bellt den Hund laut an'],
+          hint: 'Im 3. Satz steht: „... rollt sich der Igel sofort zu einer stacheligen Kugel zusammen.“'
+        }
+      },
+      {
+        id: 's9',
+        title: '🍪 Backtag mit Oma',
+        text: 'Am Samstag duftet es in Omas Küche herrlich nach Vanille. Klara darf den weichen Teig mit einer großen Holzrolle flach ausrollen. Danach sticht sie Sterne, Herzen und kleine Eulen aus dem Teig aus. Nach zehn Minuten im Backofen sind die Plätzchen goldbraun.',
+        q1: {
+          q: 'Wonach duftet es am Samstag in Omas Küche?',
+          options: ['Nach Vanille', 'Nach heißer Tomatensuppe', 'Nach frischem Waldmoos'],
+          hint: 'Der 1. Satz sagt: „Am Samstag duftet es in Omas Küche herrlich nach Vanille.“'
+        },
+        q2: {
+          q: 'Wie lange backen die Plätzchen im Backofen?',
+          options: ['Zehn Minuten', 'Eine ganze Stunde', 'Zwei lange Tage'],
+          hint: 'Schau in den letzten Satz: „Nach zehn Minuten im Backofen sind die Plätzchen goldbraun.“'
+        }
+      },
+      {
+        id: 's10',
+        title: '🏖️ Ausflug zum Badesee',
+        text: 'Im Sommer scheint die Sonne warm vom blauen Himmel. Paul packt seine Badehose und ein großes gestreiftes Handtuch in den Rucksack. Am Badesee baut er zuerst eine hohe Sandburg mit einem tiefen Wassergraben. Danach springt er vom Holzsteg ins kühle Wasser.',
+        q1: {
+          q: 'Was baut Paul am Badesee zuerst?',
+          options: ['Eine hohe Sandburg', 'Ein kleines Holzfloß', 'Ein grünes Zelt'],
+          hint: 'Schau in den 3. Satz: „Am Badesee baut er zuerst eine hohe Sandburg mit einem tiefen Wassergraben.“'
+        },
+        q2: {
+          q: 'Von wo springt Paul danach ins kühle Wasser?',
+          options: ['Vom Holzsteg', 'Von einem hohen Baum', 'Aus einem Ruderboot'],
+          hint: 'Im letzten Satz steht: „Danach springt er vom Holzsteg ins kühle Wasser.“'
+        }
+      },
+      {
+        id: 's11',
+        title: '🐢 Die Klassenschildkröte Berta',
+        text: 'Im Klassenzimmer der 2a lebt die Schildkröte Berta in einem großen Gehege. Jeden Morgen bringt der Klassendienst frischen Löwenzahn und Gurkenscheiben mit. Berta frisst besonders gern die knackigen grünen Blätter. Wenn sie satt ist, sonnt sie sich auf einem flachen warmen Stein.',
+        q1: {
+          q: 'Was bringt der Klassendienst jeden Morgen für Berta mit?',
+          options: ['Löwenzahn und Gurkenscheiben', 'Käsebrot und süße Äpfel', 'Haferflocken und Nüsse'],
+          hint: 'Lies den 2. Satz: „Jeden Morgen bringt der Klassendienst frischen Löwenzahn und Gurkenscheiben mit.“'
+        },
+        q2: {
+          q: 'Wo sonnt sich Berta, wenn sie satt ist?',
+          options: ['Auf einem flachen warmen Stein', 'In einer dunklen Schublade', 'Unter dem großen Lehrerpult'],
+          hint: 'Schau in den letzten Satz: „Wenn sie satt ist, sonnt sie sich auf einem flachen warmen Stein.“'
+        }
+      },
+      {
+        id: 's12',
+        title: '🪁 Der bunte Drachen im Herbstwind',
+        text: 'Über der weiten Wiese weht heute ein kräftiger Herbstwind. Emil hält die lange Schnur von seinem bunten Papierdrachen gut fest. Mit einem großen Ruck steigt der Drachen hoch in die Luft. Seine roten und gelben Schleifen tanzen lustig vor den Wolken.',
+        q1: {
+          q: 'Warum steigt Emils Drachen heute so gut hoch in die Luft?',
+          options: ['Weil ein kräftiger Herbstwind weht', 'Weil ein Motor eingebaut ist', 'Weil es stark schneit'],
+          hint: 'Schau in den 1. Satz: „Über der weiten Wiese weht heute ein kräftiger Herbstwind.“'
+        },
+        q2: {
+          q: 'Welche Farben haben die Schleifen am Drachen?',
+          options: ['Rot und Gelb', 'Blau und Weiß', 'Lila und Schwarz'],
+          hint: 'Im letzten Satz steht: „Seine roten und gelben Schleifen tanzen lustig vor den Wolken.“'
+        }
+      },
+      {
+        id: 's13',
+        title: '🐦 Der Specht als Walddoktor',
+        text: 'Tock, tock, tock – ein lautes Klopfen schallt durch den Buchenwald. Hoch oben am Baumstamm sitzt ein Buntspecht mit einer roten Federkappe. Mit seinem starken Schnabel hämmert er geschickt in die Rinde. Dort holt er sich kleine Käferlarven als Frühstück heraus.',
+        q1: {
+          q: 'Womit klopft der Buntspecht in die Baumrinde?',
+          options: ['Mit seinem starken Schnabel', 'Mit seinen beiden Flügeln', 'Mit einem harten Stein'],
+          hint: 'Schau in den 3. Satz: „Mit seinem starken Schnabel hämmert er geschickt in die Rinde.“'
+        },
+        q2: {
+          q: 'Was holt sich der Specht unter der Rinde als Frühstück?',
+          options: ['Kleine Käferlarven', 'Süße Himbeeren', 'Frische Tannenzapfen'],
+          hint: 'Lies den letzten Satz: „Dort holt er sich kleine Käferlarven als Frühstück heraus.“'
+        }
+      },
+      {
+        id: 's14',
+        title: '⛺ Übernachtung im Zelt',
+        text: 'Noah und sein Papa stellen am Abend ein grünes Zelt im Garten auf. Sie rollen zwei dicke Isomatten und kuschelige Schlafsäcke darin aus. Als es dunkel wird, lesen sie mit einer Taschenlampe noch ein spannendes Buch. Draußen zirpen leise die Grillen im Gras.',
+        q1: {
+          q: 'Womit leuchten Noah und sein Papa beim Lesen im dunklen Zelt?',
+          options: ['Mit einer Taschenlampe', 'Mit einem großen Lagerfeuer', 'Mit einer hellen Kerze'],
+          hint: 'Im 3. Satz steht: „Als es dunkel wird, lesen sie mit einer Taschenlampe noch ein spannendes Buch.“'
+        },
+        q2: {
+          q: 'Welches Geräusch hören die beiden draußen im Gras?',
+          options: ['Das leise Zirpen der Grillen', 'Das laute Bellen eines Hundes', 'Das Hupen von vielen Autos'],
+          hint: 'Schau in den letzten Satz: „Draußen zirpen leise die Grillen im Gras.“'
+        }
+      },
+      {
+        id: 's15',
+        title: '📚 Besuch in der Kinderbücherei',
+        text: 'Jeden Freitag geht Sofie nach dem Unterricht in die Kinderbücherei. Heute sucht sie ein Sachbuch über wilde Delfine im Meer. Die freundliche Bibliothekarin zeigt ihr das richtige Regal am Fenster. Sofie leiht das Buch für zwei Wochen mit ihrem Leseausweis aus.',
+        q1: {
+          q: 'Worüber möchte Sofie heute ein Sachbuch lesen?',
+          options: ['Über wilde Delfine im Meer', 'Über schnelle Eisenbahnen', 'Über alte Ritterburgen'],
+          hint: 'Schau in den 2. Satz: „Heute sucht sie ein Sachbuch über wilde Delfine im Meer.“'
+        },
+        q2: {
+          q: 'Wo steht das richtige Regal in der Bücherei?',
+          options: ['Am Fenster', 'Im dunklen Keller', 'Auf dem Dachboden'],
+          hint: 'Im 3. Satz steht: „Die freundliche Bibliothekarin zeigt ihr das richtige Regal am Fenster.“'
+        }
+      },
+      {
+        id: 's16',
+        title: '🌻 Frühling im Schulgarten',
+        text: 'Im März lockert die Klasse 2c die dunkle Erde im Schulgarten mit kleinen Schaufeln auf. Jedes Kind darf eine Reihe Sonnenblumenkerne in die Rillen legen. Danach gießen alle die Beete vorsichtig mit der grünen Gießkanne. Schon nach einer Woche schauen die ersten zarten Spitzen aus der Erde.',
+        q1: {
+          q: 'Was legen die Kinder im Schulgarten in die Erde?',
+          options: ['Sonnenblumenkerne', 'Kleine Apfelbäume', 'Rote Tomaten'],
+          hint: 'Lies den 2. Satz: „Jedes Kind darf eine Reihe Sonnenblumenkerne in die Rillen legen.“'
+        },
+        q2: {
+          q: 'Wann schauen die ersten grünen Spitzen aus der Erde?',
+          options: ['Schon nach einer Woche', 'Erst im nächsten Winter', 'Sofort nach einer Minute'],
+          hint: 'Schau in den letzten Satz: „Schon nach einer Woche schauen die ersten zarten Spitzen aus der Erde.“'
+        }
+      },
+      {
+        id: 's17',
+        title: '🐸 Der mutige Frosch Quak',
+        text: 'Am Rand des Gartenteichs sitzt der kleine grüne Frosch Quak auf einem Seerosenblatt. Er beobachtet eine flinke Libelle, die dicht über dem Wasser schwebt. Mit einem großen Satz springt Quak hoch in die Luft. Mit einem lauten Platsch landet er im Teich und taucht ab.',
+        q1: {
+          q: 'Worauf sitzt der Frosch Quak am Rand des Gartenteichs?',
+          options: ['Auf einem Seerosenblatt', 'Auf einem Holzstuhl', 'Auf einer Gießkanne'],
+          hint: 'Im 1. Satz steht: „... sitzt der kleine grüne Frosch Quak auf einem Seerosenblatt.“'
+        },
+        q2: {
+          q: 'Welches Tier beobachtet Quak dicht über dem Wasser?',
+          options: ['Eine flinke Libelle', 'Einen weißen Schwan', 'Einen dicken Karpfen'],
+          hint: 'Schau in den 2. Satz: „Er beobachtet eine flinke Libelle, die dicht über dem Wasser schwebt.“'
+        }
+      },
+      {
+        id: 's18',
+        title: '🚒 Flohmarkt auf dem Schulhof',
+        text: 'Am Samstagnachmittag breitet Tariq eine bunte Decke auf dem Schulhof aus. Er verkauft dort seine alten Bilderbücher und ein Holzpuzzle. Ein kleiner Junge freut sich riesig über das Puzzle mit den roten Feuerwehr-Autos. Von den Münzen kauft sich Tariq später eine Kugel Erdbeereis.',
+        q1: {
+          q: 'Was ist auf dem Holzpuzzle von Tariq abgebildet?',
+          options: ['Rote Feuerwehr-Autos', 'Wilde Dinosaurier', 'Große Segelschiffe'],
+          hint: 'Im 3. Satz steht: „... freut sich riesig über das Puzzle mit den roten Feuerwehr-Autos.“'
+        },
+        q2: {
+          q: 'Was kauft sich Tariq später von den gesammelten Münzen?',
+          options: ['Eine Kugel Erdbeereis', 'Einen neuen Lederfußball', 'Eine blaue Taschenlampe'],
+          hint: 'Schau in den letzten Satz: „Von den Münzen kauft sich Tariq später eine Kugel Erdbeereis.“'
+        }
+      }
+    ];
+
+    /* --- DEUTSCH MODULE 2: WORTARTEN-DETEKTIV (NOMEN, VERBEN & ADJEKTIVE) --- */
+    const DE_WORTARTEN_TASKS = [
+      {
+        badge: '🔤 Wortart bestimmen',
+        sentence: 'Die kleine <span class="word-hl">Eule</span> schläft im Baum.',
+        q: 'Welche Wortart ist das markierte Wort „Eule“?',
+        options: ['Nomen (Namenwort)', 'Verb (Tuwort)', 'Adjektiv (Wiewort)'],
+        hint: 'Begleiter-Probe: Man kann „die Eule“ sagen. Es ist ein Tier und wird großgeschrieben ➔ Nomen (Namenwort)!'
+      },
+      {
+        badge: '🔤 Wortart bestimmen',
+        sentence: 'Der schnelle Hund <span class="word-hl">rennt</span> über die Wiese.',
+        q: 'Welche Wortart ist das markierte Wort „rennt“?',
+        options: ['Verb (Tuwort)', 'Nomen (Namenwort)', 'Adjektiv (Wiewort)'],
+        hint: 'Tu-Probe: Was tut der Hund? Er rennt (ich renne, du rennst, wir rennen) ➔ Verb (Tuwort)!'
+      },
+      {
+        badge: '🔤 Wortart bestimmen',
+        sentence: 'Im Garten blüht eine <span class="word-hl">gelbe</span> Sonnenblume.',
+        q: 'Welche Wortart ist das markierte Wort „gelbe“?',
+        options: ['Adjektiv (Wiewort)', 'Nomen (Namenwort)', 'Verb (Tuwort)'],
+        hint: 'Wie-Probe: Wie ist die Sonnenblume? Sie ist gelb ➔ Adjektiv (Wiewort)!'
+      },
+      {
+        badge: '🔤 Wortart bestimmen',
+        sentence: 'Paul liest ein <span class="word-hl">spannendes</span> Buch.',
+        q: 'Welche Wortart ist das markierte Wort „spannendes“?',
+        options: ['Adjektiv (Wiewort)', 'Verb (Tuwort)', 'Nomen (Namenwort)'],
+        hint: 'Wie-Probe: Wie ist das Buch? Es ist spannend ➔ Adjektiv (Wiewort)!'
+      },
+      {
+        badge: '🔤 Wortart bestimmen',
+        sentence: 'Am Morgen <span class="word-hl">singt</span> die Amsel auf dem Dach.',
+        q: 'Welche Wortart ist das markierte Wort „singt“?',
+        options: ['Verb (Tuwort)', 'Nomen (Namenwort)', 'Adjektiv (Wiewort)'],
+        hint: 'Tu-Probe: Was tut die Amsel? Sie singt (ich singe, du singst) ➔ Verb (Tuwort)!'
+      },
+      {
+        badge: '🔤 Wortart bestimmen',
+        sentence: 'Das Eichhörnchen knackt eine harte <span class="word-hl">Nuss</span>.',
+        q: 'Welche Wortart ist das markierte Wort „Nuss“?',
+        options: ['Nomen (Namenwort)', 'Adjektiv (Wiewort)', 'Verb (Tuwort)'],
+        hint: 'Begleiter-Probe: „die Nuss“ – ein Ding zum Anfassen, deshalb großgeschrieben ➔ Nomen (Namenwort)!'
+      },
+      {
+        badge: '🔤 Wortart bestimmen',
+        sentence: 'Der Igel hat ein <span class="word-hl">stacheliges</span> Kleid.',
+        q: 'Welche Wortart ist das markierte Wort „stacheliges“?',
+        options: ['Adjektiv (Wiewort)', 'Nomen (Namenwort)', 'Verb (Tuwort)'],
+        hint: 'Wie-Probe: Wie ist das Kleid des Igels? Es ist stachelig ➔ Adjektiv (Wiewort)!'
+      },
+      {
+        badge: '🔤 Wortart bestimmen',
+        sentence: 'Die Kinder <span class="word-hl">lachen</span> laut auf dem Pausenhof.',
+        q: 'Welche Wortart ist das markierte Wort „lachen“?',
+        options: ['Verb (Tuwort)', 'Adjektiv (Wiewort)', 'Nomen (Namenwort)'],
+        hint: 'Tu-Probe: Was tun die Kinder? Sie lachen (ich lache, wir lachen) ➔ Verb (Tuwort)!'
+      },
+      {
+        badge: '🔤 Wortart bestimmen',
+        sentence: 'Über dem Wald leuchtet der helle <span class="word-hl">Mond</span>.',
+        q: 'Welche Wortart ist das markierte Wort „Mond“?',
+        options: ['Nomen (Namenwort)', 'Verb (Tuwort)', 'Adjektiv (Wiewort)'],
+        hint: 'Begleiter-Probe: Man sagt „der Mond“ und schreibt es am Anfang groß ➔ Nomen (Namenwort)!'
+      },
+      {
+        badge: '🔤 Wortart bestimmen',
+        sentence: 'Oma backt heute einen <span class="word-hl">süßen</span> Apfelkuchen.',
+        q: 'Welche Wortart ist das markierte Wort „süßen“?',
+        options: ['Adjektiv (Wiewort)', 'Nomen (Namenwort)', 'Verb (Tuwort)'],
+        hint: 'Wie-Probe: Wie schmeckt der Apfelkuchen? Er ist süß ➔ Adjektiv (Wiewort)!'
+      },
+      {
+        badge: '🔤 Wortart bestimmen',
+        sentence: 'Der grüne Frosch <span class="word-hl">hüpft</span> in den Teich.',
+        q: 'Welche Wortart ist das markierte Wort „hüpft“?',
+        options: ['Verb (Tuwort)', 'Nomen (Namenwort)', 'Adjektiv (Wiewort)'],
+        hint: 'Tu-Probe: Was tut der Frosch? Er hüpft (ich hüpfe, du hüpfst) ➔ Verb (Tuwort)!'
+      },
+      {
+        badge: '🔤 Wortart bestimmen',
+        sentence: 'Mia legt ihren bunten <span class="word-hl">Stift</span> auf den Tisch.',
+        q: 'Welche Wortart ist das markierte Wort „Stift“?',
+        options: ['Nomen (Namenwort)', 'Adjektiv (Wiewort)', 'Verb (Tuwort)'],
+        hint: 'Begleiter-Probe: „der Stift“ ist ein Gegenstand und wird großgeschrieben ➔ Nomen (Namenwort)!'
+      },
+      {
+        badge: '🔤 Wortart bestimmen',
+        sentence: 'Im Winter weht ein <span class="word-hl">kalter</span> Wind.',
+        q: 'Welche Wortart ist das markierte Wort „kalter“?',
+        options: ['Adjektiv (Wiewort)', 'Verb (Tuwort)', 'Nomen (Namenwort)'],
+        hint: 'Wie-Probe: Wie ist der Wind? Er ist kalt ➔ Adjektiv (Wiewort)!'
+      },
+      {
+        badge: '🔤 Wortart bestimmen',
+        sentence: 'Papa <span class="word-hl">kocht</span> am Mittag leckere Nudeln.',
+        q: 'Welche Wortart ist das markierte Wort „kocht“?',
+        options: ['Verb (Tuwort)', 'Nomen (Namenwort)', 'Adjektiv (Wiewort)'],
+        hint: 'Tu-Probe: Was tut Papa? Er kocht (ich koche, du kochst) ➔ Verb (Tuwort)!'
+      },
+      {
+        badge: '🔤 Wortart bestimmen',
+        sentence: 'Auf dem Blatt krabbelt ein kleiner <span class="word-hl">Käfer</span>.',
+        q: 'Welche Wortart ist das markierte Wort „Käfer“?',
+        options: ['Nomen (Namenwort)', 'Verb (Tuwort)', 'Adjektiv (Wiewort)'],
+        hint: 'Begleiter-Probe: „der Käfer“ ist ein Tier und wird großgeschrieben ➔ Nomen (Namenwort)!'
+      },
+      {
+        badge: '🕵️ Nomen suchen',
+        sentence: 'schlafen • weich • der Fuchs',
+        q: 'Welches Wort ist ein Nomen (Namenwort)?',
+        options: ['der Fuchs', 'schlafen', 'weich'],
+        hint: 'Nomen bezeichnen Menschen, Tiere, Pflanzen oder Dinge und haben einen Begleiter (der, die, das): „der Fuchs“!'
+      },
+      {
+        badge: '🕵️ Verb suchen',
+        sentence: 'die Blume • klettern • fröhlich',
+        q: 'Welches Wort ist ein Verb (Tuwort)?',
+        options: ['klettern', 'die Blume', 'fröhlich'],
+        hint: 'Verben sagen, was jemand tut: ich klettere, wir klettern ➔ „klettern“ ist das Verb (Tuwort)!'
+      },
+      {
+        badge: '🕵️ Adjektiv suchen',
+        sentence: 'der Baum • fliegen • gemütlich',
+        q: 'Welches Wort ist ein Adjektiv (Wiewort)?',
+        options: ['gemütlich', 'der Baum', 'fliegen'],
+        hint: 'Adjektive verraten, wie etwas ist: Wie ist die Höhle? Sie ist „gemütlich“!'
+      },
+      {
+        badge: '🕵️ Verb im Satz',
+        sentence: 'Die kluge Eule beobachtet die kleine Maus.',
+        q: 'Welches Wort in diesem Satz ist das Verb (Tuwort)?',
+        options: ['beobachtet', 'kluge', 'Maus'],
+        hint: 'Frage: Was tut die Eule? Sie „beobachtet“ (ich beobachte, du beobachtest)!'
+      },
+      {
+        badge: '🕵️ Adjektiv im Satz',
+        sentence: 'Der mutige Ritter reitet auf seinem Pferd.',
+        q: 'Welches Wort in diesem Satz ist das Adjektiv (Wiewort)?',
+        options: ['mutige', 'Ritter', 'reitet'],
+        hint: 'Frage: Wie ist der Ritter? Er ist mutig ➔ „mutige“ ist das Adjektiv (Wiewort)!'
+      },
+      {
+        badge: '🕵️ Nomen im Satz',
+        sentence: 'Leise schwimmt der bunte Fisch im klaren Wasser.',
+        q: 'Welches dieser Wörter aus dem Satz ist ein Nomen (Namenwort)?',
+        options: ['Fisch', 'schwimmt', 'bunte'],
+        hint: '„der Fisch“ ist ein Tier und wird großgeschrieben ➔ Nomen (Namenwort)!'
+      },
+      {
+        badge: '🔤 Wortart bestimmen',
+        sentence: 'Lina <span class="word-hl">malt</span> einen bunten Regenbogen.',
+        q: 'Welche Wortart ist das markierte Wort „malt“?',
+        options: ['Verb (Tuwort)', 'Adjektiv (Wiewort)', 'Nomen (Namenwort)'],
+        hint: 'Tu-Probe: Was tut Lina? Sie malt (ich male, du malst) ➔ Verb (Tuwort)!'
+      },
+      {
+        badge: '🔤 Wortart bestimmen',
+        sentence: 'Der <span class="word-hl">fleißige</span> Biber baut einen Damm am Bach.',
+        q: 'Welche Wortart ist das markierte Wort „fleißige“?',
+        options: ['Adjektiv (Wiewort)', 'Nomen (Namenwort)', 'Verb (Tuwort)'],
+        hint: 'Wie-Probe: Wie ist der Biber? Er ist fleißig ➔ Adjektiv (Wiewort)!'
+      },
+      {
+        badge: '🔤 Wortart bestimmen',
+        sentence: 'In der Pause essen wir einen knackigen <span class="word-hl">Apfel</span>.',
+        q: 'Welche Wortart ist das markierte Wort „Apfel“?',
+        options: ['Nomen (Namenwort)', 'Verb (Tuwort)', 'Adjektiv (Wiewort)'],
+        hint: 'Begleiter-Probe: „der Apfel“ ist ein Ding zum Anfassen und wird großgeschrieben ➔ Nomen!'
+      }
+    ];
+
+    /* --- DEUTSCH MODULE 3: RECHTSCHREIB-FUCHS (SPÜRNASEN-WÖRTER 2. KLASSE) --- */
+    const DE_RECHTSCHREIBUNG_TASKS = [
+      {
+        badge: '🔍 Trick: Verlängern (d oder t)',
+        sentence: 'Der treue <span class="gap-hl">Hun?</span> bellt im Garten.',
+        q: 'Wie schreibt man das Wort am Ende richtig?',
+        options: ['Hund (mit d)', 'Hunt (mit t)', 'Hunnd (mit nn)'],
+        hint: 'Verlängerungstrick: Bilde die Mehrzahl! Ein Hund ➔ viele Hun-de. Dort hörst du das weiche „d“ ganz deutlich!'
+      },
+      {
+        badge: '🔍 Trick: Verlängern (d oder t)',
+        sentence: 'Das fröhliche <span class="gap-hl">Kin?</span> spielt im Sand.',
+        q: 'Wie wird das Wort richtig geschrieben?',
+        options: ['Kind (mit d)', 'Kint (mit t)', 'Kinnt (mit nnt)'],
+        hint: 'Verlängerungstrick: Ein Kind ➔ viele Kin-der! Beim Verlängern hörst du das „d“ genau.'
+      },
+      {
+        badge: '🔍 Trick: Verlängern (d oder t)',
+        sentence: 'Die Eule fliegt durch den dunklen <span class="gap-hl">Wal?</span>.',
+        q: 'Welche Schreibweise ist richtig?',
+        options: ['Wald (mit d)', 'Walt (mit t)', 'Wallt (mit llt)'],
+        hint: 'Verlängerungstrick: Ein Wald ➔ die Wäl-der (oder „im Wal-de“). Du hörst deutlich das „d“!'
+      },
+      {
+        badge: '🔍 Trick: Verlängern (g oder k)',
+        sentence: 'Heute ist ein sonniger <span class="gap-hl">Ta?</span>.',
+        q: 'Schreibt man das Wort am Ende mit g oder k?',
+        options: ['Tag (mit g)', 'Tak (mit k)', 'Tack (mit ck)'],
+        hint: 'Verlängerungstrick: Ein Tag ➔ viele Ta-ge! In der Mehrzahl hörst du das „g“.'
+      },
+      {
+        badge: '🔍 Trick: Verlängern (g oder k)',
+        sentence: 'Der kleine <span class="gap-hl">Zwer?</span> trägt eine rote Mütze.',
+        q: 'Welche Schreibweise stimmt?',
+        options: ['Zwerg (mit g)', 'Zwerk (mit k)', 'Zwerck (mit ck)'],
+        hint: 'Verlängerungstrick: Ein Zwerg ➔ zwei Zwer-ge! Deshalb schreibt man „Zwerg“ am Ende mit „g“.'
+      },
+      {
+        badge: '🔍 Trick: Verlängern (b oder p)',
+        sentence: 'Oma legt die Äpfel in den <span class="gap-hl">Kor?</span>.',
+        q: 'Schreibt man das Wort am Ende mit b oder p?',
+        options: ['Korb (mit b)', 'Korp (mit p)', 'Korpp (mit pp)'],
+        hint: 'Verlängerungstrick: Ein Korb ➔ viele Kör-be! Beim Verlängern hörst du das weiche „b“.'
+      },
+      {
+        badge: '🔍 Trick: Verlängern (d oder t)',
+        sentence: 'Auf der Koppel trabt ein braunes <span class="gap-hl">Pfer?</span>.',
+        q: 'Wie schreibt man das Tier am Wortende?',
+        options: ['Pferd (mit d)', 'Pfert (mit t)', 'Pferdt (mit dt)'],
+        hint: 'Verlängerungstrick: Ein Pferd ➔ zwei Pfer-de! Man hört in der Mehrzahl deutlich das „d“.'
+      },
+      {
+        badge: '🔍 Trick: Verlängern (d oder t)',
+        sentence: 'Im Laden kauft Papa ein frisches <span class="gap-hl">Bro?</span>.',
+        q: 'Schreibt man das Wort am Ende mit d oder t?',
+        options: ['Brot (mit t)', 'Brod (mit d)', 'Broht (mit ht)'],
+        hint: 'Verlängerungstrick: Ein Brot ➔ viele Bro-te! Auch in der Mehrzahl bleibt das harte „t“.'
+      },
+      {
+        badge: '🔍 Trick: Ableiten (ä oder e)',
+        sentence: 'Im Herbst fallen bunte <span class="gap-hl">Bl?tter</span> vom Baum.',
+        q: 'Schreibt man das Wort mit ä oder mit e?',
+        options: ['Blätter (mit ä)', 'Bletter (mit e)', 'Bläter (nur ein t)'],
+        hint: 'Ableit-Trick: Suche die Einzahl! Ein Blatt (mit a) ➔ viele Blätter (darum mit ä!).'
+      },
+      {
+        badge: '🔍 Trick: Ableiten (äu oder eu)',
+        sentence: 'Im Zahlenwald wachsen hohe <span class="gap-hl">B?me</span>.',
+        q: 'Schreibt man das Wort mit äu oder eu?',
+        options: ['Bäume (mit äu)', 'Beume (mit eu)', 'Baume (mit au)'],
+        hint: 'Ableit-Trick: Ein Baum (mit au) ➔ viele Bäume! Aus „au“ wird in der Mehrzahl „äu“.'
+      },
+      {
+        badge: '🔍 Trick: Ableiten (äu oder eu)',
+        sentence: 'Die Katze schleicht leise hinter den <span class="gap-hl">M?sen</span> her.',
+        q: 'Welche Schreibweise ist richtig?',
+        options: ['Mäusen (mit äu)', 'Meusen (mit eu)', 'Mausen (mit au)'],
+        hint: 'Ableit-Trick: Das Wort kommt von „die Maus“ (mit au) ➔ darum schreibt man „Mäuse / Mäusen“ mit „äu“!'
+      },
+      {
+        badge: '🔍 Trick: Ableiten (ä oder e)',
+        sentence: 'Vor dem Essen waschen wir gründlich unsere <span class="gap-hl">H?nde</span>.',
+        q: 'Schreibt man das Wort mit ä oder e?',
+        options: ['Hände (mit ä)', 'Hende (mit e)', 'Hännde (mit nn)'],
+        hint: 'Ableit-Trick: Eine Hand (mit a) ➔ zwei Hände! Weil „Hand“ ein „a“ hat, schreiben wir „Hände“ mit „ä“.'
+      },
+      {
+        badge: '🔍 Trick: Ableiten (äu oder eu)',
+        sentence: 'In der Nacht hat die kleine Eule schöne <span class="gap-hl">Tr?me</span>.',
+        q: 'Wie schreibt man das Wort richtig?',
+        options: ['Träume (mit äu)', 'Treume (mit eu)', 'Traume (mit au)'],
+        hint: 'Ableit-Trick: Ein Traum (mit au) ➔ viele Träume (mit äu)!'
+      },
+      {
+        badge: '🔍 Trick: Ableiten (ä oder e)',
+        sentence: 'Im Winter ist es draußen viel <span class="gap-hl">k?lter</span> als im Sommer.',
+        q: 'Schreibt man das Wort mit ä oder e?',
+        options: ['kälter (mit ä)', 'kelter (mit e)', 'källter (mit ll)'],
+        hint: 'Ableit-Trick: Das Grundwort heißt „kalt“ (mit a) ➔ darum schreibt man „kälter“ mit „ä“!'
+      },
+      {
+        badge: '🔍 Trick: Ableiten (äu oder eu)',
+        sentence: 'In unserer Straße stehen viele bunte <span class="gap-hl">H?ser</span>.',
+        q: 'Welche Schreibweise stimmt?',
+        options: ['Häuser (mit äu)', 'Heuser (mit eu)', 'Hauser (mit au)'],
+        hint: 'Ableit-Trick: Ein Haus (mit au) ➔ viele Häuser (mit äu)!'
+      },
+      {
+        badge: '🔍 Langer i-Laut (ie oder i)',
+        sentence: 'Auf der duftenden Blume landet eine fleißige <span class="gap-hl">B?ne</span>.',
+        q: 'Schreibt man das Wort mit ie oder i?',
+        options: ['Biene (mit ie)', 'Bine (nur mit i)', 'Bihne (mit ih)'],
+        hint: 'Bei „Bie-ne“ hörst du in der ersten Silbe ein langes „i“ ➔ fast alle langen i-Wörter schreibt man mit „ie“!'
+      },
+      {
+        badge: '🔍 Langer i-Laut (ie oder i)',
+        sentence: 'Die Kühe fressen das saftige Gras auf der <span class="gap-hl">W?se</span>.',
+        q: 'Welche Schreibweise ist richtig?',
+        options: ['Wiese (mit ie)', 'Wise (nur mit i)', 'Wihse (mit ih)'],
+        hint: 'Sprich langsam: „Wie-se“. Das lange „i“ am Silbenende wird mit „ie“ geschrieben!'
+      },
+      {
+        badge: '🔍 Langer i-Laut (ie oder i)',
+        sentence: 'Am Nachmittag <span class="gap-hl">sp?len</span> die Kinder im Hof.',
+        q: 'Wie schreibt man das Verb richtig?',
+        options: ['spielen (mit ie)', 'spilen (nur mit i)', 'spihlen (mit ih)'],
+        hint: 'Sprich in Silben: „spie-len“. Das „i“ klingt lang ➔ wir schreiben „ie“!'
+      },
+      {
+        badge: '🔍 Merkwort-Detektiv (i oder ie)',
+        sentence: 'Unter dem Laubhaufen schläft ein stacheliger <span class="gap-hl">?gel</span>.',
+        q: 'Aufgepasst, ein Merkwort! Wie schreibt man dieses Tier?',
+        options: ['Igel (nur mit I)', 'Iegel (mit Ie)', 'Ihgel (mit Ih)'],
+        hint: 'Spürnasen-Merkwort: Obwohl das „I“ bei „I-gel“ lang klingt, schreibt man den Igel (wie auch den Tiger) nur mit einfachem „I“!'
+      },
+      {
+        badge: '🔍 Merkwort-Detektiv (i oder ie)',
+        sentence: 'Durch den Dschungel schleicht ein gestreifter <span class="gap-hl">T?ger</span>.',
+        q: 'Wie wird dieses Raubtier richtig geschrieben?',
+        options: ['Tiger (nur mit i)', 'Tieger (mit ie)', 'Tihger (mit ih)'],
+        hint: 'Spürnasen-Merkwort: „Ti-ger“ und „I-gel“ sind besondere Merkwörter mit langem i, aber ohne e!'
+      },
+      {
+        badge: '🔍 Begleiter-Profi (der, die, das)',
+        sentence: '<span class="gap-hl">???</span> Eichhörnchen klettert flink den Stamm hinauf.',
+        q: 'Welcher Begleiter (Artikel) gehört vor „Eichhörnchen“?',
+        options: ['das Eichhörnchen', 'der Eichhörnchen', 'die Eichhörnchen'],
+        hint: 'Tipp: Alle Verkleinerungswörter mit der Endung „-chen“ (wie Mädchen, Kaninchen, Eichhörnchen) haben den Begleiter „das“!'
+      },
+      {
+        badge: '🔍 Begleiter-Profi (der, die, das)',
+        sentence: '<span class="gap-hl">???</span> bunte Schmetterling flattert von Blüte zu Blüte.',
+        q: 'Welcher Begleiter passt zu „Schmetterling“?',
+        options: ['der Schmetterling', 'die Schmetterling', 'das Schmetterling'],
+        hint: 'Es heißt „der Schmetterling“ (Tipp: Nomen auf „-ling“ wie Frühling, Zwilling, Schmetterling haben immer „der“!).'
+      },
+      {
+        badge: '🔍 Begleiter-Profi (der, die, das)',
+        sentence: 'Hoch in der Baumkrone baut der Vogel <span class="gap-hl">???</span> weiche Nest.',
+        q: 'Welcher Begleiter gehört zu „Nest“ in der Grundform?',
+        options: ['das Nest', 'der Nest', 'die Nest'],
+        hint: 'In der Grundform heißt es: „das Nest“ (Mehrzahl: die Nester).'
+      },
+      {
+        badge: '🔍 Langer i-Laut (ie oder i)',
+        sentence: 'Der Postbote wirft einen <span class="gap-hl">Br?f</span> in den Kasten.',
+        q: 'Wie schreibt man das Wort richtig?',
+        options: ['Brief (mit ie)', 'Brif (nur mit i)', 'Brihf (mit ih)'],
+        hint: 'Bei „Brief“ (viele Brie-fe) klingt das „i“ lang ➔ deshalb schreiben wir „ie“!'
+      }
+    ];
+
+    /* --- DEUTSCH MODULE 4: SILBEN & WÖRTER-BAU (2. KLASSE) --- */
+    const DE_SILBEN_TASKS = [
+      {
+        badge: '👏 Silben klatschen',
+        sentence: '🦋 <span class="word-hl">Schmetterling</span>',
+        q: 'Wie viele Silben hat das Wort „Schmetterling“?',
+        options: ['3 Silben (Schmet-ter-ling)', '2 Silben', '4 Silben'],
+        hint: 'Klatsche im Rhythmus mit: Schmet - ter - ling ➔ 3 Silben (mit 3 Silbenkönigen: e, e, i)!'
+      },
+      {
+        badge: '👏 Silben klatschen',
+        sentence: '🦉 <span class="word-hl">Eule</span>',
+        q: 'Wie viele Silben klatschst du bei dem Wort „Eule“?',
+        options: ['2 Silben (Eu-le)', '1 Silbe', '3 Silben'],
+        hint: 'Klatsche mit: Eu - le ➔ 2 Silben!'
+      },
+      {
+        badge: '👏 Silben klatschen',
+        sentence: '🌻 <span class="word-hl">Sonnenblume</span>',
+        q: 'Wie viele Silben hat das Wort „Sonnenblume“?',
+        options: ['4 Silben (Son-nen-blu-me)', '3 Silben', '5 Silben'],
+        hint: 'Klatsche Silbe für Silbe: Son - nen - blu - me ➔ das sind genau 4 Silben!'
+      },
+      {
+        badge: '👏 Silben klatschen',
+        sentence: '🌲 <span class="word-hl">Baum</span>',
+        q: 'Wie viele Silben hat das Wort „Baum“?',
+        options: ['1 Silbe (Baum)', '2 Silben', '3 Silben'],
+        hint: 'Klatsche einmal: „Baum“ hat nur einen Silbenkönig (au) ➔ 1 Silbe!'
+      },
+      {
+        badge: '👏 Silben klatschen',
+        sentence: '🌈 <span class="word-hl">Regenbogen</span>',
+        q: 'Wie viele Silben hat das Wort „Regenbogen“?',
+        options: ['4 Silben (Re-gen-bo-gen)', '3 Silben', '2 Silben'],
+        hint: 'Sprich langsam mit: Re - gen - bo - gen ➔ 4 Silben!'
+      },
+      {
+        badge: '👏 Silben klatschen',
+        sentence: '🐿️ <span class="word-hl">Eichhörnchen</span>',
+        q: 'Wie viele Silben hat das Wort „Eichhörnchen“?',
+        options: ['3 Silben (Eich-hörn-chen)', '2 Silben', '4 Silben'],
+        hint: 'Klatsche mit: Eich - hörn - chen ➔ 3 Silben!'
+      },
+      {
+        badge: '👏 Silben klatschen',
+        sentence: '🐢 <span class="word-hl">Schildkröte</span>',
+        q: 'Wie viele Silben hat das Wort „Schildkröte“?',
+        options: ['3 Silben (Schild-krö-te)', '2 Silben', '4 Silben'],
+        hint: 'Klatsche mit: Schild - krö - te ➔ 3 Silben!'
+      },
+      {
+        badge: '👏 Silben klatschen',
+        sentence: '🍫 <span class="word-hl">Schokolade</span>',
+        q: 'Wie viele Silben klatschst du bei „Schokolade“?',
+        options: ['4 Silben (Scho-ko-la-de)', '3 Silben', '5 Silben'],
+        hint: 'Klatsche mit: Scho - ko - la - de ➔ 4 Silben!'
+      },
+      {
+        badge: '✂️ Silben trennen',
+        sentence: '🌸 <span class="word-hl">Blumenwiese</span>',
+        q: 'Wie wird „Blumenwiese“ richtig in Silben getrennt?',
+        options: ['Blu-men-wie-se', 'Blum-en-wies-e', 'Bl-umen-wie-se'],
+        hint: 'Sprich im Sprechrhythmus: Blu - men - wie - se (4 Silben).'
+      },
+      {
+        badge: '✂️ Silben trennen',
+        sentence: '🖍️ <span class="word-hl">Buntstifte</span>',
+        q: 'Welche Silbentrennung ist richtig?',
+        options: ['Bunt-stif-te', 'Bunts-tif-te', 'Bu-nt-stifte'],
+        hint: 'Zwischen dem ersten Wortteil „Bunt“ und „stif-te“ wird getrennt: Bunt - stif - te (3 Silben).'
+      },
+      {
+        badge: '✂️ Silben trennen',
+        sentence: '🎒 <span class="word-hl">Schulranzen</span>',
+        q: 'Wie trennt man das Wort „Schulranzen“ richtig in Silben?',
+        options: ['Schul-ran-zen', 'Schu-lran-zen', 'Schulr-an-zen'],
+        hint: 'Sprich langsam: Schul - ran - zen (3 Silben).'
+      },
+      {
+        badge: '✂️ Silben trennen',
+        sentence: '🦊 <span class="word-hl">klettern</span> (Doppelkonsonant tt)',
+        q: 'Wie trennt man „klettern“ nach der Doppelkonsonanten-Regel?',
+        options: ['klet-tern', 'kle-ttern', 'klett-ern'],
+        hint: 'Merksatz für Doppelkonsonanten (tt, mm, nn, ll, pp): Zwischen zwei gleichen Mitlauten wird getrennt ➔ klet - tern!'
+      },
+      {
+        badge: '✂️ Silben trennen',
+        sentence: '☀️ <span class="word-hl">Sommer</span> (Doppelkonsonant mm)',
+        q: 'Wo wird das Wort „Sommer“ in zwei Silben getrennt?',
+        options: ['Som-mer', 'So-mmer', 'Somm-er'],
+        hint: 'Doppel-m wird in der Mitte getrennt: Som - mer!'
+      },
+      {
+        badge: '🧩 Wörter-Bau (Zusammengesetzte Nomen)',
+        sentence: '<span class="word-hl">der Baum</span> + <span class="word-hl">das Haus</span>',
+        q: 'Welches zusammengesetzte Nomen (mit dem richtigen Begleiter) entsteht daraus?',
+        options: ['das Baumhaus', 'der Baumhaus', 'die Baumhaus'],
+        hint: 'Wörter-Bau-Regel: Das zweite Wort („das Haus“) ist das Grundwort und bestimmt immer den Begleiter ➔ das Baumhaus!'
+      },
+      {
+        badge: '🧩 Wörter-Bau (Zusammengesetzte Nomen)',
+        sentence: '<span class="word-hl">die Feder</span> + <span class="word-hl">der Ball</span>',
+        q: 'Welches zusammengesetzte Nomen entsteht aus diesen zwei Wörtern?',
+        options: ['der Federball', 'die Federball', 'das Federball'],
+        hint: 'Das letzte Wort heißt „der Ball“ ➔ deshalb heißt es auch „der Federball“!'
+      },
+      {
+        badge: '🧩 Wörter-Bau (Zusammengesetzte Nomen)',
+        sentence: '<span class="word-hl">der Apfel</span> + <span class="word-hl">die Torte</span>',
+        q: 'Wie heißt das zusammengesetzte Nomen mit dem richtigen Begleiter?',
+        options: ['die Apfeltorte', 'der Apfeltorte', 'das Apfeltorte'],
+        hint: 'Das Grundwort am Ende ist „die Torte“ ➔ darum heißt es „die Apfeltorte“!'
+      },
+      {
+        badge: '🧩 Wörter-Bau (Zusammengesetzte Nomen)',
+        sentence: '<span class="word-hl">der Schnee</span> + <span class="word-hl">der Mann</span>',
+        q: 'Welches Wort entsteht aus „Schnee“ + „Mann“?',
+        options: ['der Schneemann', 'das Schneemann', 'der Mannschnee'],
+        hint: 'Aus „der Schnee“ und „der Mann“ bauen wir „der Schneemann“!'
+      },
+      {
+        badge: '🧩 Wörter-Bau (Zusammengesetzte Nomen)',
+        sentence: '<span class="word-hl">das Buch</span> + <span class="word-hl">das Regal</span>',
+        q: 'Achtung, Fugen-Wort! Wie heißt das Regal für viele Bücher?',
+        options: ['das Bücherregal', 'der Buchregal', 'die Bücherregal'],
+        hint: 'Für viele Bücher sagen wir „das Bücherregal“ – und weil es „das Regal“ heißt, bleibt der Begleiter „das“!'
+      },
+      {
+        badge: '🧩 Wörter-Bau (Zusammengesetzte Nomen)',
+        sentence: '<span class="word-hl">die Hand</span> + <span class="word-hl">das Tuch</span>',
+        q: 'Welches zusammengesetzte Nomen (mit richtigem Begleiter) entsteht?',
+        options: ['das Handtuch', 'die Handtuch', 'der Handtuch'],
+        hint: 'Das letzte Wort ist „das Tuch“ – es bestimmt den Begleiter ➔ „das Handtuch“!'
+      },
+      {
+        badge: '🧩 Wörter-Bau (Zusammengesetzte Nomen)',
+        sentence: '<span class="word-hl">der Wald</span> + <span class="word-hl">die Eule</span>',
+        q: 'Welches zusammengesetzte Nomen entsteht aus „der Wald“ + „die Eule“?',
+        options: ['die Waldeule', 'der Waldeule', 'das Waldeule'],
+        hint: 'Das zweite Wort ist „die Eule“ ➔ deshalb heißt es „die Waldeule“!'
+      },
+      {
+        badge: '👑 Silbenkönige erkennen',
+        sentence: 'Die Vokale (Selbstlaute) heißen: <span class="word-hl">a, e, i, o, u</span>',
+        q: 'Welche zwei Silbenkönige stecken im Wort „Bo-den“?',
+        options: ['o und e', 'b und d', 'd und n'],
+        hint: 'Jede Silbe braucht einen klingenden Silbenkönig (a, e, i, o, u): In „Bo“ steckt das „o“, in „den“ steckt das „e“!'
+      }
+    ];
+
     /* ==========================================================================
-       4. PRACTICE ENGINE & ADAPTIVE REPETITION
+       4. PRACTICE ENGINE, CATEGORY SWITCHER & ADAPTIVE REPETITION
        ========================================================================== */
+    let currentCategory = 'mathe'; // 'mathe' | 'deutsch'
     let currentModule = 'core20';
     let currentTask = null;
     let userInput = '';
     let taskStartTime = 0;
+    let attemptStartTime = 0;
+    let accumulatedTaskMs = 0;
     let helpUsed = false;
     let hadWrongAttempt = false;
     let turboStreak = 0;
+    let isTransitioning = false;
+    let recentDeKeys = [];
 
     // 10-task round tracking
     let roundResults = []; // 'done' | 'blitz'
     let roundStars = 0;
     let roundBlitz = 0;
     let roundMaxTurbo = 0;
+    let roundCleanTimes = [];
+
+    function isGermanModule(mod) {
+      return typeof mod === 'string' && mod.startsWith('de_');
+    }
+
+    function switchCategory(cat) {
+      currentCategory = cat === 'deutsch' ? 'deutsch' : 'mathe';
+      const isDe = currentCategory === 'deutsch';
+
+      const tabMathe = document.getElementById('tab-mathe');
+      const tabDeutsch = document.getElementById('tab-deutsch');
+      tabMathe.classList.toggle('active-mathe', !isDe);
+      tabDeutsch.classList.toggle('active-deutsch', isDe);
+
+      document.getElementById('grid-mathe').classList.toggle('hidden', isDe);
+      document.getElementById('grid-deutsch').classList.toggle('hidden', !isDe);
+
+      const hero = document.getElementById('hero-banner');
+      const heroTitle = document.getElementById('hero-title');
+      const heroDesc = document.getElementById('hero-desc');
+      hero.classList.toggle('deutsch-hero', isDe);
+
+      if (isDe) {
+        heroTitle.textContent = 'Hallo im Wörterwald! 🦉';
+        heroDesc.innerHTML = 'Lies spannende <strong>Kurzgeschichten</strong>, werde <strong>Wortarten-Detektiv</strong>, knacke <strong>Spürnasen-Wörter</strong> und baue <strong>Silben &amp; Nomen</strong>!';
+      } else {
+        heroTitle.textContent = 'Hallo im Zahlenwald! 🦉';
+        heroDesc.innerHTML = 'Übe die <strong>verliebten Zahlen</strong>, die <strong>36 Blitz-Aufgaben bis 20</strong> und das <strong>Rechnen bis 100</strong>. Sammle Sterne für dein Eulen-Nest!';
+      }
+    }
 
     function randInt(min, max) {
       return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function shuffleChoices(optionsArray) {
+      // optionsArray[0] is always the correct answer in our data definitions
+      const indexed = optionsArray.map((text, idx) => ({ text, isCorrect: idx === 0 }));
+      for (let i = indexed.length - 1; i > 0; i--) {
+        const j = randInt(0, i);
+        const tmp = indexed[i];
+        indexed[i] = indexed[j];
+        indexed[j] = tmp;
+      }
+      return {
+        choices: indexed.map(item => item.text),
+        correctIndex: indexed.findIndex(item => item.isCorrect)
+      };
+    }
+
+    function pickWithoutRecentRepeat(pool, keyPrefix) {
+      const maxRecent = Math.min(10, Math.max(1, pool.length - 2));
+      const candidates = pool
+        .map((item, idx) => ({ item, key: `${keyPrefix}_${idx}` }))
+        .filter(entry => !recentDeKeys.includes(entry.key));
+      const source = candidates.length > 0
+        ? candidates
+        : pool.map((item, idx) => ({ item, key: `${keyPrefix}_${idx}` }));
+      const chosen = source[randInt(0, source.length - 1)];
+      recentDeKeys.push(chosen.key);
+      if (recentDeKeys.length > maxRecent) {
+        recentDeKeys.shift();
+      }
+      return chosen;
     }
 
     function pickAdaptiveCoreTask() {
@@ -1125,8 +2717,64 @@
     }
 
     function generateTask(mod, forcedCore = null) {
+      if (mod === 'de_lesen') {
+        const picked = pickWithoutRecentRepeat(DE_LESEN_STORIES, 'lesen');
+        const story = picked.item;
+        const shuf1 = shuffleChoices(story.q1.options);
+        const shuf2 = shuffleChoices(story.q2.options);
+        return {
+          module: 'de_lesen',
+          isGerman: true,
+          step: 1,
+          storyTitle: story.title,
+          storyText: story.text,
+          q1: {
+            question: story.q1.q,
+            choices: shuf1.choices,
+            answer: shuf1.correctIndex,
+            hint: story.q1.hint
+          },
+          q2: {
+            question: story.q2.q,
+            choices: shuf2.choices,
+            answer: shuf2.correctIndex,
+            hint: story.q2.hint
+          },
+          question: story.q1.q,
+          choices: shuf1.choices,
+          answer: shuf1.correctIndex,
+          hint: story.q1.hint,
+          key: picked.key,
+          blitzLimitMs: 22000 // Step 1 includes reading the 3–5 sentence story
+        };
+      }
+
+      if (mod === 'de_wortarten' || mod === 'de_rechtschreibung' || mod === 'de_silben') {
+        const poolMap = {
+          de_wortarten: DE_WORTARTEN_TASKS,
+          de_rechtschreibung: DE_RECHTSCHREIBUNG_TASKS,
+          de_silben: DE_SILBEN_TASKS
+        };
+        const picked = pickWithoutRecentRepeat(poolMap[mod], mod);
+        const raw = picked.item;
+        const shuf = shuffleChoices(raw.options);
+        return {
+          module: mod,
+          isGerman: true,
+          badge: raw.badge,
+          sentence: raw.sentence,
+          question: raw.q,
+          choices: shuf.choices,
+          answer: shuf.correctIndex,
+          correctText: raw.options[0],
+          hint: raw.hint,
+          key: picked.key,
+          blitzLimitMs: 8000
+        };
+      }
+
       if (mod === 'verliebt') {
-        const n = randInt(1, 9);
+        const n = (forcedCore && forcedCore.verliebtN) ? forcedCore.verliebtN : randInt(1, 9);
         const partner = 10 - n;
         const pos = randInt(0, 2); // 0: n + __ = 10, 1: __ + partner = 10, 2: 10 = n + __
         return {
@@ -1141,7 +2789,7 @@
       }
 
       if (mod === 'core20') {
-        const chosen = forcedCore || pickAdaptiveCoreTask();
+        const chosen = (forcedCore && forcedCore.key) ? forcedCore : pickAdaptiveCoreTask();
         return {
           module: 'core20',
           a: chosen.a,
@@ -1186,7 +2834,7 @@
       }
 
       if (mod === 'twins') {
-        const chosen = forcedCore || pickAdaptiveCoreTask();
+        const chosen = (forcedCore && forcedCore.key) ? forcedCore : pickAdaptiveCoreTask();
         const tens = randInt(1, 8) * 10; // ensures tens + chosen.a + chosen.b <= 98
         return {
           module: 'twins',
@@ -1201,7 +2849,7 @@
       }
 
       // mod === 'to100_cross'
-      const chosen = forcedCore || pickAdaptiveCoreTask();
+      const chosen = (forcedCore && forcedCore.key) ? forcedCore : pickAdaptiveCoreTask();
       const tens = randInt(1, 8) * 10;
       return {
         module: 'to100_cross',
@@ -1217,20 +2865,39 @@
 
     function startModule(mod, forcedCore = null) {
       currentModule = mod;
+      const isDe = isGermanModule(mod);
+      switchCategory(isDe ? 'deutsch' : 'mathe');
+
       const titles = {
         verliebt: '❤️ Verliebte Zahlen (bis 10)',
         core20: '🦉 Grundaufgaben bis 20',
         to100_no: '🌲 Bis 100 ohne Zehnerübergang',
         twins: '👯 Aufgaben-Zwillinge',
-        to100_cross: '🏆 Bis 100 mit Zehnerübergang'
+        to100_cross: '🏆 Bis 100 mit Zehnerübergang',
+        de_lesen: '📖 Leseverständnis: Kurzgeschichten',
+        de_wortarten: '🔤 Wortarten-Detektiv',
+        de_rechtschreibung: '🔍 Rechtschreib-Fuchs',
+        de_silben: '🧩 Silben & Wörter-Bau'
       };
-      document.getElementById('practice-title').textContent = titles[mod];
+      document.getElementById('practice-title').textContent = titles[mod] || 'Übung';
+      document.getElementById('math-keypad').classList.toggle('hidden', isDe);
+      document.getElementById('de-choices').classList.toggle('hidden', !isDe);
+
       roundResults = [];
       roundStars = 0;
       roundBlitz = 0;
       roundMaxTurbo = 0;
+      roundCleanTimes = [];
       showView('practice');
       nextTask(forcedCore);
+    }
+
+    function getHelpShowLabel() {
+      return isGermanModule(currentModule) ? '💡 Lernhilfe zeigen' : '💡 Rechenhilfe zeigen';
+    }
+
+    function getHelpHideLabel() {
+      return isGermanModule(currentModule) ? '🙈 Lernhilfe ausblenden' : '🙈 Rechenhilfe ausblenden';
     }
 
     function nextTask(forcedCore = null) {
@@ -1238,22 +2905,76 @@
       userInput = '';
       helpUsed = false;
       hadWrongAttempt = false;
-      taskStartTime = Date.now();
+      isTransitioning = false;
+      const now = Date.now();
+      taskStartTime = now;
+      attemptStartTime = now;
+      accumulatedTaskMs = 0;
       document.getElementById('aid-container').classList.add('hidden');
-      document.getElementById('btn-help').textContent = '💡 Rechenhilfe zeigen';
+      document.getElementById('btn-help').textContent = getHelpShowLabel();
       document.getElementById('feedback-banner').textContent = '';
-      setOwlMood('happy', currentTask.module === 'twins'
-        ? 'Schritt 1: Löse zuerst die kleine Grundaufgabe!'
-        : 'Tippe das Ergebnis unten ein!');
+
+      if (currentTask.module === 'de_lesen') {
+        setOwlMood('happy', 'Lies die Geschichte in Ruhe durch und wähle die passende Antwort!');
+      } else if (currentTask.isGerman) {
+        setOwlMood('happy', 'Lies genau und tippe auf die richtige Antwort A, B oder C!');
+      } else if (currentTask.module === 'twins') {
+        setOwlMood('happy', 'Schritt 1: Löse zuerst die kleine Grundaufgabe!');
+      } else {
+        setOwlMood('happy', 'Tippe das Ergebnis unten ein!');
+      }
+
       renderEquation();
       renderRoundDots();
       updateTurboUI();
     }
 
+    function renderGermanChoices() {
+      const panel = document.getElementById('de-choices');
+      const letters = ['A', 'B', 'C'];
+      panel.innerHTML = currentTask.choices.map((choiceText, idx) => `
+        <button class="mc-btn" id="mc-btn-${idx}" onclick="selectChoice(${idx})">
+          <span class="mc-badge">${letters[idx]}</span>
+          <span>${choiceText}</span>
+        </button>
+      `).join('');
+    }
+
     function renderEquation() {
       const eq = document.getElementById('equation-display');
       const twinBanner = document.getElementById('twin-banner');
+      const storyBox = document.getElementById('story-box');
       twinBanner.classList.add('hidden');
+      storyBox.classList.add('hidden');
+      eq.classList.toggle('de-mode', Boolean(currentTask.isGerman));
+
+      if (currentTask.module === 'de_lesen') {
+        twinBanner.classList.remove('hidden');
+        twinBanner.textContent = `📖 Frage ${currentTask.step} von 2 zum Text`;
+        storyBox.classList.remove('hidden');
+        storyBox.innerHTML = `
+          <div class="story-head">
+            <span>${currentTask.storyTitle}</span>
+            <span style="font-size:0.78rem; color:var(--ink-muted);">Lesetext</span>
+          </div>
+          <div class="story-body">${currentTask.storyText}</div>
+        `;
+        eq.innerHTML = `<div class="de-question">${currentTask.question}</div>`;
+        renderGermanChoices();
+        return;
+      }
+
+      if (currentTask.isGerman) {
+        twinBanner.classList.remove('hidden');
+        twinBanner.textContent = currentTask.badge || '📖 Deutsch-Aufgabe';
+        eq.innerHTML = `
+          <div class="de-sentence-card">${currentTask.sentence}</div>
+          <div class="de-question">${currentTask.question}</div>
+        `;
+        renderGermanChoices();
+        return;
+      }
+
       const dispVal = userInput === '' ? '?' : userInput;
 
       if (currentTask.module === 'verliebt') {
@@ -1286,7 +3007,118 @@
       eq.innerHTML = `<span>${currentTask.a} + ${currentTask.b} =</span><span class="answer-box" id="ans-box">${dispVal}</span>`;
     }
 
+    function selectChoice(choiceIdx) {
+      if (!currentTask || !currentTask.isGerman || isTransitioning) return;
+      const btn = document.getElementById(`mc-btn-${choiceIdx}`);
+      const fb = document.getElementById('feedback-banner');
+      const now = Date.now();
+      const attemptMs = Math.max(100, Math.min(now - attemptStartTime, MAX_ATTEMPT_MS));
+
+      if (choiceIdx !== currentTask.answer) {
+        hadWrongAttempt = true;
+        turboStreak = 0;
+        accumulatedTaskMs += attemptMs;
+        attemptStartTime = now;
+        updateTurboUI();
+        recordTaskAttempt(false, false, false, attemptMs, 0, 0);
+        if (btn) {
+          btn.classList.remove('err');
+          void btn.offsetWidth;
+          btn.classList.add('err');
+        }
+        setOwlMood('wink', 'Fast! Lies noch einmal genau nach oder nutze die Lernhilfe.');
+        fb.innerHTML = `<span style="color:var(--rose);">Noch nicht ganz – schau genau hin und probier es noch einmal!</span>`;
+        return;
+      }
+
+      // Correct choice!
+      isTransitioning = true;
+      if (btn) {
+        btn.classList.remove('err');
+        btn.classList.add('ok');
+      }
+
+      const rawElapsed = now - taskStartTime;
+      const cleanElapsedMs = Math.max(100, Math.min(rawElapsed, MAX_ATTEMPT_MS));
+      const fullTaskMs = accumulatedTaskMs + attemptMs;
+      const isClean = !hadWrongAttempt && !helpUsed;
+      const isBlitz = isClean && rawElapsed <= currentTask.blitzLimitMs;
+
+      if (isClean) {
+        roundCleanTimes.push(cleanElapsedMs);
+      }
+
+      let earnedStars = 1;
+      if (isBlitz) {
+        turboStreak += 1;
+        appState.blitzCount += 1;
+        roundBlitz += 1;
+        if (turboStreak > roundMaxTurbo) roundMaxTurbo = turboStreak;
+        if (turboStreak > appState.bestTurbo) appState.bestTurbo = turboStreak;
+        if (turboStreak >= 3) {
+          earnedStars += 1;
+        }
+      } else {
+        turboStreak = 0;
+      }
+
+      appState.stars += earnedStars;
+      roundStars += earnedStars;
+      recordTaskAttempt(true, isBlitz, isClean, attemptMs, cleanElapsedMs, fullTaskMs);
+      saveState(appState);
+      updateTurboUI();
+
+      roundResults.push(isBlitz ? 'blitz' : 'done');
+      renderRoundDots();
+
+      // If de_lesen Step 1 -> Advance to Question 2 on the SAME visible reading text!
+      if (currentTask.module === 'de_lesen' && currentTask.step === 1 && roundResults.length < 10) {
+        setOwlMood(isBlitz ? 'blitz' : 'happy', 'Super verstanden! Jetzt kommt Frage 2 zur Geschichte:');
+        fb.innerHTML = `<span style="color:var(--forest-dark);">⭐ Frage 1 richtig! Lies weiter für Frage 2 zum selben Text:</span>`;
+        setTimeout(() => {
+          currentTask.step = 2;
+          currentTask.question = currentTask.q2.question;
+          currentTask.choices = currentTask.q2.choices;
+          currentTask.answer = currentTask.q2.answer;
+          currentTask.hint = currentTask.q2.hint;
+          currentTask.blitzLimitMs = 12000; // Fair 12s Blitz limit for Question 2 (story already read)
+          helpUsed = false;
+          hadWrongAttempt = false;
+          isTransitioning = false;
+          const step2Start = Date.now();
+          taskStartTime = step2Start;
+          attemptStartTime = step2Start;
+          accumulatedTaskMs = 0;
+          document.getElementById('aid-container').classList.add('hidden');
+          document.getElementById('btn-help').textContent = getHelpShowLabel();
+          fb.textContent = '';
+          renderEquation();
+        }, 850);
+        return;
+      }
+
+      if (turboStreak >= 3) {
+        setOwlMood('turbo', `EULEN-TURBO! +${earnedStars} Sterne!`);
+        fb.innerHTML = `<span style="color:var(--gold-dark);">🔥 TURBO-FLUG! Blitzschnell (${formatSec(cleanElapsedMs)}) +${earnedStars} Sterne!</span>`;
+      } else if (isBlitz) {
+        setOwlMood('blitz', 'Blitzschnell erkannt! +1 ⚡ Blitz-Feder!');
+        fb.innerHTML = `<span style="color:#0369a1;">⚡ Blitz-Antwort (${formatSec(cleanElapsedMs)})! +1 Stern &amp; +1 Blitz-Feder!</span>`;
+      } else {
+        setOwlMood('happy', 'Prima gelöst! +1 Stern!');
+        fb.innerHTML = `<span style="color:var(--forest-dark);">⭐ Richtig! +1 Stern gesammelt!</span>`;
+      }
+
+      setTimeout(() => {
+        if (roundResults.length >= 10) {
+          openRoundModal();
+        } else {
+          nextTask();
+        }
+      }, 950);
+    }
+
     function pressDigit(d) {
+      if (currentTask && currentTask.isGerman) return;
       if (userInput.length >= 3) return;
       if (userInput === '0') userInput = d;
       else userInput += d;
@@ -1298,6 +3130,7 @@
     }
 
     function pressBackspace() {
+      if (currentTask && currentTask.isGerman) return;
       userInput = userInput.slice(0, -1);
       const box = document.getElementById('ans-box');
       if (box) {
@@ -1307,16 +3140,21 @@
     }
 
     function submitAnswer() {
+      if (!currentTask || currentTask.isGerman || isTransitioning) return;
       if (userInput === '') return;
       const val = parseInt(userInput, 10);
       const box = document.getElementById('ans-box');
       const fb = document.getElementById('feedback-banner');
+      const now = Date.now();
+      const attemptMs = Math.max(100, Math.min(now - attemptStartTime, MAX_ATTEMPT_MS));
 
       if (val !== currentTask.answer) {
         hadWrongAttempt = true;
         turboStreak = 0;
+        accumulatedTaskMs += attemptMs;
+        attemptStartTime = now;
         updateTurboUI();
-        recordTaskAttempt(false, false);
+        recordTaskAttempt(false, false, false, attemptMs, 0, 0);
         if (box) {
           box.classList.remove('err');
           void box.offsetWidth;
@@ -1333,25 +3171,41 @@
       }
 
       // Correct answer!
+      isTransitioning = true;
       if (box) box.classList.add('ok');
 
       // Check if Twins Step 1 -> Advance to Step 2
       if (currentTask.module === 'twins' && currentTask.step === 1) {
+        accumulatedTaskMs += attemptMs;
+        if (!appState.moduleStats.twins) appState.moduleStats.twins = createEmptyStatEntry();
+        appState.moduleStats.twins.totalTimeMs = (appState.moduleStats.twins.totalTimeMs || 0) + attemptMs;
+        saveState(appState);
+
         setOwlMood('happy', 'Super! Und jetzt der große Zwilling!');
         fb.innerHTML = `<span style="color:var(--forest-dark);">Prima! Jetzt übertrage das auf den großen Zwilling:</span>`;
         setTimeout(() => {
           currentTask.step = 2;
           currentTask.answer = currentTask.tens + currentTask.a + currentTask.b;
           userInput = '';
-          taskStartTime = Date.now();
+          isTransitioning = false;
+          const step2Start = Date.now();
+          taskStartTime = step2Start;
+          attemptStartTime = step2Start;
           fb.textContent = '';
           renderEquation();
         }, 750);
         return;
       }
 
-      const elapsed = Date.now() - taskStartTime;
-      const isBlitz = !hadWrongAttempt && !helpUsed && elapsed <= currentTask.blitzLimitMs;
+      const rawElapsed = now - taskStartTime;
+      const cleanElapsedMs = Math.max(100, Math.min(rawElapsed, MAX_ATTEMPT_MS));
+      const fullTaskMs = accumulatedTaskMs + attemptMs;
+      const isClean = !hadWrongAttempt && !helpUsed;
+      const isBlitz = isClean && rawElapsed <= currentTask.blitzLimitMs;
+
+      if (isClean) {
+        roundCleanTimes.push(cleanElapsedMs);
+      }
 
       let earnedStars = 1;
       if (isBlitz) {
@@ -1369,7 +3223,7 @@
 
       appState.stars += earnedStars;
       roundStars += earnedStars;
-      recordTaskAttempt(true, isBlitz);
+      recordTaskAttempt(true, isBlitz, isClean, attemptMs, cleanElapsedMs, fullTaskMs);
       saveState(appState);
       updateTurboUI();
 
@@ -1378,10 +3232,10 @@
 
       if (turboStreak >= 3) {
         setOwlMood('turbo', `EULEN-TURBO! +${earnedStars} Sterne!`);
-        fb.innerHTML = `<span style="color:var(--gold-dark);">🔥 TURBO-FLUG! Blitzschnell +${earnedStars} Sterne!</span>`;
+        fb.innerHTML = `<span style="color:var(--gold-dark);">🔥 TURBO-FLUG! Blitzschnell (${formatSec(cleanElapsedMs)}) +${earnedStars} Sterne!</span>`;
       } else if (isBlitz) {
         setOwlMood('blitz', 'Blitzschnell im Kopf! +1 ⚡ Blitz-Feder!');
-        fb.innerHTML = `<span style="color:#0369a1;">⚡ Blitz-Antwort! +1 Stern &amp; +1 Blitz-Feder!</span>`;
+        fb.innerHTML = `<span style="color:#0369a1;">⚡ Blitz-Antwort (${formatSec(cleanElapsedMs)})! +1 Stern &amp; +1 Blitz-Feder!</span>`;
       } else {
         setOwlMood('happy', 'Klasse gerechnet! +1 Stern!');
         fb.innerHTML = `<span style="color:var(--forest-dark);">⭐ Richtig! +1 Stern gesammelt!</span>`;
@@ -1396,54 +3250,122 @@
       }, 950);
     }
 
-    function recordTaskAttempt(wasCorrect, wasBlitz) {
-      if (currentTask.module === 'verliebt') {
+    function applyAttemptToEntry(entry, wasCorrect, wasBlitz, isClean, attemptMs, cleanElapsedMs, fullTaskMs) {
+      entry.attempts = (entry.attempts || 0) + 1;
+      entry.totalTimeMs = (entry.totalTimeMs || 0) + (attemptMs || 0);
+
+      if (wasCorrect) {
+        entry.correct = (entry.correct || 0) + 1;
+        entry.streak = (entry.streak || 0) + 1;
+        if (fullTaskMs > 0) entry.lastTotalTaskMs = fullTaskMs;
+        if (isClean && cleanElapsedMs > 0) {
+          entry.cleanCount = (entry.cleanCount || 0) + 1;
+          entry.cleanTimeMs = (entry.cleanTimeMs || 0) + cleanElapsedMs;
+          entry.lastCleanMs = cleanElapsedMs;
+          entry.bestMs = entry.bestMs ? Math.min(entry.bestMs, cleanElapsedMs) : cleanElapsedMs;
+        }
+      } else {
+        entry.streak = 0;
+      }
+
+      if (wasBlitz) {
+        entry.blitz = (entry.blitz || 0) + 1;
+      }
+    }
+
+    function recordTaskAttempt(wasCorrect, wasBlitz, isClean, attemptMs, cleanElapsedMs, fullTaskMs) {
+      const mod = currentTask.module;
+      if (!appState.moduleStats) appState.moduleStats = {};
+      if (!appState.moduleStats[mod]) {
+        appState.moduleStats[mod] = createEmptyStatEntry();
+      }
+      applyAttemptToEntry(
+        appState.moduleStats[mod],
+        wasCorrect,
+        wasBlitz,
+        isClean,
+        attemptMs,
+        cleanElapsedMs,
+        fullTaskMs
+      );
+
+      // Separate per-task stats: 'verliebt' -> verliebtStats, 'core20' -> coreStats (not mixed with twins/to100_cross)
+      if (mod === 'verliebt' && currentTask.key) {
         const k = currentTask.key;
         if (!appState.verliebtStats[k]) {
-          appState.verliebtStats[k] = { attempts: 0, correct: 0, blitz: 0 };
+          appState.verliebtStats[k] = createEmptyStatEntry();
         }
-        appState.verliebtStats[k].attempts += 1;
-        if (wasCorrect) appState.verliebtStats[k].correct += 1;
-        if (wasBlitz) appState.verliebtStats[k].blitz += 1;
-      } else if (currentTask.key) {
+        applyAttemptToEntry(
+          appState.verliebtStats[k],
+          wasCorrect,
+          wasBlitz,
+          isClean,
+          attemptMs,
+          cleanElapsedMs,
+          fullTaskMs
+        );
+      } else if (mod === 'core20' && currentTask.key) {
         const k = currentTask.key;
         if (!appState.coreStats[k]) {
-          appState.coreStats[k] = { attempts: 0, correct: 0, blitz: 0, streak: 0 };
+          appState.coreStats[k] = createEmptyStatEntry();
         }
-        appState.coreStats[k].attempts += 1;
-        if (wasCorrect) {
-          appState.coreStats[k].correct += 1;
-          appState.coreStats[k].streak = (appState.coreStats[k].streak || 0) + 1;
-        } else {
-          appState.coreStats[k].streak = 0;
-        }
-        if (wasBlitz) {
-          appState.coreStats[k].blitz += 1;
-        }
+        applyAttemptToEntry(
+          appState.coreStats[k],
+          wasCorrect,
+          wasBlitz,
+          isClean,
+          attemptMs,
+          cleanElapsedMs,
+          fullTaskMs
+        );
       }
       saveState(appState);
     }
 
+    function formatSec(ms) {
+      if (!ms || ms <= 0) return '–';
+      return (ms / 1000).toFixed(1).replace('.', ',') + 's';
+    }
+
+    function formatDuration(ms) {
+      if (!ms || ms <= 0) return '0s';
+      const totalSec = Math.max(1, Math.round(ms / 1000));
+      if (totalSec < 60) return `${totalSec}s`;
+      const mins = Math.floor(totalSec / 60);
+      const secs = totalSec % 60;
+      return secs > 0 ? `${mins}m ${secs}s` : `${mins}m`;
+    }
+
     /* ==========================================================================
-       5. VISUAL LEARNING AIDS (Zehnerfeld, Stopp bei 10, Zehnerstangen)
+       5. VISUAL LEARNING AIDS (Mathe-Hilfen & Deutsch-Lernhilfen)
        ========================================================================== */
     function toggleHelp() {
       const box = document.getElementById('aid-container');
       if (!box.classList.contains('hidden')) {
         box.classList.add('hidden');
-        document.getElementById('btn-help').textContent = '💡 Rechenhilfe zeigen';
+        document.getElementById('btn-help').textContent = getHelpShowLabel();
         return;
       }
       helpUsed = true;
       turboStreak = 0;
       updateTurboUI();
       box.classList.remove('hidden');
-      document.getElementById('btn-help').textContent = '🙈 Rechenhilfe ausblenden';
+      document.getElementById('btn-help').textContent = getHelpHideLabel();
       renderAidContent(box);
     }
 
     function renderAidContent(container) {
       const m = currentTask.module;
+
+      if (currentTask.isGerman) {
+        container.innerHTML = `
+          <div class="aid-title">🦉 Eulen-Lernhilfe:</div>
+          <div style="font-size:0.98rem; font-weight:800; color:var(--ink); line-height:1.45;">
+            ${currentTask.hint || 'Lies den Satz noch einmal ganz in Ruhe Wort für Wort durch.'}
+          </div>
+        `;
+        return;
+      }
 
       if (m === 'verliebt') {
         let cells = '';
@@ -1585,7 +3507,136 @@
       }).join('');
     }
 
+    function formatChipTimingSub(st) {
+      if (!st || !st.attempts) return `<span class="chip-sub">noch offen</span>`;
+      if (st.cleanCount > 0 && st.cleanTimeMs > 0) {
+        const avgMs = Math.round(st.cleanTimeMs / st.cleanCount);
+        const bestStr = st.bestMs ? ` • 🏆 ${formatSec(st.bestMs)}` : '';
+        return `<span class="chip-sub">Ø ${formatSec(avgMs)}${bestStr}</span>`;
+      }
+      if (st.correct > 0 && st.totalTimeMs > 0) {
+        const avgTotal = Math.round(st.totalTimeMs / st.correct);
+        return `<span class="chip-sub">Hilfe: ${formatSec(avgTotal)}</span>`;
+      }
+      if (st.correct > 0) {
+        return `<span class="chip-sub">${st.correct}× gelöst</span>`;
+      }
+      return `<span class="chip-sub">${st.attempts}× geübt</span>`;
+    }
+
+    function formatChipTooltip(label, st) {
+      if (!st || !st.attempts) return `${label}: Noch nicht geübt – antippen zum Üben`;
+      const parts = [`${label}: ${st.correct || 0} gelöst (${st.attempts} Versuche, ${st.blitz || 0}× Blitz)`];
+      if (st.cleanCount > 0 && st.cleanTimeMs > 0) {
+        const avgMs = Math.round(st.cleanTimeMs / st.cleanCount);
+        parts.push(`Ø Direkt-Tempo: ${formatSec(avgMs)} | Bestzeit: ${formatSec(st.bestMs)}`);
+      }
+      if (st.totalTimeMs > 0) {
+        parts.push(`Gesamtzeit inkl. Hilfe/Korrektur: ${formatDuration(st.totalTimeMs)}`);
+      }
+      return parts.join(' • ');
+    }
+
     function renderParentsView() {
+      updateStorageWarningUI();
+      const modStats = appState.moduleStats || {};
+
+      // 1. Aggregate overall KPIs across all 5 modules
+      let totalAttempts = 0;
+      let totalSolved = 0;
+      let totalBlitz = 0;
+      let totalCleanCount = 0;
+      let totalCleanTimeMs = 0;
+      let overallBestMs = 0;
+      let totalTimeMs = 0;
+
+      MODULE_DEFINITIONS.forEach(m => {
+        const ms = modStats[m.id];
+        if (!ms) return;
+        totalAttempts += ms.attempts || 0;
+        totalSolved += ms.correct || 0;
+        totalBlitz += ms.blitz || 0;
+        totalCleanCount += ms.cleanCount || 0;
+        totalCleanTimeMs += ms.cleanTimeMs || 0;
+        totalTimeMs += ms.totalTimeMs || 0;
+        if (ms.bestMs && (!overallBestMs || ms.bestMs < overallBestMs)) {
+          overallBestMs = ms.bestMs;
+        }
+      });
+
+      const blitzAssCoreCount = CORE_36_TASKS.filter(t => {
+        const st = appState.coreStats[t.key];
+        return st && st.blitz > 0 && (st.streak || 0) > 0;
+      }).length;
+
+      const avgCleanMs = totalCleanCount > 0 ? Math.round(totalCleanTimeMs / totalCleanCount) : 0;
+      const avgTotalPerSolvedMs = totalSolved > 0 && totalTimeMs > 0 ? Math.round(totalTimeMs / totalSolved) : 0;
+      const blitzRatePct = totalSolved > 0 ? Math.round((totalBlitz / totalSolved) * 100) : 0;
+      const cleanRatePct = totalSolved > 0 ? Math.round((totalCleanCount / totalSolved) * 100) : 0;
+
+      document.getElementById('kpi-avg-clean').textContent = avgCleanMs > 0 ? formatSec(avgCleanMs) : '–';
+      document.getElementById('kpi-best-clean').textContent = overallBestMs > 0
+        ? `🏆 Bestzeit: ${formatSec(overallBestMs)} (${totalCleanCount} direkt)`
+        : '🏆 Bestzeit: –';
+
+      document.getElementById('kpi-blitz-rate').textContent = totalSolved > 0 ? `${blitzRatePct} %` : '–';
+      document.getElementById('kpi-blitz-core').textContent = `${blitzAssCoreCount} / 36 Kernaufgaben Blitz-Ass`;
+
+      document.getElementById('kpi-total-time').textContent = formatDuration(totalTimeMs);
+      document.getElementById('kpi-avg-total').textContent = avgTotalPerSolvedMs > 0
+        ? `Ø inkl. Hilfe/Korrektur: ${formatSec(avgTotalPerSolvedMs)}`
+        : 'Ø inkl. Hilfe/Korrektur: –';
+
+      document.getElementById('kpi-total-solved').textContent = String(totalSolved);
+      document.getElementById('kpi-clean-rate').textContent = totalSolved > 0
+        ? `${totalAttempts} Versuche • ${cleanRatePct} % direkt richtig`
+        : 'Noch keine Aufgaben gelöst';
+
+      // 2. Render Per-Module Speed Breakdown (Mathe & Deutsch)
+      const mList = document.getElementById('module-stats-list');
+      mList.innerHTML = MODULE_DEFINITIONS.map(m => {
+        const st = modStats[m.id] || createEmptyStatEntry();
+        const mAvgClean = st.cleanCount > 0 ? Math.round(st.cleanTimeMs / st.cleanCount) : 0;
+        const mAvgTotal = st.correct > 0 && st.totalTimeMs > 0 ? Math.round(st.totalTimeMs / st.correct) : 0;
+        const avgColor = mAvgClean > 0
+          ? (mAvgClean <= m.blitzLimitMs ? 'var(--forest-dark)' : 'var(--gold-dark)')
+          : 'var(--ink)';
+        const limitLabel = m.id === 'de_lesen'
+          ? 'Blitz &le; 22s / 12s'
+          : `Blitz &le; ${formatSec(m.blitzLimitMs)}`;
+
+        return `
+          <div class="module-stat-card">
+            <div class="module-stat-head">
+              <div class="module-stat-title">
+                <span>${m.icon}</span>
+                <span>${m.title}</span>
+              </div>
+              <span class="module-stat-limit">${limitLabel}</span>
+            </div>
+            <div class="module-stat-metrics">
+              <div>
+                <div class="ms-item-val" style="color:${avgColor};">${formatSec(mAvgClean)}</div>
+                <div class="ms-item-lbl">Ø Direkt</div>
+              </div>
+              <div>
+                <div class="ms-item-val">${formatSec(st.bestMs)}</div>
+                <div class="ms-item-lbl">🏆 Bestzeit</div>
+              </div>
+              <div>
+                <div class="ms-item-val">${formatSec(mAvgTotal)}</div>
+                <div class="ms-item-lbl">Ø inkl. Hilfe</div>
+              </div>
+            </div>
+            <div class="module-stat-foot">
+              <span>✅ ${st.correct || 0} gelöst • ⚡ ${st.blitz || 0} Blitz • ⏳ ${formatDuration(st.totalTimeMs)}</span>
+              <button class="btn" style="padding:4px 10px; font-size:0.76rem; border-radius:10px;" onclick="startModule('${m.id}')">Üben ▶</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // 3. Render 36 Core Tasks Matrix with per-task times
       const cGrid = document.getElementById('core36-matrix');
       cGrid.innerHTML = CORE_36_TASKS.map(t => {
         const st = appState.coreStats[t.key];
@@ -1602,9 +3653,17 @@
             cls = 'st-slow';
           }
         }
-        return `<button class="task-chip ${cls}" onclick="practiceSpecificCore(${t.a}, ${t.b})">${t.a} + ${t.b}${badge}</button>`;
+        const label = `${t.a} + ${t.b}`;
+        const tooltip = formatChipTooltip(label, st);
+        return `
+          <button class="task-chip ${cls}" title="${tooltip}" onclick="practiceSpecificCore(${t.a}, ${t.b})">
+            <span>${label}${badge}</span>
+            ${formatChipTimingSub(st)}
+          </button>
+        `;
       }).join('');
 
+      // 4. Render Verliebte Zahlen Matrix with per-task times
       const vGrid = document.getElementById('verliebt-matrix');
       let vHtml = '';
       for (let n = 1; n <= 9; n++) {
@@ -1616,7 +3675,14 @@
           else if (st.correct < st.attempts) { cls = 'st-practice'; badge = ' !'; }
           else { cls = 'st-slow'; }
         }
-        vHtml += `<button class="task-chip ${cls}" onclick="startModule('verliebt')">${n} + ${10 - n}${badge}</button>`;
+        const label = `${n} + ${10 - n}`;
+        const tooltip = formatChipTooltip(label, st);
+        vHtml += `
+          <button class="task-chip ${cls}" title="${tooltip}" onclick="practiceSpecificVerliebt(${n})">
+            <span>${label}${badge}</span>
+            ${formatChipTimingSub(st)}
+          </button>
+        `;
       }
       vGrid.innerHTML = vHtml;
     }
@@ -1625,11 +3691,22 @@
       startModule('core20', { a, b, key: `${a}+${b}` });
     }
 
+    function practiceSpecificVerliebt(n) {
+      startModule('verliebt', { verliebtN: n });
+    }
+
     function openRoundModal() {
       document.getElementById('modal-owl').innerHTML = renderOwlSVG(72, roundMaxTurbo >= 3 ? 'turbo' : 'happy');
+      document.getElementById('round-modal-sub').textContent = isGermanModule(currentModule)
+        ? '10 Aufgaben im Wörterwald gemeistert!'
+        : '10 Aufgaben im Zahlenwald gemeistert!';
       document.getElementById('r-stars').textContent = roundStars;
       document.getElementById('r-blitz').textContent = roundBlitz;
       document.getElementById('r-turbo').textContent = roundMaxTurbo;
+      const avgRoundMs = roundCleanTimes.length > 0
+        ? Math.round(roundCleanTimes.reduce((acc, v) => acc + v, 0) / roundCleanTimes.length)
+        : 0;
+      document.getElementById('r-avg-time').textContent = formatSec(avgRoundMs);
       document.getElementById('round-modal').classList.add('open');
     }
 
@@ -1642,12 +3719,71 @@
       }
     }
 
+    /* Backup & Restore (for Android/iPad safety) */
+    function exportBackupCode() {
+      const fb = document.getElementById('backup-feedback');
+      try {
+        const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(appState))));
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(b64).then(() => {
+            fb.textContent = '✅ Backup-Code in die Zwischenablage kopiert!';
+            fb.classList.remove('hidden');
+          }).catch(() => {
+            showManualBackupCode(b64);
+          });
+        } else {
+          showManualBackupCode(b64);
+        }
+      } catch (e) {}
+    }
+
+    function showManualBackupCode(b64) {
+      const box = document.getElementById('backup-import-box');
+      const inp = document.getElementById('backup-input');
+      const fb = document.getElementById('backup-feedback');
+      box.classList.remove('hidden');
+      inp.value = b64;
+      inp.select();
+      fb.textContent = '📋 Backup-Code unten markiert – bitte kopieren:';
+      fb.classList.remove('hidden');
+    }
+
+    function toggleImportBox() {
+      const box = document.getElementById('backup-import-box');
+      box.classList.toggle('hidden');
+    }
+
+    function importBackupCode() {
+      const inp = document.getElementById('backup-input');
+      const fb = document.getElementById('backup-feedback');
+      const rawCode = (inp.value || '').trim();
+      if (!rawCode) return;
+      try {
+        const jsonStr = rawCode.startsWith('{')
+          ? rawCode
+          : decodeURIComponent(escape(atob(rawCode)));
+        const restored = normalizeStateObject(JSON.parse(jsonStr));
+        appState = restored;
+        saveState(appState);
+        renderParentsView();
+        fb.style.color = 'var(--forest-dark)';
+        fb.textContent = `✅ Lernstand erfolgreich wiederhergestellt (${appState.stars} ⭐)!`;
+        fb.classList.remove('hidden');
+        document.getElementById('backup-import-box').classList.add('hidden');
+      } catch (e) {
+        fb.style.color = '#b91c1c';
+        fb.textContent = '⚠️ Ungültiger Backup-Code. Bitte vollständig einfügen.';
+        fb.classList.remove('hidden');
+      }
+    }
+
     /* Privacy Modal & Two-Step GDPR Reset */
     function openPrivacyModal() {
       cancelReset();
-      document.getElementById('storage-status').textContent = usingLocalStorage
+      updateStorageWarningUI();
+      document.getElementById('storage-status').textContent = storageDiagMessage || (usingLocalStorage
         ? 'Aktiv (lokaler Browser-Speicher)'
-        : 'Privater Modus (temporärer Arbeitsspeicher)';
+        : 'Privater Modus (temporärer Arbeitsspeicher)');
       document.getElementById('privacy-modal').classList.add('open');
     }
 
@@ -1668,19 +3804,64 @@
     function executeReset() {
       try {
         window.localStorage.removeItem(STORAGE_KEY);
+        for (const oldKey of LEGACY_KEYS) {
+          window.localStorage.removeItem(oldKey);
+        }
+      } catch (e) {}
+      try {
+        document.cookie = `${COOKIE_KEY}=; max-age=0; path=/; SameSite=Lax`;
+      } catch (e) {}
+      try {
+        window.name = '';
+      } catch (e) {}
+      try {
+        if (window.indexedDB) {
+          window.indexedDB.deleteDatabase(IDB_NAME);
+        }
       } catch (e) {}
       memoryFallbackState = createDefaultState();
       appState = createDefaultState();
       turboStreak = 0;
       updateTopStats();
       updateTurboUI();
+      updateStorageWarningUI();
       closePrivacyModal();
       showView('home');
     }
 
+    /* Lifecycle Flush Listeners for Android / Tablet Browsers */
+    function flushStateOnHide() {
+      if (appState) saveState(appState);
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') flushStateOnHide();
+    });
+    window.addEventListener('pagehide', flushStateOnHide);
+    window.addEventListener('beforeunload', flushStateOnHide);
+
+    window.addEventListener('storage', (e) => {
+      if (e.key === STORAGE_KEY && e.newValue) {
+        try {
+          const incoming = normalizeStateObject(JSON.parse(e.newValue));
+          if (getStateProgressScore(incoming) >= getStateProgressScore(appState)) {
+            appState = incoming;
+            updateTopStats();
+          }
+        } catch (_) {}
+      }
+    });
+
     /* Optional Hardware Keyboard Support on Tablets with Keyboards */
     document.addEventListener('keydown', (e) => {
       if (document.getElementById('view-practice').classList.contains('hidden')) return;
+      if (currentTask && currentTask.isGerman) {
+        const k = e.key.toLowerCase();
+        if (k === '1' || k === 'a') selectChoice(0);
+        else if (k === '2' || k === 'b') selectChoice(1);
+        else if (k === '3' || k === 'c') selectChoice(2);
+        return;
+      }
       if (e.key >= '0' && e.key <= '9') pressDigit(e.key);
       else if (e.key === 'Backspace') pressBackspace();
       else if (e.key === 'Enter') submitAnswer();
@@ -1690,6 +3871,8 @@
     document.getElementById('header-owl').innerHTML = renderOwlSVG(44, 'happy');
     document.getElementById('hero-owl').innerHTML = renderOwlSVG(76, 'happy');
     updateTopStats();
+    updateStorageWarningUI();
+    initPersistentStorageProtection();
   </script>
 </body>
 </html>
