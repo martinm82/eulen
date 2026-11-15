@@ -1,0 +1,2923 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Mathe-Rakete – 2. Klasse (100 % Lokal &amp; DSGVO-konform)</title>
+
+  <!--
+    DSGVO- & DATENSCHUTZ-ARCHITEKTUR (ZERO THIRD-PARTY REQUESTS):
+    - Keinerlei externe CDNs, Google Fonts, Tracking-Skripte, Cookies oder externe Grafiken.
+    - Alle Styles sind vollständig lokal eingebettet; es werden ausschließlich System-Schriftarten verwendet.
+    - Es werden keinerlei personenbezogene Daten erhoben; der Lernstand bleibt lokal auf dem Gerät.
+  -->
+  <style>
+    /* =========================================================================
+       1. DESIGN-TOKENS & BASIS-STYLES (LOKALE SYSTEM-SCHRIFTARTEN)
+       ========================================================================= */
+    :root {
+      --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Trebuchet MS", sans-serif;
+      --font-display: "Trebuchet MS", "Arial Rounded MT Bold", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+      --color-ocean: #339AF0;
+      --color-ocean-dark: #1864AB;
+      --color-mint: #38D9A9;
+      --color-mint-dark: #099268;
+      --color-sun: #FFD43B;
+      --color-sun-dark: #E67700;
+      --color-coral: #FF6B6B;
+      --color-coral-dark: #C92A2A;
+      --color-berry: #845EF7;
+      --color-berry-dark: #5F3DC4;
+
+      --slate-50: #F8FAFC;
+      --slate-100: #F1F5F9;
+      --slate-200: #E2E8F0;
+      --slate-300: #CBD5E1;
+      --slate-400: #94A3B8;
+      --slate-500: #64748B;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1E293B;
+      --slate-900: #0F172A;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100dvh;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      color: var(--slate-800);
+      background: linear-gradient(160deg, #E3F5FF 0%, #F4F9FF 45%, #FFF8E7 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      touch-action: manipulation;
+      transition: background 0.6s ease;
+    }
+
+    /* Leuchtender Hintergrund im aktiven TURBO-MODUS */
+    body.turbo-active {
+      background: radial-gradient(circle at 50% 18%, #FFF3BF 0%, #FFE8CC 28%, #E5DBFF 68%, #D0EBFF 100%);
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+      color: inherit;
+    }
+
+    .font-display {
+      font-family: var(--font-display);
+      letter-spacing: -0.01em;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* =========================================================================
+       2. KINDERFREUNDLICHE 3D-SPIELZEUG-BUTTONS & ANIMATIONEN
+       ========================================================================= */
+    .btn-toy {
+      transition: transform 0.08s ease, box-shadow 0.08s ease, background-color 0.15s ease;
+    }
+    .btn-toy:active:not(:disabled) {
+      transform: translateY(4px);
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.18) !important;
+    }
+
+    .shadow-toy-ocean { box-shadow: 0 5px 0 var(--color-ocean-dark); }
+    .shadow-toy-mint  { box-shadow: 0 5px 0 var(--color-mint-dark); }
+    .shadow-toy-sun   { box-shadow: 0 5px 0 var(--color-sun-dark); }
+    .shadow-toy-coral { box-shadow: 0 5px 0 var(--color-coral-dark); }
+    .shadow-toy-berry { box-shadow: 0 5px 0 var(--color-berry-dark); }
+    .shadow-toy-slate { box-shadow: 0 4px 0 var(--slate-300); }
+
+    @keyframes gentleWobble {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-7px) rotate(-1deg); }
+      40% { transform: translateX(7px) rotate(1deg); }
+      60% { transform: translateX(-4px); }
+      80% { transform: translateX(4px); }
+    }
+    .animate-wobble { animation: gentleWobble 0.42s ease-in-out; }
+
+    @keyframes popCelebrate {
+      0% { transform: scale(0.92); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    .animate-pop { animation: popCelebrate 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(-3deg); }
+      50% { transform: translateY(-5px) rotate(3deg); }
+    }
+    .animate-float { animation: floatSlow 3s ease-in-out infinite; }
+
+    @keyframes rocketBoost {
+      0%, 100% { transform: translateY(0px) scale(1.08) rotate(-2deg); }
+      25% { transform: translateY(-3px) scale(1.12) rotate(2deg); }
+      50% { transform: translateY(-1px) scale(1.09) rotate(-1deg); }
+      75% { transform: translateY(-4px) scale(1.13) rotate(1deg); }
+    }
+    .animate-rocket-boost { animation: rocketBoost 0.45s ease-in-out infinite; }
+
+    @keyframes flameFlicker {
+      0%, 100% { transform: scaleY(1) scaleX(1); opacity: 0.95; }
+      50% { transform: scaleY(1.22) scaleX(0.9); opacity: 1; }
+    }
+    .animate-flame {
+      transform-origin: top center;
+      animation: flameFlicker 0.28s ease-in-out infinite;
+    }
+
+    @keyframes pulseBorder {
+      0%, 100% { border-color: #339AF0; box-shadow: 0 0 0 4px rgba(51, 154, 240, 0.22); }
+      50% { border-color: #845EF7; box-shadow: 0 0 0 6px rgba(132, 94, 247, 0.16); }
+    }
+    .input-active { animation: pulseBorder 1.8s infinite; }
+
+    @keyframes turboCardGlow {
+      0%, 100% { box-shadow: 0 10px 25px -5px rgba(245, 159, 0, 0.35), 0 0 0 3px rgba(255, 169, 77, 0.55); }
+      50% { box-shadow: 0 14px 32px -4px rgba(255, 107, 107, 0.45), 0 0 0 4px rgba(255, 212, 59, 0.85); }
+    }
+    .turbo-card-glow { animation: turboCardGlow 1.6s ease-in-out infinite; }
+
+    @keyframes flyStarUp {
+      0% { transform: translateY(10px) scale(0.6); opacity: 0; }
+      30% { transform: translateY(-10px) scale(1.25); opacity: 1; }
+      100% { transform: translateY(-48px) scale(0.9); opacity: 0; }
+    }
+    .animate-fly-star { animation: flyStarUp 0.95s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+    @keyframes pulseSoft {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.72; }
+    }
+    .animate-pulse { animation: pulseSoft 1.5s infinite; }
+
+    #confetti-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    /* =========================================================================
+       3. KOPFZEILE & NAVIGATION
+       ========================================================================= */
+    .app-header {
+      width: 100%;
+      max-width: 1024px;
+      margin: 0 auto;
+      padding: 0.65rem 0.75rem 0.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      z-index: 20;
+    }
+
+    @media (min-width: 640px) {
+      .app-header { padding: 1rem 1.5rem 0.35rem; }
+    }
+
+    .header-left, .header-right {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .header-right { margin-left: auto; }
+
+    .brand-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(255, 255, 255, 0.95);
+      border: 2px solid #BAE6FD;
+      padding: 0.38rem 0.85rem;
+      border-radius: 1rem;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+    }
+
+    .brand-title {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #0C4A6E;
+      line-height: 1.15;
+    }
+
+    .brand-subtitle {
+      margin: 0;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #0284C7;
+      line-height: 1.1;
+    }
+
+    .nav-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.48rem 0.72rem;
+      border-radius: 1rem;
+      font-weight: 800;
+      font-size: 0.85rem;
+    }
+
+    .nav-pill-white {
+      background: #FFFFFF;
+      border: 2px solid var(--slate-200);
+      color: var(--slate-700);
+    }
+
+    .nav-pill-blitz {
+      background: #FFEDD5;
+      border: 2px solid #FDBA74;
+      color: #7C2D12;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-pill-stars {
+      background: #FCD34D;
+      border: 2px solid #FBBF24;
+      color: #451A03;
+      font-size: 0.95rem;
+    }
+
+    .hide-mobile { display: none; }
+    @media (min-width: 640px) {
+      .hide-mobile { display: inline; }
+      .brand-title { font-size: 1.25rem; }
+      .brand-subtitle { font-size: 0.76rem; }
+    }
+
+    /* =========================================================================
+       4. HAUPTBEREICH & STARTSEITE
+       ========================================================================= */
+    .app-main {
+      flex: 1;
+      width: 100%;
+      max-width: 1024px;
+      margin: 0 auto;
+      padding: 0.5rem 0.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    @media (min-width: 640px) {
+      .app-main { padding: 0.75rem 1.5rem; }
+    }
+
+    .home-view {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      margin: auto 0;
+    }
+
+    .hero-banner {
+      background: rgba(255, 255, 255, 0.96);
+      border: 2px solid #BAE6FD;
+      border-radius: 1.5rem;
+      padding: 1rem 1.15rem;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.9rem;
+    }
+
+    @media (min-width: 640px) {
+      .hero-banner {
+        flex-direction: row;
+        padding: 1.25rem 1.4rem;
+      }
+    }
+
+    .hero-copy {
+      text-align: center;
+      flex: 1;
+    }
+
+    @media (min-width: 640px) {
+      .hero-copy { text-align: left; }
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.4rem;
+      margin-bottom: 0.35rem;
+    }
+
+    @media (min-width: 640px) {
+      .hero-badges { justify-content: flex-start; }
+    }
+
+    .pill-badge-amber {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      background: #FEF3C7;
+      color: #78350F;
+      font-weight: 800;
+      font-size: 0.74rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+    }
+
+    .pill-badge-gdpr {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      background: #DCFCE7;
+      color: #14532D;
+      font-weight: 800;
+      font-size: 0.74rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+    }
+
+    .hero-title {
+      margin: 0.15rem 0;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--slate-800);
+    }
+
+    @media (min-width: 640px) {
+      .hero-title { font-size: 1.85rem; }
+    }
+
+    .hero-desc {
+      margin: 0;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--slate-600);
+      line-height: 1.35;
+    }
+
+    .sticker-widget {
+      width: 100%;
+      background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+      border: 2px solid #FCD34D;
+      border-radius: 1.15rem;
+      padding: 0.7rem 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-align: left;
+    }
+
+    @media (min-width: 640px) {
+      .sticker-widget {
+        width: auto;
+        min-width: 245px;
+      }
+    }
+
+    .sticker-widget-icon {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 0.9rem;
+      background: #FFFFFF;
+      border: 2px solid #FDE68A;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.65rem;
+      flex-shrink: 0;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 0.6rem;
+      background: #FFFFFF;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid #FCD34D;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #FBBF24, #F97316);
+      border-radius: 999px;
+      transition: width 0.45s ease;
+    }
+
+    /* 5 Übungsbereiche Grid */
+    .modes-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+    }
+
+    @media (min-width: 768px) {
+      .modes-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 1024px) {
+      .modes-grid { grid-template-columns: repeat(3, 1fr); }
+      .mode-card-wide { grid-column: span 2; }
+    }
+
+    .mode-card {
+      text-align: left;
+      background: #FFFFFF;
+      border: 2px solid var(--slate-200);
+      border-radius: 1.5rem;
+      padding: 1rem 1.15rem;
+      box-shadow: 0 5px 14px rgba(15, 23, 42, 0.05);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+    }
+
+    .mode-card:hover { transform: translateY(-1px); }
+
+    .mode-card-rose   { border-color: #FECDD3; }
+    .mode-card-sky    { border-color: #38BDF8; background: linear-gradient(135deg, #F0F9FF 0%, #FFFFFF 100%); }
+    .mode-card-mint   { border-color: #A7F3D0; }
+    .mode-card-purple { border-color: #DDD6FE; }
+    .mode-card-amber  { border-color: #FDE68A; }
+
+    .mode-icon-box {
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.9rem;
+      color: #FFFFFF;
+      flex-shrink: 0;
+    }
+
+    @media (min-width: 640px) {
+      .mode-icon-box {
+        width: 4rem;
+        height: 4rem;
+        font-size: 2.15rem;
+      }
+    }
+
+    .bg-grad-coral  { background: linear-gradient(135deg, #FB7185, #FF6B6B); }
+    .bg-grad-ocean  { background: linear-gradient(135deg, #38BDF8, #339AF0); }
+    .bg-grad-mint   { background: linear-gradient(135deg, #34D399, #38D9A9); }
+    .bg-grad-berry  { background: linear-gradient(135deg, #A78BFA, #845EF7); }
+    .bg-grad-amber  { background: linear-gradient(135deg, #FBBF24, #FB923C); }
+
+    .mode-tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+    }
+
+    .mode-title {
+      margin: 0.3rem 0 0.15rem;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--slate-800);
+    }
+
+    .mode-desc {
+      margin: 0;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--slate-600);
+      line-height: 1.35;
+    }
+
+    /* =========================================================================
+       5. SPIEL- & ÜBUNGSANSICHT (HOCH- & QUERFORMAT RESPONSIVE)
+       ========================================================================= */
+    .game-view {
+      width: 100%;
+      margin: auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .turbo-bar {
+      background: rgba(255, 255, 255, 0.96);
+      border: 2px solid #BAE6FD;
+      border-radius: 1.4rem;
+      padding: 0.65rem 0.9rem;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.65rem;
+    }
+
+    .rocket-box {
+      position: relative;
+      width: 3.15rem;
+      height: 3.15rem;
+      border-radius: 1rem;
+      background: linear-gradient(180deg, #1E1B4B 0%, #0F172A 55%, #0C4A6E 100%);
+      border: 2px solid #38BDF8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .combo-segments {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: 0.3rem;
+    }
+
+    .combo-seg {
+      height: 0.85rem;
+      width: 3.1rem;
+      border-radius: 999px;
+      background: var(--slate-200);
+      border: 1px solid var(--slate-300);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.62rem;
+      font-weight: 800;
+      transition: all 0.25s ease;
+    }
+
+    .combo-seg.active {
+      background: linear-gradient(90deg, #FBBF24, #F97316);
+      border-color: #EA580C;
+      color: #FFFFFF;
+    }
+
+    .game-workspace {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.8rem;
+    }
+
+    /* Im Querformat (Tablet/Handy) oder ab 768px: Aufgabe links, Ziffernfeld rechts */
+    @media (orientation: landscape) and (min-width: 560px), (min-width: 768px) {
+      .game-workspace { flex-direction: row; }
+    }
+
+    .task-card {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.96);
+      border: 2px solid #BAE6FD;
+      border-radius: 1.5rem;
+      padding: 1rem 1.25rem;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 235px;
+      position: relative;
+    }
+
+    @media (min-width: 640px) {
+      .task-card {
+        padding: 1.35rem 1.5rem;
+        min-height: 320px;
+      }
+    }
+
+    .task-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .help-toggle-btn {
+      background: #FEF3C7;
+      border: 2px solid #FCD34D;
+      color: #78350F;
+      font-weight: 800;
+      font-size: 0.78rem;
+      padding: 0.38rem 0.75rem;
+      border-radius: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .task-stage {
+      margin: auto 0;
+      padding: 0.75rem 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .equation-row {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 2.35rem;
+      color: var(--slate-800);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    @media (min-width: 640px) {
+      .equation-row {
+        font-size: 3.45rem;
+        gap: 0.95rem;
+      }
+    }
+
+    .answer-box {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 4.8rem;
+      height: 3.5rem;
+      padding: 0 0.75rem;
+      border-radius: 1rem;
+      background: #F0F9FF;
+      border: 4px solid var(--color-ocean);
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 2.15rem;
+      transition: all 0.15s ease;
+    }
+
+    @media (min-width: 640px) {
+      .answer-box {
+        min-width: 6rem;
+        height: 4.1rem;
+        font-size: 3rem;
+      }
+    }
+
+    .feedback-box {
+      min-height: 2.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .feedback-pill {
+      margin: 0;
+      font-size: 0.9rem;
+      font-weight: 800;
+      text-align: center;
+      padding: 0.42rem 0.9rem;
+      border-radius: 0.95rem;
+      color: var(--slate-500);
+    }
+
+    .help-panel {
+      margin-top: 0.5rem;
+      background: #F0F9FF;
+      border: 2px solid #BAE6FD;
+      border-radius: 1rem;
+      padding: 0.75rem;
+    }
+
+    /* Ziffernfeld */
+    .numpad-card {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.96);
+      border: 2px solid var(--slate-200);
+      border-radius: 1.5rem;
+      padding: 0.75rem;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media (orientation: landscape) and (min-width: 560px) {
+      .numpad-card { width: 295px; flex-shrink: 0; }
+    }
+
+    @media (min-width: 768px) {
+      .numpad-card { width: 335px; padding: 0.95rem; flex-shrink: 0; }
+    }
+
+    .numpad-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      flex: 1;
+    }
+
+    .key-btn {
+      background: #F0F9FF;
+      border: 2px solid #BAE6FD;
+      border-radius: 1rem;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.65rem;
+      color: var(--slate-800);
+      padding: 0.75rem 0.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .key-btn:hover { background: #E0F2FE; }
+
+    .key-del {
+      background: #FFE4E6;
+      border: 2px solid #FDA4AF;
+      color: #9F1239;
+      font-size: 1.4rem;
+    }
+
+    .key-ok {
+      background: linear-gradient(180deg, #34D399, #38D9A9);
+      border: 2px solid #10B981;
+      color: #FFFFFF;
+      font-size: 1.15rem;
+      gap: 0.25rem;
+    }
+
+    /* =========================================================================
+       6. DSGVO-FUSSZEILE & MODALS
+       ========================================================================= */
+    .app-footer {
+      width: 100%;
+      max-width: 1024px;
+      margin: 0 auto;
+      padding: 0.35rem 1rem 0.65rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--slate-500);
+    }
+
+    .gdpr-footer-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1.5px solid var(--slate-300);
+      color: var(--slate-700);
+      font-weight: 800;
+      font-size: 0.75rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+    }
+
+    .gdpr-footer-btn:hover {
+      background: #FFFFFF;
+      border-color: var(--color-ocean);
+      color: #0369A1;
+    }
+
+    /* Modals */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.58);
+      backdrop-filter: blur(4px);
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.85rem;
+    }
+
+    .modal-card {
+      background: #FFFFFF;
+      border-radius: 1.5rem;
+      width: 100%;
+      max-height: 90dvh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 24px 48px rgba(15, 23, 42, 0.28);
+      overflow: hidden;
+    }
+
+    .modal-header {
+      padding: 0.95rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      border-bottom: 1px solid var(--slate-200);
+    }
+
+    .modal-close {
+      background: #FFFFFF;
+      border: 1.5px solid var(--slate-300);
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 0.85rem;
+      font-weight: 800;
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .modal-body {
+      padding: 1.1rem 1.25rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    /* Hilfsklassen für dynamische Komponenten */
+    .stat-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+    .stat-grid-4 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+    @media (min-width: 640px) {
+      .stat-grid-4 { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    .sticker-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.7rem;
+    }
+    @media (min-width: 640px) {
+      .sticker-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    .core-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      background: #F8FAFC;
+      padding: 0.6rem 0.75rem;
+      border-radius: 1rem;
+      border: 1px solid var(--slate-200);
+    }
+    @media (min-width: 640px) {
+      .core-row { flex-direction: row; align-items: center; }
+    }
+
+    .verliebte-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.45rem;
+    }
+    @media (min-width: 640px) {
+      .verliebte-grid { grid-template-columns: repeat(6, 1fr); }
+    }
+
+    .gdpr-box {
+      background: #F0FDF4;
+      border: 2px solid #86EFAC;
+      border-radius: 1.1rem;
+      padding: 0.9rem 1rem;
+    }
+
+    .gdpr-info-card {
+      background: #F8FAFC;
+      border: 1.5px solid var(--slate-200);
+      border-radius: 1rem;
+      padding: 0.85rem 1rem;
+    }
+
+    .danger-zone {
+      background: #FFF1F2;
+      border: 2px solid #FECDD3;
+      border-radius: 1.1rem;
+      padding: 0.9rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    @media (min-width: 640px) {
+      .danger-zone {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Konfetti-Ebene (reines HTML5-Canvas ohne externe Bibliothek) -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- ==================== OBERE NAVIGATIONSLEISTE ==================== -->
+  <header class="app-header">
+    <div class="header-left">
+      <button id="btn-home" onclick="goHome()" class="hidden btn-toy nav-pill nav-pill-white shadow-toy-slate">
+        <span style="font-size: 1.15rem;">🏠</span>
+        <span class="hide-mobile">Start</span>
+      </button>
+
+      <div id="brand-badge" class="brand-badge">
+        <span class="animate-float" style="font-size: 1.7rem; display: inline-block;">🚀</span>
+        <div>
+          <h1 class="font-display brand-title">Mathe-Rakete</h1>
+          <p class="brand-subtitle">2. Klasse • 100 % Lokal &amp; Werbefrei</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <button onclick="openTreasureModal()" class="btn-toy nav-pill nav-pill-blitz" title="Gesammelte Blitz-Antworten">
+        <span>⚡</span>
+        <span id="header-blitz">0</span>
+      </button>
+
+      <button onclick="openTreasureModal()" class="btn-toy nav-pill nav-pill-stars shadow-toy-sun" title="Schatzkiste &amp; Sticker">
+        <span>⭐</span>
+        <span id="header-stars">0</span>
+      </button>
+
+      <button onclick="openParentModal()" class="btn-toy nav-pill nav-pill-white shadow-toy-slate" title="Für Eltern, Lernstand &amp; DSGVO">
+        <span>📊</span>
+        <span class="hide-mobile">Für Eltern</span>
+      </button>
+
+      <button id="btn-sound" onclick="toggleSound()" class="btn-toy nav-pill nav-pill-white shadow-toy-slate" title="Ton an/aus" aria-label="Ton umschalten">
+        🔊
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== HAUPTBEREICH ==================== -->
+  <main class="app-main">
+
+    <!-- 1. STARTSEITE -->
+    <section id="view-home" class="home-view">
+
+      <div class="hero-banner">
+        <div class="hero-copy">
+          <div class="hero-badges">
+            <span class="pill-badge-amber">🔥 3× Blitz = TURBO-MODUS!</span>
+            <span class="pill-badge-gdpr">🔒 Ohne Tracking &amp; ohne Cloud</span>
+          </div>
+          <h2 class="font-display hero-title">Bereit zum Abheben? 🚀</h2>
+          <p class="hero-desc">
+            Löse 3 Aufgaben hintereinander blitzschnell im Kopf, um den <strong style="color: #EA580C;">Turbo-Bonus</strong> zu zünden!
+          </p>
+        </div>
+
+        <button onclick="openTreasureModal()" class="btn-toy sticker-widget shadow-toy-sun">
+          <div id="home-next-sticker-icon" class="sticker-widget-icon">🦊</div>
+          <div style="flex: 1;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 800; color: #78350F; margin-bottom: 0.25rem;">
+              <span>Nächster Sticker</span>
+              <span id="home-sticker-progress-text">0 / 10 ⭐</span>
+            </div>
+            <div class="progress-track">
+              <div id="home-sticker-progress-bar" class="progress-fill" style="width: 0%;"></div>
+            </div>
+            <div id="home-unlocked-count" style="font-size: 0.7rem; font-weight: 700; color: #92400E; margin-top: 0.25rem;">
+              0 von 12 Stickern
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Die 5 Übungsbereiche -->
+      <div class="modes-grid">
+
+        <button onclick="startMode('verliebte')" class="btn-toy mode-card mode-card-rose">
+          <div class="mode-icon-box bg-grad-coral shadow-toy-coral">❤️</div>
+          <div style="flex: 1;">
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.25rem;">
+              <span class="mode-tag" style="background: #FFE4E6; color: #BE123C;">Basis • Bis 10</span>
+              <span id="badge-verliebte" style="font-size: 0.75rem; font-weight: 800; color: #64748B;">0/11</span>
+            </div>
+            <h3 class="font-display mode-title">Verliebte Zahlen</h3>
+            <p class="mode-desc">Welche Zahl ergänzt zur 10? Blitzschnell im Kopf finden!</p>
+          </div>
+        </button>
+
+        <button onclick="startMode('grundaufgaben')" class="btn-toy mode-card mode-card-sky">
+          <div class="mode-icon-box bg-grad-ocean shadow-toy-ocean">🚀</div>
+          <div style="flex: 1;">
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.25rem; flex-wrap: wrap;">
+              <span class="mode-tag" style="background: #0284C7; color: #FFFFFF;">⭐ Wichtigstes Training</span>
+              <span id="badge-grundaufgaben" style="font-size: 0.75rem; font-weight: 800; color: #0369A1;">0/36 sicher</span>
+            </div>
+            <h3 class="font-display mode-title">Grundaufgaben bis 20</h3>
+            <p class="mode-desc">Alle 36 Aufgaben über den Zehner (z. B. 6 + 8) im Kopf festigen!</p>
+          </div>
+        </button>
+
+        <button onclick="startMode('bis100_ohne')" class="btn-toy mode-card mode-card-mint">
+          <div class="mode-icon-box bg-grad-mint shadow-toy-mint">🌟</div>
+          <div style="flex: 1;">
+            <span class="mode-tag" style="background: #D1FAE5; color: #047857;">Hunderterraum</span>
+            <h3 class="font-display mode-title">Bis 100 ohne Übergang</h3>
+            <p class="mode-desc">Sicher rechnen wie 70 + 20 oder 73 + 5 – ganz ohne Zehnerstopp.</p>
+          </div>
+        </button>
+
+        <button onclick="startMode('zwillinge')" class="btn-toy mode-card mode-card-purple">
+          <div class="mode-icon-box bg-grad-berry shadow-toy-berry">👯</div>
+          <div style="flex: 1;">
+            <span class="mode-tag" style="background: #EDE9FE; color: #6D28D9;">Brücke zu 100</span>
+            <h3 class="font-display mode-title">Aufgaben-Zwillinge</h3>
+            <p class="mode-desc">Erst Mini (6 + 8), dann Maxi (76 + 8) – erkenne den Trick!</p>
+          </div>
+        </button>
+
+        <button onclick="startMode('bis100_mit')" class="btn-toy mode-card mode-card-amber mode-card-wide">
+          <div class="mode-icon-box bg-grad-amber shadow-toy-sun">🏆</div>
+          <div style="flex: 1;">
+            <span class="mode-tag" style="background: #FEF3C7; color: #92400E;">Profi-Modus</span>
+            <h3 class="font-display mode-title">Bis 100 mit Zehnerübergang</h3>
+            <p class="mode-desc">Für Rechen-Profis: Aufgaben wie 76 + 8 oder 47 + 5 mit Hilfe der Grundaufgabe knacken!</p>
+          </div>
+        </button>
+
+      </div>
+    </section>
+
+    <!-- 2. SPIEL- & ÜBUNGSANSICHT -->
+    <section id="view-game" class="hidden game-view">
+
+      <!-- TURBO-KOMBO & RUNDEN-LEISTE -->
+      <div id="turbo-bar-card" class="turbo-bar">
+        <div style="display: flex; align-items: center; gap: 0.7rem;">
+          <div id="rocket-container" class="rocket-box">
+            <span style="position: absolute; top: 3px; left: 6px; font-size: 8px; color: #FDE68A;">✦</span>
+            <span style="position: absolute; top: 9px; right: 6px; font-size: 7px; color: #BAE6FD;">✦</span>
+            <span id="turbo-rocket-emoji" style="font-size: 1.65rem; line-height: 1; z-index: 2;">🚀</span>
+            <div id="turbo-flame" style="font-size: 0.8rem; line-height: 1; margin-top: -2px; opacity: 0.35;">🔥</div>
+          </div>
+
+          <div>
+            <div style="display: flex; align-items: center; gap: 0.45rem; flex-wrap: wrap;">
+              <span id="turbo-status-title" class="font-display" style="font-weight: 800; font-size: 0.95rem; color: #1E293B;">
+                Turbo-Kombo: 0 / 3
+              </span>
+              <span id="turbo-active-pill" class="hidden animate-pulse" style="background: linear-gradient(90deg, #F97316, #F59E0B); color: #FFF; font-size: 0.7rem; font-weight: 800; padding: 0.15rem 0.55rem; border-radius: 999px;">
+                🔥 TURBO AKTIV (+1 ⭐ Bonus!)
+              </span>
+            </div>
+
+            <div class="combo-segments">
+              <div id="combo-step-1" class="combo-seg"></div>
+              <div id="combo-step-2" class="combo-seg"></div>
+              <div id="combo-step-3" class="combo-seg"></div>
+              <span class="hide-mobile" style="font-size: 0.7rem; font-weight: 800; color: #64748B; margin-left: 0.25rem;">3× ⚡ = Turbo!</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 0.55rem; margin-left: auto;">
+          <div style="text-align: right;">
+            <div style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: #94A3B8;">Runde</div>
+            <div class="font-display" style="font-weight: 800; font-size: 0.95rem; color: #334155;">
+              Aufgabe <span id="round-counter-text" style="color: #0284C7;">1</span> / 10
+            </div>
+          </div>
+          <div id="round-dots" class="hide-mobile" style="display: flex; align-items: center; gap: 0.25rem; background: #F1F5F9; padding: 0.4rem 0.6rem; border-radius: 0.85rem; border: 1px solid #E2E8F0;"></div>
+        </div>
+      </div>
+
+      <!-- SPIELFELD -->
+      <div class="game-workspace">
+
+        <!-- Aufgabenkarte -->
+        <div id="task-card" class="task-card">
+          <div id="flying-star-anchor" style="pointer-events: none; position: absolute; top: 32%; left: 50%; transform: translateX(-50%); z-index: 30;"></div>
+
+          <div class="task-card-header">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <span id="game-mode-icon" style="font-size: 1.5rem;">🚀</span>
+              <div>
+                <h2 id="game-mode-title" class="font-display" style="margin: 0; font-size: 1.05rem; font-weight: 800; color: #1E293B;">Grundaufgaben bis 20</h2>
+                <p id="game-mode-subtitle" style="margin: 0; font-size: 0.75rem; font-weight: 700; color: #64748B;">Über den Zehner rechnen</p>
+              </div>
+            </div>
+
+            <button id="btn-help" onclick="toggleHelp()" class="btn-toy help-toggle-btn">
+              <span>💡</span>
+              <span id="btn-help-label">Rechentrick zeigen</span>
+            </button>
+          </div>
+
+          <div id="task-stage" class="task-stage"></div>
+
+          <div id="feedback-box" class="feedback-box">
+            <p id="feedback-text" class="feedback-pill">Tippe dein Ergebnis unten ein! 👇</p>
+          </div>
+
+          <div id="help-panel" class="hidden help-panel"></div>
+        </div>
+
+        <!-- Touch-Ziffernfeld -->
+        <div class="numpad-card">
+          <div class="numpad-grid">
+            <button type="button" onclick="pressDigit('1')" class="btn-toy key-btn shadow-toy-slate">1</button>
+            <button type="button" onclick="pressDigit('2')" class="btn-toy key-btn shadow-toy-slate">2</button>
+            <button type="button" onclick="pressDigit('3')" class="btn-toy key-btn shadow-toy-slate">3</button>
+
+            <button type="button" onclick="pressDigit('4')" class="btn-toy key-btn shadow-toy-slate">4</button>
+            <button type="button" onclick="pressDigit('5')" class="btn-toy key-btn shadow-toy-slate">5</button>
+            <button type="button" onclick="pressDigit('6')" class="btn-toy key-btn shadow-toy-slate">6</button>
+
+            <button type="button" onclick="pressDigit('7')" class="btn-toy key-btn shadow-toy-slate">7</button>
+            <button type="button" onclick="pressDigit('8')" class="btn-toy key-btn shadow-toy-slate">8</button>
+            <button type="button" onclick="pressDigit('9')" class="btn-toy key-btn shadow-toy-slate">9</button>
+
+            <button type="button" onclick="pressBackspace()" aria-label="Löschen" class="btn-toy key-btn key-del shadow-toy-coral">⌫</button>
+            <button type="button" onclick="pressDigit('0')" class="btn-toy key-btn shadow-toy-slate">0</button>
+            <button id="btn-submit" type="button" onclick="submitAnswer()" class="btn-toy key-btn key-ok shadow-toy-mint">
+              <span>✓</span>
+              <span>Fertig</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== DSGVO-FUSSZEILE ==================== -->
+  <footer class="app-footer">
+    <span>100 % lokal auf deinem Gerät • Keine Cookies • Keine Werbung</span>
+    <button onclick="openPrivacyModal()" class="btn-toy gdpr-footer-btn" aria-label="Datenschutz und DSGVO-Informationen öffnen">
+      <span>🔒</span>
+      <span>Datenschutz (DSGVO)</span>
+    </button>
+  </footer>
+
+  <!-- ==================== MODAL: RUNDEN-ZUSAMMENFASSUNG ==================== -->
+  <div id="modal-round-summary" class="hidden modal-backdrop">
+    <div class="modal-card animate-pop" style="max-width: 440px; border: 4px solid #38BDF8; padding: 1.35rem; text-align: center; gap: 0.9rem;">
+      <div>
+        <span style="display: inline-block; background: #E0F2FE; color: #0369A1; font-weight: 800; font-size: 0.72rem; text-transform: uppercase; padding: 0.25rem 0.75rem; border-radius: 999px;">
+          🏁 Runde geschafft! (10 Aufgaben)
+        </span>
+      </div>
+
+      <div class="animate-float" style="font-size: 3.2rem;">🚀✨</div>
+
+      <div>
+        <h3 class="font-display" style="margin: 0; font-size: 1.65rem; font-weight: 800; color: #1E293B;">Starker Raketen-Flug!</h3>
+        <p id="round-summary-cheer" style="margin: 0.35rem 0 0; font-size: 0.88rem; font-weight: 700; color: #475569;">
+          Du hast alle 10 Aufgaben dieser Runde gemeistert!
+        </p>
+      </div>
+
+      <div class="stat-grid-3">
+        <div style="background: #FFFBEB; border: 2px solid #FDE68A; border-radius: 1rem; padding: 0.6rem;">
+          <div style="font-size: 1.35rem;">⭐</div>
+          <div id="summary-stars" class="font-display" style="font-size: 1.35rem; font-weight: 800; color: #B45309;">+10</div>
+          <div style="font-size: 0.7rem; font-weight: 800; color: #475569;">Sterne</div>
+        </div>
+        <div style="background: #FFF7ED; border: 2px solid #FED7AA; border-radius: 1rem; padding: 0.6rem;">
+          <div style="font-size: 1.35rem;">⚡</div>
+          <div id="summary-blitz" class="font-display" style="font-size: 1.35rem; font-weight: 800; color: #EA580C;">0 / 10</div>
+          <div style="font-size: 0.7rem; font-weight: 800; color: #475569;">Blitz-Antworten</div>
+        </div>
+        <div style="background: #FAF5FF; border: 2px solid #E9D5FF; border-radius: 1rem; padding: 0.6rem;">
+          <div style="font-size: 1.35rem;">🔥</div>
+          <div id="summary-streak" class="font-display" style="font-size: 1.35rem; font-weight: 800; color: #7E22CE;">0×</div>
+          <div style="font-size: 0.7rem; font-weight: 800; color: #475569;">Längste Serie</div>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.25rem;">
+        <button onclick="finishRoundAndGoHome()" class="btn-toy" style="flex: 1; background: #F1F5F9; border: 2px solid #CBD5E1; color: #334155; font-family: var(--font-display); font-weight: 800; font-size: 0.95rem; padding: 0.75rem; border-radius: 1rem;">
+          🏠 Zur Startseite
+        </button>
+        <button onclick="continueNextRound()" class="btn-toy shadow-toy-ocean" style="flex: 1; background: linear-gradient(90deg, #38BDF8, #339AF0); color: #FFFFFF; font-family: var(--font-display); font-weight: 800; font-size: 0.95rem; padding: 0.75rem; border-radius: 1rem;">
+          Nächste Runde 🚀
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: SCHATZKISTE & STICKER-ALBUM ==================== -->
+  <div id="modal-treasure" class="hidden modal-backdrop">
+    <div class="modal-card" style="max-width: 680px; border: 4px solid #FCD34D;">
+      <div class="modal-header" style="background: linear-gradient(90deg, #FCD34D, #FDE047, #FCD34D);">
+        <div style="display: flex; align-items: center; gap: 0.65rem;">
+          <span style="font-size: 1.85rem;">🏆</span>
+          <div>
+            <h2 class="font-display" style="margin: 0; font-size: 1.25rem; font-weight: 800; color: #451A03;">Deine Sticker-Schatzkiste</h2>
+            <p style="margin: 0; font-size: 0.78rem; font-weight: 800; color: #78350F;">Alle 10 Sterne gibt es einen neuen Weltraum-Sticker!</p>
+          </div>
+        </div>
+        <button onclick="closeModal('modal-treasure')" class="btn-toy modal-close" aria-label="Schließen">✕</button>
+      </div>
+
+      <div style="padding: 0.9rem 1.2rem; background: #FFFBEB; border-bottom: 2px solid #FDE68A; display: flex; flex-direction: column; gap: 0.75rem;">
+        <div class="stat-grid-3" style="text-align: center;">
+          <div style="background: #FFFFFF; border-radius: 0.95rem; padding: 0.55rem; border: 1px solid #FDE68A;">
+            <div style="font-size: 0.72rem; font-weight: 800; color: #64748B;">Gesamt-Sterne</div>
+            <div class="font-display" style="font-size: 1.2rem; font-weight: 800; color: #D97706;">⭐ <span id="modal-stars-total">0</span></div>
+          </div>
+          <div style="background: #FFFFFF; border-radius: 0.95rem; padding: 0.55rem; border: 1px solid #FED7AA;">
+            <div style="font-size: 0.72rem; font-weight: 800; color: #64748B;">Blitz-Aufgaben</div>
+            <div class="font-display" style="font-size: 1.2rem; font-weight: 800; color: #EA580C;">⚡ <span id="modal-blitz-total">0</span></div>
+          </div>
+          <div style="background: #FFFFFF; border-radius: 0.95rem; padding: 0.55rem; border: 1px solid #E9D5FF;">
+            <div style="font-size: 0.72rem; font-weight: 800; color: #64748B;">Turbo-Rekord</div>
+            <div class="font-display" style="font-size: 1.2rem; font-weight: 800; color: #7E22CE;">🔥 <span id="modal-best-streak">0</span>×</div>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem;">
+          <div id="modal-stars-next" style="font-size: 0.78rem; font-weight: 800; color: #78350F;">Noch 10 Sterne bis zum nächsten Sticker!</div>
+          <div class="progress-track" style="max-width: 210px; height: 0.85rem;">
+            <div id="modal-stars-bar" class="progress-fill" style="width: 0%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="sticker-grid" class="modal-body sticker-grid"></div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: NEUER STICKER FREIGESCHALTET ==================== -->
+  <div id="modal-unlock" class="hidden modal-backdrop">
+    <div class="modal-card animate-pop" style="max-width: 380px; border: 4px solid #FBBF24; padding: 1.4rem; text-align: center; gap: 0.9rem;">
+      <div>
+        <span style="display: inline-block; background: #FEF3C7; color: #92400E; font-weight: 800; font-size: 0.72rem; text-transform: uppercase; padding: 0.25rem 0.75rem; border-radius: 999px;">
+          🎉 Neuer Sticker freigeschaltet!
+        </span>
+      </div>
+      <div id="unlock-sticker-art" style="width: 6.8rem; height: 6.8rem; margin: 0 auto; border-radius: 1.5rem; background: linear-gradient(135deg, #FEF3C7, #FDE68A); border: 4px solid #FCD34D; display: flex; align-items: center; justify-content: center; font-size: 3.6rem;">
+        🦊
+      </div>
+      <div>
+        <h3 id="unlock-sticker-name" class="font-display" style="margin: 0; font-size: 1.45rem; font-weight: 800; color: #1E293B;">Weltraum-Fuchs</h3>
+        <p id="unlock-sticker-desc" style="margin: 0.35rem 0 0; font-size: 0.86rem; font-weight: 700; color: #475569;">Super gerechnet! Der Sticker liegt jetzt in deiner Schatzkiste.</p>
+      </div>
+      <button onclick="closeUnlockModal()" class="btn-toy shadow-toy-mint" style="width: 100%; background: linear-gradient(90deg, #34D399, #38D9A9); color: #FFFFFF; font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; padding: 0.8rem; border-radius: 1rem;">
+        Weiter rechnen! 🚀
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: ELTERN- & LERNÜBERSICHT ==================== -->
+  <div id="modal-parent" class="hidden modal-backdrop">
+    <div class="modal-card" style="max-width: 880px; border: 2px solid #CBD5E1;">
+      <div class="modal-header" style="background: #F1F5F9;">
+        <div style="display: flex; align-items: center; gap: 0.65rem;">
+          <span style="font-size: 1.5rem;">📊</span>
+          <div>
+            <h2 class="font-display" style="margin: 0; font-size: 1.15rem; font-weight: 800; color: #1E293B;">Für Eltern &amp; Lernübersicht</h2>
+            <p style="margin: 0; font-size: 0.76rem; font-weight: 600; color: #64748B;">Automatisierung der 36 Grundaufgaben bis 20 (Zehnerübergang) &amp; Verliebte Zahlen</p>
+          </div>
+        </div>
+        <button onclick="closeModal('modal-parent')" class="btn-toy modal-close" aria-label="Schließen">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="stat-grid-4">
+          <div style="background: #ECFDF5; border: 1px solid #A7F3D0; border-radius: 1rem; padding: 0.75rem; text-align: center;">
+            <div id="stat-blitz-ass" class="font-display" style="font-size: 1.45rem; font-weight: 800; color: #047857;">0 / 36</div>
+            <div style="font-size: 0.72rem; font-weight: 700; color: #475569; margin-top: 0.15rem;">⚡ Blitz-Ass (&lt;4,5s im Kopf)</div>
+          </div>
+          <div style="background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 1rem; padding: 0.75rem; text-align: center;">
+            <div id="stat-mastered" class="font-display" style="font-size: 1.45rem; font-weight: 800; color: #D97706;">0 / 36</div>
+            <div style="font-size: 0.72rem; font-weight: 700; color: #475569; margin-top: 0.15rem;">Sicher gelöst (gesamt)</div>
+          </div>
+          <div style="background: #FFF7ED; border: 1px solid #FED7AA; border-radius: 1rem; padding: 0.75rem; text-align: center;">
+            <div id="stat-total-blitz" class="font-display" style="font-size: 1.45rem; font-weight: 800; color: #EA580C;">0</div>
+            <div style="font-size: 0.72rem; font-weight: 700; color: #475569; margin-top: 0.15rem;">Blitz-Antworten gesamt</div>
+          </div>
+          <div style="background: #FAF5FF; border: 1px solid #E9D5FF; border-radius: 1rem; padding: 0.75rem; text-align: center;">
+            <div id="stat-best-streak" class="font-display" style="font-size: 1.45rem; font-weight: 800; color: #7E22CE;">0×</div>
+            <div style="font-size: 0.72rem; font-weight: 700; color: #475569; margin-top: 0.15rem;">🔥 Längste Turbo-Serie</div>
+          </div>
+        </div>
+
+        <div class="gdpr-info-card">
+          <div style="font-size: 0.78rem; font-weight: 700; color: #334155; margin-bottom: 0.45rem;">
+            <strong>Farbcodierung der 36 Kernaufgaben</strong> (Tipp: Eine Aufgabe antippen, um sie direkt mit dem Kind zu üben):
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.4rem; font-size: 0.74rem; font-weight: 800;">
+            <span style="background: #DCFCE7; color: #14532D; padding: 0.25rem 0.6rem; border-radius: 0.7rem; border: 1px solid #86EFAC;">⚡ Grün = Blitz-Ass (schnell &amp; sicher im Kopf)</span>
+            <span style="background: #FEF3C7; color: #78350F; padding: 0.25rem 0.6rem; border-radius: 0.7rem; border: 1px solid #FCD34D;">🟡 Gelb = Richtig, aber noch gerechnet/gezählt</span>
+            <span style="background: #FFEDD5; color: #7C2D12; padding: 0.25rem 0.6rem; border-radius: 0.7rem; border: 1px solid #FDBA74;">🟠 Orange = Wird verstärkt geübt</span>
+            <span style="background: #FFFFFF; color: #64748B; padding: 0.25rem 0.6rem; border-radius: 0.7rem; border: 1px solid #E2E8F0;">⚪ Grau = Noch offen</span>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="font-display" style="margin: 0 0 0.5rem; font-size: 1.05rem; font-weight: 800; color: #1E293B;">
+            🚀 Alle 36 Grundaufgaben bis 20 mit Zehnerübergang (von 2+9 bis 9+9)
+          </h3>
+          <div id="parent-36-grid" style="display: flex; flex-direction: column; gap: 0.45rem;"></div>
+        </div>
+
+        <div>
+          <h3 class="font-display" style="margin: 0 0 0.5rem; font-size: 1.05rem; font-weight: 800; color: #1E293B;">
+            ❤️ Verliebte Zahlen (Ergänzen zur 10)
+          </h3>
+          <div id="parent-verliebte-grid" class="verliebte-grid"></div>
+        </div>
+
+        <!-- Integrierter Datenschutz- & Löschbereich (Art. 13 & 17 DSGVO) -->
+        <div class="gdpr-box" style="display: flex; flex-direction: column; gap: 0.6rem;">
+          <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem;">
+            <div>
+              <h3 class="font-display" style="margin: 0; font-size: 1rem; font-weight: 800; color: #14532D;">
+                🔒 Datenschutz &amp; Betroffenenrechte (DSGVO / GDPR)
+              </h3>
+              <p style="margin: 0.2rem 0 0; font-size: 0.78rem; font-weight: 600; color: #166534;">
+                Diese App arbeitet zu 100 % lokal im Browser ohne externe Server, Schriften, Cookies oder Tracker. Es werden keinerlei personenbezogene Daten erhoben.
+              </p>
+            </div>
+            <button onclick="openPrivacyModal()" class="btn-toy" style="background: #FFFFFF; border: 1.5px solid #4ADE80; color: #14532D; font-weight: 800; font-size: 0.78rem; padding: 0.45rem 0.85rem; border-radius: 0.8rem;">
+              Vollständige DSGVO-Info öffnen
+            </button>
+          </div>
+
+          <div id="parent-reset-controls" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; padding-top: 0.5rem; border-top: 1px solid #BBF7D0;">
+            <span style="font-size: 0.74rem; font-weight: 700; color: #166534;">
+              Speicherschlüssel: <code>mathe_rakete_2klasse_dsgvo_v1</code>
+            </span>
+            <button onclick="showDeleteConfirmation('parent-reset-controls')" class="btn-toy" style="background: #FFE4E6; border: 1.5px solid #FDA4AF; color: #9F1239; font-weight: 800; font-size: 0.76rem; padding: 0.4rem 0.8rem; border-radius: 0.8rem;">
+              🗑️ Alle lokalen Lerndaten sofort löschen
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: DATENSCHUTZ & DSGVO (ART. 12, 13, 17 DSGVO) ==================== -->
+  <div id="modal-privacy" class="hidden modal-backdrop">
+    <div class="modal-card animate-pop" style="max-width: 680px; border: 3px solid #38BDF8;">
+      <div class="modal-header" style="background: linear-gradient(90deg, #E0F2FE, #F0FDF4);">
+        <div style="display: flex; align-items: center; gap: 0.65rem;">
+          <span style="font-size: 1.7rem;">🔒</span>
+          <div>
+            <h2 class="font-display" style="margin: 0; font-size: 1.2rem; font-weight: 800; color: #0F172A;">
+              Datenschutz &amp; DSGVO-Transparenz
+            </h2>
+            <p style="margin: 0; font-size: 0.76rem; font-weight: 700; color: #0369A1;">
+              Informationen gemäß Art. 12, 13 und 17 DSGVO • Kinderfreundlich &amp; Werbefrei
+            </p>
+          </div>
+        </div>
+        <button onclick="closeModal('modal-privacy')" class="btn-toy modal-close" aria-label="Schließen">✕</button>
+      </div>
+
+      <div class="modal-body" style="font-size: 0.86rem; line-height: 1.5; color: #334155;">
+
+        <!-- 1. Kernversprechen -->
+        <div class="gdpr-box">
+          <div style="font-weight: 800; font-size: 0.95rem; color: #14532D; margin-bottom: 0.25rem;">
+            ✅ 100 % lokal &amp; werbefrei – Keine Datenübertragung an Dritte
+          </div>
+          <p style="margin: 0; font-weight: 600; color: #166534;">
+            <strong>Keine Cookies, keine Tracker, keine externen Schriften/Server, keine Erhebung personenbezogener Daten.</strong>
+            Beim Öffnen und Nutzen der App wird keinerlei Verbindung zu Drittanbietern (wie Google Fonts, CDNs oder Analyse-Diensten) aufgebaut.
+          </p>
+        </div>
+
+        <!-- 2. Datensparsamkeit & Schutz von Kindern -->
+        <div class="gdpr-info-card">
+          <h3 class="font-display" style="margin: 0 0 0.35rem; font-size: 0.98rem; font-weight: 800; color: #0F172A;">
+            1. Datensparsamkeit (Art. 5 DSGVO) &amp; Schutz von Kindern (Art. 8 DSGVO)
+          </h3>
+          <p style="margin: 0; font-weight: 600;">
+            Die Anwendung ist speziell für Grundschulkinder entwickelt und benötigt <strong>weder Namen noch E-Mail-Adressen, Benutzerkonten oder Passwörter</strong>. Sämtliche Berechnungen und Lernfortschritte finden ausschließlich lokal im Arbeitsspeicher und Browser dieses Endgeräts statt.
+          </p>
+        </div>
+
+        <!-- 3. Auflistung der lokal gespeicherten technischen Daten -->
+        <div class="gdpr-info-card">
+          <h3 class="font-display" style="margin: 0 0 0.35rem; font-size: 0.98rem; font-weight: 800; color: #0F172A;">
+            2. Lokal gespeicherte technische Lerndaten (Art. 13 DSGVO)
+          </h3>
+          <p style="margin: 0 0 0.45rem; font-weight: 600;">
+            Damit der Spielfortschritt nach dem Schließen des Browsers erhalten bleibt, speichert die App ausschließlich folgende anonyme Spielstand-Werte lokal unter dem Schlüssel
+            <code style="background: #E2E8F0; padding: 0.1rem 0.35rem; border-radius: 0.35rem; font-weight: 800;">mathe_rakete_2klasse_dsgvo_v1</code>:
+          </p>
+          <ul style="margin: 0; padding-left: 1.2rem; font-weight: 600; display: flex; flex-direction: column; gap: 0.2rem;">
+            <li><strong>Sterne &amp; Sticker:</strong> Anzahl der gesammelten Sterne (daraus ergeben sich die freigeschalteten Sticker).</li>
+            <li><strong>Blitz- &amp; Turbo-Statistik:</strong> Anzahl der Blitz-Antworten sowie die längste Turbo-Serie.</li>
+            <li><strong>Aufgaben-Lernstand:</strong> Anonyme Zähler, welche Rechenaufgaben bereits sicher im Kopf gelöst wurden oder noch gezielt wiederholt werden sollten.</li>
+            <li><strong>Ton-Einstellung:</strong> Ob die Soundeffekte ein- oder ausgeschaltet sind.</li>
+          </ul>
+          <div id="gdpr-storage-status" style="margin-top: 0.55rem; padding: 0.45rem 0.65rem; background: #FFFFFF; border: 1px solid #CBD5E1; border-radius: 0.65rem; font-size: 0.76rem; font-weight: 700; color: #475569;">
+            Speicherstatus wird geprüft...
+          </div>
+        </div>
+
+        <!-- 4. Hinweis für Eltern beim Teilen / Hosten -->
+        <div class="gdpr-info-card" style="background: #EFF6FF; border-color: #BFDBFE;">
+          <h3 class="font-display" style="margin: 0 0 0.35rem; font-size: 0.98rem; font-weight: 800; color: #1E3A8A;">
+            3. Hinweis für Eltern beim Teilen &amp; Hosten der Datei
+          </h3>
+          <p style="margin: 0; font-weight: 600; color: #1E40AF;">
+            Wenn Sie diese Einzeldatei (<code>index.html</code>) direkt per Messenger/E-Mail teilen und lokal auf dem Tablet oder Smartphone öffnen, findet überhaupt keine Internetübertragung statt. Falls Sie die Datei über einen Webhoster bereitstellen, verarbeitet der jeweilige Hosting-Anbieter beim Abruf technisch bedingt Verbindungsdaten (z. B. IP-Adresse in Server-Logs); die App selbst sendet keinerlei Daten zurück.
+          </p>
+        </div>
+
+        <!-- 5. Recht auf Löschung (Art. 17 DSGVO) -->
+        <div class="danger-zone">
+          <div>
+            <div class="font-display" style="font-weight: 800; font-size: 0.95rem; color: #881337;">
+              Recht auf Löschung (Art. 17 DSGVO)
+            </div>
+            <div style="font-size: 0.78rem; font-weight: 600; color: #9F1239;">
+              Entfernt den Eintrag <code>mathe_rakete_2klasse_dsgvo_v1</code> restlos aus dem Browser dieses Geräts.
+            </div>
+          </div>
+          <div id="privacy-delete-controls" style="display: flex; align-items: center; gap: 0.45rem; flex-wrap: wrap;">
+            <button onclick="showDeleteConfirmation('privacy-delete-controls')" class="btn-toy shadow-toy-coral" style="background: #E11D48; color: #FFFFFF; font-weight: 800; font-size: 0.8rem; padding: 0.55rem 0.9rem; border-radius: 0.85rem;">
+              🗑️ Alle lokalen Lerndaten sofort löschen
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== APP-LOGIK (100 % LOKAL & ROBUST) ==================== -->
+  <script>
+    // =========================================================================
+    // 1. PÄDAGOGISCHE AUFGABENLISTEN & STICKER-BELOHNUNGEN
+    // =========================================================================
+    const CORE_36_TASKS = [];
+    for (let a = 2; a <= 9; a++) {
+      for (let b = 2; b <= 9; b++) {
+        if (a + b > 10) {
+          CORE_36_TASKS.push({ key: `${a}+${b}`, a, b, sum: a + b });
+        }
+      }
+    }
+
+    const VERLIEBTE_PAIRS = [];
+    for (let a = 0; a <= 10; a++) {
+      VERLIEBTE_PAIRS.push({ key: `${a}+${10 - a}`, a, b: 10 - a });
+    }
+
+    const STICKERS = [
+      { id: 1, name: 'Weltraum-Fuchs', emoji: '🦊', desc: 'Erster Start ins Zahlen-All!' },
+      { id: 2, name: 'Sternen-Astronaut', emoji: '🧑‍🚀', desc: 'Bereit für große Sprünge!' },
+      { id: 3, name: '⚡ Blitz-Gepard', emoji: '🐆', desc: 'Schnell wie ein Lichtblitz!' },
+      { id: 4, name: 'Kluge Kosmos-Eule', emoji: '🦉', desc: 'Kennt jeden Rechentrick!' },
+      { id: 5, name: '🔥 Turbo-Rakete', emoji: '🚀', desc: 'Mit voller Antriebskraft voraus!' },
+      { id: 6, name: 'Galaxie-Delfin', emoji: '🐬', desc: 'Eleganter Zehner-Sprung!' },
+      { id: 7, name: '🔥 Supernova-Drache', emoji: '🐉', desc: 'Feuer & Flamme für Mathe!' },
+      { id: 8, name: 'Planeten-Löwe', emoji: '🦁', desc: 'König im Hunderterraum!' },
+      { id: 9, name: 'Kometen-Einhorn', emoji: '🦄', desc: 'Magische Kopfrechen-Kraft!' },
+      { id: 10, name: '⚡ Lichtgeschwindigkeits-Roboter', emoji: '🤖', desc: 'Rechnet schneller als ein Computer!' },
+      { id: 11, name: 'Mond-Eisbär', emoji: '🐻‍❄️', desc: 'Immer cool und fehlerfrei!' },
+      { id: 12, name: '👑 Galaxie-Champion', emoji: '👑', desc: 'Größter Mathe-Star der 2. Klasse!' }
+    ];
+
+    // =========================================================================
+    // 2. DSGVO-KONFORME LOKALE SPEICHERUNG MIT RAM-FALLBACK
+    // =========================================================================
+    const STORAGE_KEY = 'mathe_rakete_2klasse_dsgvo_v1';
+    const LEGACY_KEYS = ['mathe_rakete_2klasse_v1'];
+    let isLocalStorageAvailable = false;
+
+    function createBlankProfile() {
+      return {
+        stars: 0,
+        totalSolved: 0,
+        totalBlitz: 0,
+        bestTurboStreak: 0,
+        coreStats: {},
+        verliebteStats: {}
+      };
+    }
+
+    let appState = {
+      soundEnabled: true,
+      activeProfile: createBlankProfile()
+    };
+
+    // Aktueller Spiel- & Runden-Zustand (ausschließlich im Arbeitsspeicher)
+    let currentMode = null;
+    let currentTask = null;
+    let userInput = '';
+    let taskStartTime = 0;
+    let hadMistakeOnCurrent = false;
+    let usedHelpOnCurrent = false;
+    let helpVisible = false;
+    let forcedCoreKey = null;
+
+    let turboStreak = 0;
+    let roundTaskIndex = 0;
+    let roundResults = [];
+    let roundStarsEarned = 0;
+    let roundBlitzCount = 0;
+    let roundBestStreak = 0;
+    let pendingRoundSummary = false;
+
+    function detectStorageAvailability() {
+      try {
+        const testKey = '__mathe_rakete_storage_test__';
+        window.localStorage.setItem(testKey, '1');
+        window.localStorage.removeItem(testKey);
+        isLocalStorageAvailable = true;
+      } catch (e) {
+        isLocalStorageAvailable = false;
+      }
+      return isLocalStorageAvailable;
+    }
+
+    function loadProgress() {
+      detectStorageAvailability();
+      if (!isLocalStorageAvailable) return;
+
+      try {
+        // Alte Schlüssel aus Vorgängerversionen bereinigen / migrieren, um Datensparsamkeit zu wahren
+        let raw = window.localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
+          for (const oldKey of LEGACY_KEYS) {
+            const legacyRaw = window.localStorage.getItem(oldKey);
+            if (legacyRaw) {
+              raw = legacyRaw;
+              window.localStorage.setItem(STORAGE_KEY, legacyRaw);
+              window.localStorage.removeItem(oldKey);
+              break;
+            }
+          }
+        }
+
+        if (!raw) return;
+        const parsed = JSON.parse(raw);
+        if (typeof parsed.soundEnabled === 'boolean') {
+          appState.soundEnabled = parsed.soundEnabled;
+        }
+        if (parsed.activeProfile && typeof parsed.activeProfile === 'object') {
+          appState.activeProfile = {
+            ...createBlankProfile(),
+            ...parsed.activeProfile
+          };
+        }
+      } catch (err) {
+        // Fallback: App läuft problemlos im Arbeitsspeicher weiter
+      }
+    }
+
+    function persistProgress() {
+      updateGlobalUI();
+      if (!isLocalStorageAvailable) return;
+
+      try {
+        // Es werden ausschließlich anonyme Lern- und Einstellungsdaten gespeichert
+        const minimalPayload = {
+          soundEnabled: Boolean(appState.soundEnabled),
+          activeProfile: {
+            stars: Number(appState.activeProfile.stars) || 0,
+            totalSolved: Number(appState.activeProfile.totalSolved) || 0,
+            totalBlitz: Number(appState.activeProfile.totalBlitz) || 0,
+            bestTurboStreak: Number(appState.activeProfile.bestTurboStreak) || 0,
+            coreStats: appState.activeProfile.coreStats || {},
+            verliebteStats: appState.activeProfile.verliebteStats || {}
+          }
+        };
+        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(minimalPayload));
+      } catch (err) {
+        // Bei vollem Speicher oder Privatmodus kein Abbruch
+      }
+    }
+
+    // =========================================================================
+    // 3. WEB AUDIO SOUND-ENGINE (REIN LOKAL GENERIERT, KEINE AUDIODATEIEN)
+    // =========================================================================
+    let audioCtx = null;
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (Ctx) audioCtx = new Ctx();
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playTone(freq, type = 'sine', duration = 0.14, delay = 0, gainVal = 0.14) {
+      if (!appState.soundEnabled) return;
+      const ctx = getAudioContext();
+      if (!ctx) return;
+
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, ctx.currentTime + delay);
+
+      gain.gain.setValueAtTime(0.001, ctx.currentTime + delay);
+      gain.gain.exponentialRampToValueAtTime(gainVal, ctx.currentTime + delay + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + duration);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(ctx.currentTime + delay);
+      osc.stop(ctx.currentTime + delay + duration + 0.02);
+    }
+
+    function playSoundTap() {
+      playTone(540, 'sine', 0.055, 0, 0.08);
+    }
+
+    function playSoundSuccess(isBlitz = false, isTurboActive = false) {
+      playTone(523.25, 'triangle', 0.13, 0, 0.15);
+      playTone(659.25, 'triangle', 0.15, 0.07, 0.15);
+      playTone(783.99, 'triangle', 0.22, 0.14, 0.17);
+      if (isBlitz) playTone(1046.5, 'sine', 0.25, 0.21, 0.18);
+      if (isTurboActive) playTone(1318.5, 'triangle', 0.28, 0.28, 0.16);
+    }
+
+    function playSoundTurboIgnite() {
+      [523.25, 659.25, 783.99, 1046.5, 1318.5].forEach((n, idx) => {
+        playTone(n, 'triangle', 0.18, idx * 0.07, 0.18);
+      });
+    }
+
+    function playSoundGentleRetry() {
+      playTone(310, 'sine', 0.14, 0, 0.11);
+      playTone(265, 'sine', 0.18, 0.11, 0.11);
+    }
+
+    function playSoundUnlock() {
+      [523.25, 659.25, 783.99, 1046.5, 783.99, 1046.5].forEach((n, idx) => {
+        playTone(n, 'triangle', 0.18, idx * 0.11, 0.18);
+      });
+    }
+
+    function toggleSound() {
+      appState.soundEnabled = !appState.soundEnabled;
+      persistProgress();
+      if (appState.soundEnabled) playSoundTap();
+    }
+
+    // =========================================================================
+    // 4. KONFETTI- & FUNKEN-PARTIKEL-SYSTEM
+    // =========================================================================
+    const confettiCanvas = document.getElementById('confetti-canvas');
+    const confettiCtx = confettiCanvas.getContext('2d');
+    let confettiParticles = [];
+    let confettiAnimId = null;
+
+    function resizeConfetti() {
+      confettiCanvas.width = window.innerWidth;
+      confettiCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeConfetti);
+    resizeConfetti();
+
+    function launchConfetti(count = 60, turboColors = false) {
+      const colors = turboColors
+        ? ['#FFD43B', '#FF922B', '#FF6B6B', '#FCC419', '#FFF3BF']
+        : ['#FFD43B', '#38D9A9', '#FF6B6B', '#339AF0', '#845EF7', '#FFA94D'];
+
+      for (let i = 0; i < count; i++) {
+        confettiParticles.push({
+          x: Math.random() * confettiCanvas.width,
+          y: -15 - Math.random() * 100,
+          w: 7 + Math.random() * 7,
+          h: 6 + Math.random() * 6,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          vx: (Math.random() - 0.5) * 4.8,
+          vy: 2.6 + Math.random() * 4.2,
+          rot: Math.random() * 360,
+          vrot: (Math.random() - 0.5) * 11
+        });
+      }
+      if (!confettiAnimId) animateConfetti();
+    }
+
+    function animateConfetti() {
+      confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+      confettiParticles.forEach((p) => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.rot += p.vrot;
+        p.vy += 0.06;
+
+        confettiCtx.save();
+        confettiCtx.translate(p.x, p.y);
+        confettiCtx.rotate((p.rot * Math.PI) / 180);
+        confettiCtx.fillStyle = p.color;
+        confettiCtx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        confettiCtx.restore();
+      });
+
+      confettiParticles = confettiParticles.filter((p) => p.y < confettiCanvas.height + 30);
+      if (confettiParticles.length > 0) {
+        confettiAnimId = requestAnimationFrame(animateConfetti);
+      } else {
+        confettiAnimId = null;
+      }
+    }
+
+    function spawnFlyingStarBadge(text = '+2 ⭐') {
+      const anchor = document.getElementById('flying-star-anchor');
+      if (!anchor) return;
+      const badge = document.createElement('div');
+      badge.className = 'animate-fly-star font-display';
+      badge.style.cssText = 'font-weight: 800; font-size: 1.75rem; color: #F59E0B; text-shadow: 0 2px 6px rgba(0,0,0,0.18); white-space: nowrap;';
+      badge.textContent = text;
+      anchor.appendChild(badge);
+      setTimeout(() => badge.remove(), 1000);
+    }
+
+    // =========================================================================
+    // 5. AUFGABEN-GENERIERUNG & ADAPTIVE WIEDERHOLUNG
+    // =========================================================================
+    function getCoreStat(key) {
+      const prof = appState.activeProfile;
+      if (!prof.coreStats) prof.coreStats = {};
+      if (!prof.coreStats[key]) {
+        prof.coreStats[key] = {
+          attempts: 0,
+          correct: 0,
+          fastCount: 0,
+          mastery: 0, // 0 = offen, 1 = üben, 2 = richtig, 3 = Blitz-Ass
+          weight: 5
+        };
+      }
+      return prof.coreStats[key];
+    }
+
+    function pickAdaptiveCoreTask(excludeKey = null) {
+      if (forcedCoreKey) {
+        const found = CORE_36_TASKS.find((t) => t.key === forcedCoreKey);
+        forcedCoreKey = null;
+        if (found) return found;
+      }
+
+      const pool = CORE_36_TASKS.filter((t) => t.key !== excludeKey);
+      let totalWeight = 0;
+      const weighted = pool.map((t) => {
+        const st = getCoreStat(t.key);
+        const w = Math.max(1, st.weight);
+        totalWeight += w;
+        return { task: t, w };
+      });
+
+      let r = Math.random() * totalWeight;
+      for (const item of weighted) {
+        r -= item.w;
+        if (r <= 0) return item.task;
+      }
+      return weighted[0].task;
+    }
+
+    function generateTaskForMode(mode) {
+      const prevKey = currentTask ? currentTask.key : null;
+      const verliebteStats = appState.activeProfile.verliebteStats || {};
+
+      if (mode === 'verliebte') {
+        const pool = VERLIEBTE_PAIRS.filter((p) => p.key !== prevKey);
+        const unmastered = pool.filter((p) => !verliebteStats[p.key]?.mastered);
+        const source = unmastered.length > 0 && Math.random() < 0.75 ? unmastered : pool;
+        const pair = source[Math.floor(Math.random() * source.length)];
+
+        const variant = Math.floor(Math.random() * 3);
+        let answer = pair.b;
+        if (variant === 1) answer = pair.a;
+
+        return {
+          mode: 'verliebte',
+          key: pair.key,
+          a: pair.a,
+          b: pair.b,
+          variant,
+          answer,
+          blitzThresholdSec: 4.5
+        };
+      }
+
+      if (mode === 'grundaufgaben') {
+        const core = pickAdaptiveCoreTask(prevKey);
+        return {
+          mode: 'grundaufgaben',
+          key: core.key,
+          a: core.a,
+          b: core.b,
+          answer: core.sum,
+          blitzThresholdSec: 4.5
+        };
+      }
+
+      if (mode === 'bis100_ohne') {
+        const subType = Math.floor(Math.random() * 3);
+        if (subType === 0) {
+          const z1 = (1 + Math.floor(Math.random() * 8)) * 10;
+          const maxZ2 = Math.floor((100 - z1) / 10);
+          const z2 = (1 + Math.floor(Math.random() * maxZ2)) * 10;
+          return { mode: 'bis100_ohne', subType, a: z1, b: z2, answer: z1 + z2, blitzThresholdSec: 6.0 };
+        } else if (subType === 1) {
+          const tens = (1 + Math.floor(Math.random() * 8)) * 10;
+          const e1 = 1 + Math.floor(Math.random() * 7);
+          const maxE2 = 9 - e1;
+          const e2 = 1 + Math.floor(Math.random() * maxE2);
+          const a = tens + e1;
+          return { mode: 'bis100_ohne', subType, a, b: e2, answer: a + e2, blitzThresholdSec: 6.0 };
+        } else {
+          const tens1 = (1 + Math.floor(Math.random() * 6)) * 10;
+          const e1 = 1 + Math.floor(Math.random() * 9);
+          const maxTens2 = Math.floor((90 - tens1) / 10);
+          const tens2 = (1 + Math.floor(Math.random() * Math.max(1, maxTens2))) * 10;
+          const a = tens1 + e1;
+          return { mode: 'bis100_ohne', subType, a, b: tens2, answer: a + tens2, blitzThresholdSec: 6.0 };
+        }
+      }
+
+      if (mode === 'zwillinge') {
+        const core = pickAdaptiveCoreTask(prevKey);
+        const tens = (2 + Math.floor(Math.random() * 6)) * 10;
+        return {
+          mode: 'zwillinge',
+          key: core.key,
+          step: 1,
+          miniA: core.a,
+          miniB: core.b,
+          miniAnswer: core.sum,
+          tens,
+          maxiA: tens + core.a,
+          maxiB: core.b,
+          maxiAnswer: tens + core.sum,
+          answer: core.sum,
+          blitzThresholdSec: 4.5,
+          miniWasBlitz: false
+        };
+      }
+
+      if (mode === 'bis100_mit') {
+        const core = pickAdaptiveCoreTask(prevKey);
+        const tens = (2 + Math.floor(Math.random() * 6)) * 10;
+        return {
+          mode: 'bis100_mit',
+          key: core.key,
+          coreA: core.a,
+          coreB: core.b,
+          coreSum: core.sum,
+          tens,
+          a: tens + core.a,
+          b: core.b,
+          answer: tens + core.sum,
+          blitzThresholdSec: 6.0
+        };
+      }
+    }
+
+    // =========================================================================
+    // 6. TURBO-KOMBO & GLOBALE UI-AKTUALISIERUNG
+    // =========================================================================
+    function updateTurboAndRoundUI() {
+      const isTurbo = turboStreak >= 3;
+      const clampedSteps = Math.min(3, turboStreak);
+      const turboBar = document.getElementById('turbo-bar-card');
+      const taskCard = document.getElementById('task-card');
+
+      if (currentMode && isTurbo) {
+        document.body.classList.add('turbo-active');
+        turboBar.classList.add('turbo-card-glow');
+        turboBar.style.borderColor = '#FBBF24';
+        taskCard.style.borderColor = '#FBBF24';
+      } else {
+        document.body.classList.remove('turbo-active');
+        turboBar.classList.remove('turbo-card-glow');
+        turboBar.style.borderColor = '#BAE6FD';
+        taskCard.style.borderColor = '#BAE6FD';
+      }
+
+      const rocketEl = document.getElementById('turbo-rocket-emoji');
+      const flameEl = document.getElementById('turbo-flame');
+      const rocketBox = document.getElementById('rocket-container');
+
+      if (turboStreak === 0) {
+        rocketEl.className = '';
+        rocketEl.style.transform = 'translateY(0) scale(1)';
+        flameEl.className = '';
+        flameEl.style.cssText = 'font-size: 0.8rem; line-height: 1; margin-top: -2px; opacity: 0.35; transform: scale(0.8);';
+        flameEl.textContent = '🔥';
+        rocketBox.style.background = 'linear-gradient(180deg, #1E1B4B 0%, #0F172A 55%, #0C4A6E 100%)';
+        rocketBox.style.borderColor = '#38BDF8';
+      } else if (turboStreak === 1) {
+        rocketEl.className = '';
+        rocketEl.style.transform = 'translateY(-2px) scale(1.03)';
+        flameEl.className = 'animate-flame';
+        flameEl.style.cssText = 'font-size: 0.9rem; line-height: 1; margin-top: -2px; opacity: 0.85;';
+        flameEl.textContent = '🔥';
+        rocketBox.style.background = 'linear-gradient(180deg, #1E1B4B 0%, #0F172A 50%, #7C2D12 100%)';
+        rocketBox.style.borderColor = '#FDBA74';
+      } else if (turboStreak === 2) {
+        rocketEl.className = '';
+        rocketEl.style.transform = 'translateY(-4px) scale(1.07)';
+        flameEl.className = 'animate-flame';
+        flameEl.style.cssText = 'font-size: 1.05rem; line-height: 1; margin-top: -2px; opacity: 1;';
+        flameEl.textContent = '🔥';
+        rocketBox.style.background = 'linear-gradient(180deg, #3B0764 0%, #7C2D12 55%, #B45309 100%)';
+        rocketBox.style.borderColor = '#FBBF24';
+      } else {
+        rocketEl.className = 'animate-rocket-boost';
+        flameEl.className = 'animate-flame';
+        flameEl.style.cssText = 'font-size: 1.15rem; line-height: 1; margin-top: -2px; opacity: 1;';
+        flameEl.textContent = '🔥🔥';
+        rocketBox.style.background = 'linear-gradient(180deg, #F59E0B 0%, #EA580C 55%, #E11D48 100%)';
+        rocketBox.style.borderColor = '#FDE047';
+      }
+
+      const statusTitle = document.getElementById('turbo-status-title');
+      const activePill = document.getElementById('turbo-active-pill');
+      if (isTurbo) {
+        statusTitle.textContent = `Turbo-Serie: ${turboStreak}× ⚡`;
+        statusTitle.style.color = '#C2410C';
+        activePill.classList.remove('hidden');
+      } else {
+        statusTitle.textContent = `Turbo-Kombo: ${clampedSteps} / 3`;
+        statusTitle.style.color = '#1E293B';
+        activePill.classList.add('hidden');
+      }
+
+      for (let i = 1; i <= 3; i++) {
+        const seg = document.getElementById(`combo-step-${i}`);
+        if (i <= clampedSteps) {
+          seg.className = 'combo-seg active';
+          seg.textContent = '⚡';
+        } else {
+          seg.className = 'combo-seg';
+          seg.textContent = '';
+        }
+      }
+
+      const displayRoundNum = Math.min(10, roundTaskIndex + 1);
+      document.getElementById('round-counter-text').textContent = displayRoundNum;
+
+      const dotsContainer = document.getElementById('round-dots');
+      let dotsHtml = '';
+      for (let i = 0; i < 10; i++) {
+        if (i < roundResults.length) {
+          if (roundResults[i] === 'blitz') {
+            dotsHtml += `<span style="width: 11px; height: 11px; border-radius: 999px; background: #FB923C; box-shadow: 0 0 0 2px #FDE68A;" title="Blitz-Antwort"></span>`;
+          } else {
+            dotsHtml += `<span style="width: 11px; height: 11px; border-radius: 999px; background: #34D399;" title="Gelöst"></span>`;
+          }
+        } else if (i === roundTaskIndex) {
+          dotsHtml += `<span class="animate-pulse" style="width: 13px; height: 13px; border-radius: 999px; background: #0284C7; box-shadow: 0 0 0 2px #BAE6FD;"></span>`;
+        } else {
+          dotsHtml += `<span style="width: 9px; height: 9px; border-radius: 999px; background: #CBD5E1;"></span>`;
+        }
+      }
+      dotsContainer.innerHTML = dotsHtml;
+    }
+
+    function updateGlobalUI() {
+      const prof = appState.activeProfile;
+
+      document.getElementById('header-stars').textContent = prof.stars || 0;
+      document.getElementById('header-blitz').textContent = prof.totalBlitz || 0;
+      document.getElementById('btn-sound').textContent = appState.soundEnabled ? '🔊' : '🔇';
+
+      const stars = prof.stars || 0;
+      const unlockedCount = Math.min(STICKERS.length, Math.floor(stars / 10));
+      const starsInCurrentTier = stars % 10;
+      const allUnlocked = unlockedCount >= STICKERS.length;
+
+      document.getElementById('home-sticker-progress-text').textContent = allUnlocked
+        ? 'Alle geschafft! 🎉'
+        : `${starsInCurrentTier} / 10 ⭐`;
+      document.getElementById('home-sticker-progress-bar').style.width = allUnlocked
+        ? '100%'
+        : `${starsInCurrentTier * 10}%`;
+      document.getElementById('home-unlocked-count').textContent = `${unlockedCount} von ${STICKERS.length} Stickern`;
+
+      const nextSticker = STICKERS[Math.min(unlockedCount, STICKERS.length - 1)];
+      document.getElementById('home-next-sticker-icon').textContent = nextSticker.emoji;
+
+      const coreStats = prof.coreStats || {};
+      const verliebteStats = prof.verliebteStats || {};
+
+      const blitzAssCount = CORE_36_TASKS.filter((t) => (coreStats[t.key]?.mastery || 0) === 3).length;
+      const safeCount = CORE_36_TASKS.filter((t) => (coreStats[t.key]?.mastery || 0) >= 2).length;
+      document.getElementById('badge-grundaufgaben').textContent =
+        blitzAssCount > 0 ? `⚡ ${blitzAssCount}/36 Blitz` : `${safeCount}/36 sicher`;
+
+      const masteredVerliebte = VERLIEBTE_PAIRS.filter((p) => verliebteStats[p.key]?.mastered).length;
+      document.getElementById('badge-verliebte').textContent = `${masteredVerliebte}/11`;
+    }
+
+    // =========================================================================
+    // 7. NAVIGATION & SPIELABLAUF
+    // =========================================================================
+    function resetRoundTracking() {
+      roundTaskIndex = 0;
+      roundResults = [];
+      roundStarsEarned = 0;
+      roundBlitzCount = 0;
+      roundBestStreak = 0;
+      pendingRoundSummary = false;
+    }
+
+    function goHome() {
+      playSoundTap();
+      currentMode = null;
+      turboStreak = 0;
+      document.body.classList.remove('turbo-active');
+      document.getElementById('view-game').classList.add('hidden');
+      document.getElementById('view-home').classList.remove('hidden');
+      document.getElementById('btn-home').classList.add('hidden');
+      document.getElementById('brand-badge').classList.remove('hidden');
+      updateGlobalUI();
+    }
+
+    const MODE_META = {
+      verliebte: {
+        icon: '❤️',
+        title: 'Verliebte Zahlen',
+        subtitle: 'Welche Zahl fehlt bis zur 10?',
+        helpLabel: 'Zehnerfeld zeigen'
+      },
+      grundaufgaben: {
+        icon: '🚀',
+        title: 'Grundaufgaben bis 20',
+        subtitle: 'Zehnerübergang blitzschnell im Kopf',
+        helpLabel: 'Rechentrick zeigen'
+      },
+      bis100_ohne: {
+        icon: '🌟',
+        title: 'Bis 100 ohne Übergang',
+        subtitle: 'Zehner und Einer sicher addieren',
+        helpLabel: 'Zehner & Einer zeigen'
+      },
+      zwillinge: {
+        icon: '👯',
+        title: 'Aufgaben-Zwillinge',
+        subtitle: 'Erst Mini, dann Maxi rechnen',
+        helpLabel: 'Zwillings-Trick zeigen'
+      },
+      bis100_mit: {
+        icon: '🏆',
+        title: 'Bis 100 mit Zehnerübergang',
+        subtitle: 'Nutze die Grundaufgabe als Brücke!',
+        helpLabel: 'Grundaufgabe zeigen'
+      }
+    };
+
+    function startMode(mode) {
+      playSoundTap();
+      currentMode = mode;
+      turboStreak = 0;
+      resetRoundTracking();
+
+      const meta = MODE_META[mode];
+      document.getElementById('game-mode-icon').textContent = meta.icon;
+      document.getElementById('game-mode-title').textContent = meta.title;
+      document.getElementById('game-mode-subtitle').textContent = meta.subtitle;
+      document.getElementById('btn-help-label').textContent = meta.helpLabel;
+
+      document.getElementById('view-home').classList.add('hidden');
+      document.getElementById('view-game').classList.remove('hidden');
+      document.getElementById('btn-home').classList.remove('hidden');
+      document.getElementById('brand-badge').classList.add('hidden');
+
+      nextTask();
+    }
+
+    function nextTask() {
+      userInput = '';
+      hadMistakeOnCurrent = false;
+      usedHelpOnCurrent = false;
+      helpVisible = false;
+      document.getElementById('help-panel').classList.add('hidden');
+
+      currentTask = generateTaskForMode(currentMode);
+      taskStartTime = performance.now();
+
+      setFeedback('Tippe dein Ergebnis unten ein! 👇', 'neutral');
+      updateTurboAndRoundUI();
+      renderTaskStage();
+    }
+
+    // =========================================================================
+    // 8. DARSTELLUNG DER AUFGABEN & VISUELLEN RECHENHILFEN
+    // =========================================================================
+    function renderAnswerBox(valueStr, isActive = true) {
+      const displayVal = valueStr === '' ? '?' : valueStr;
+      const textColor = valueStr === '' ? '#38BDF8' : '#0F172A';
+      return `<span id="active-answer-box" class="answer-box ${isActive ? 'input-active' : ''}" style="color: ${textColor};">${displayVal}</span>`;
+    }
+
+    function renderTaskStage() {
+      const stage = document.getElementById('task-stage');
+      const t = currentTask;
+
+      if (t.mode === 'verliebte') {
+        let html = '';
+        if (t.variant === 0) html = `${t.a} + ${renderAnswerBox(userInput)} = 10`;
+        else if (t.variant === 1) html = `${renderAnswerBox(userInput)} + ${t.b} = 10`;
+        else html = `10 = ${t.a} + ${renderAnswerBox(userInput)}`;
+
+        stage.innerHTML = `
+          <div style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase; color: #E11D48; background: #FFF1F2; padding: 0.25rem 0.75rem; border-radius: 999px; margin-bottom: 0.7rem;">
+            ❤️ Verliebte Zahlen ergeben immer 10
+          </div>
+          <div class="equation-row">${html}</div>
+        `;
+      } else if (t.mode === 'grundaufgaben') {
+        const st = getCoreStat(t.key);
+        const topBadge =
+          st.mastery === 3
+            ? `<span style="background: #DCFCE7; color: #166534; font-size: 0.74rem; font-weight: 800; padding: 0.25rem 0.75rem; border-radius: 999px;">⚡ Dein Blitz-Ass! Kannst du es wiederholen?</span>`
+            : `<span style="background: #E0F2FE; color: #075985; font-size: 0.74rem; font-weight: 800; padding: 0.25rem 0.75rem; border-radius: 999px;">⚡ Schnell im Kopf lösen = Blitz-Antwort!</span>`;
+
+        stage.innerHTML = `
+          <div style="margin-bottom: 0.7rem;">${topBadge}</div>
+          <div class="equation-row">
+            <span>${t.a}</span>
+            <span style="color: #339AF0;">+</span>
+            <span>${t.b}</span>
+            <span style="color: #94A3B8;">=</span>
+            ${renderAnswerBox(userInput)}
+          </div>
+        `;
+      } else if (t.mode === 'bis100_ohne') {
+        stage.innerHTML = `
+          <div style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase; color: #047857; background: #ECFDF5; padding: 0.25rem 0.75rem; border-radius: 999px; margin-bottom: 0.7rem;">
+            🌟 Kein Zehnerübergang
+          </div>
+          <div class="equation-row">
+            <span>${t.a}</span>
+            <span style="color: #099268;">+</span>
+            <span>${t.b}</span>
+            <span style="color: #94A3B8;">=</span>
+            ${renderAnswerBox(userInput)}
+          </div>
+        `;
+      } else if (t.mode === 'zwillinge') {
+        const miniSolved = t.step === 2;
+        const miniRow = `
+          <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.5rem 0.85rem; border-radius: 1rem; ${
+            miniSolved
+              ? 'background: #ECFDF5; border: 1.5px solid #A7F3D0;'
+              : 'background: #FAF5FF; border: 2px solid #DDD6FE;'
+          }">
+            <span style="font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: #6D28D9; background: #FFFFFF; padding: 0.15rem 0.45rem; border-radius: 0.45rem;">Mini</span>
+            <span class="font-display" style="font-weight: 800; font-size: 1.85rem; color: #1E293B;">
+              <span style="color: #FF6B6B;">${t.miniA}</span> + <span style="color: #FF6B6B;">${t.miniB}</span> =
+            </span>
+            ${
+              miniSolved
+                ? `<span class="font-display" style="font-weight: 800; font-size: 1.85rem; color: #047857;">1<span style="color: #FF6B6B; text-decoration: underline;">${t.miniAnswer - 10}</span> ✓</span>`
+                : renderAnswerBox(userInput, true)
+            }
+          </div>
+        `;
+
+        const maxiRow = miniSolved
+          ? `
+            <div class="animate-pop" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.6rem 0.85rem; border-radius: 1rem; background: #FFFBEB; border: 2px solid #FCD34D; margin-top: 0.6rem;">
+              <span style="font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: #92400E; background: #FFFFFF; padding: 0.15rem 0.45rem; border-radius: 0.45rem;">Maxi</span>
+              <span class="font-display" style="font-weight: 800; font-size: 2.15rem; color: #1E293B;">
+                <span>${t.tens / 10}</span><span style="color: #FF6B6B;">${t.miniA}</span> + <span style="color: #FF6B6B;">${t.miniB}</span> =
+              </span>
+              ${renderAnswerBox(userInput, true)}
+            </div>
+          `
+          : `
+            <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.45rem 0.85rem; border-radius: 1rem; background: #F1F5F9; border: 1.5px dashed #CBD5E1; opacity: 0.65; margin-top: 0.6rem;">
+              <span style="font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: #64748B; background: #FFFFFF; padding: 0.15rem 0.45rem; border-radius: 0.45rem;">Maxi</span>
+              <span class="font-display" style="font-weight: 800; font-size: 1.5rem; color: #64748B;">
+                ${t.maxiA} + ${t.maxiB} = ?
+              </span>
+            </div>
+          `;
+
+        stage.innerHTML = `<div style="width: 100%; max-width: 440px; margin: 0 auto;">${miniRow}${maxiRow}</div>`;
+      } else if (t.mode === 'bis100_mit') {
+        const tensDigit = Math.floor(t.a / 10);
+        stage.innerHTML = `
+          <div style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase; color: #92400E; background: #FEF3C7; padding: 0.25rem 0.75rem; border-radius: 999px; margin-bottom: 0.7rem;">
+            🏆 Profi-Aufgabe mit Zehnerübergang
+          </div>
+          <div class="equation-row">
+            <span>${tensDigit}<span style="color: #FF6B6B;">${t.coreA}</span></span>
+            <span style="color: #F59E0B;">+</span>
+            <span style="color: #FF6B6B;">${t.coreB}</span>
+            <span style="color: #94A3B8;">=</span>
+            ${renderAnswerBox(userInput)}
+          </div>
+        `;
+      }
+
+      if (helpVisible) renderHelpContent();
+    }
+
+    function toggleHelp() {
+      playSoundTap();
+      helpVisible = !helpVisible;
+      if (helpVisible) usedHelpOnCurrent = true;
+      const panel = document.getElementById('help-panel');
+      if (helpVisible) {
+        panel.classList.remove('hidden');
+        renderHelpContent();
+      } else {
+        panel.classList.add('hidden');
+      }
+    }
+
+    function renderHelpContent() {
+      const panel = document.getElementById('help-panel');
+      const t = currentTask;
+
+      if (t.mode === 'verliebte') {
+        let dotsHtml = '';
+        for (let i = 0; i < 10; i++) {
+          const isFirstPart = i < t.a;
+          const mr = i === 4 ? 'margin-right: 10px;' : '';
+          dotsHtml += `
+            <div style="width: 26px; height: 26px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 11px; ${mr} ${
+              isFirstPart
+                ? 'background: #FF6B6B; border: 2px solid #C92A2A; color: #FFFFFF;'
+                : 'background: #E0F2FE; border: 2px dashed #339AF0; color: #1864AB;'
+            }">
+              ${isFirstPart ? '●' : '?'}
+            </div>
+          `;
+        }
+        panel.innerHTML = `
+          <div style="text-align: center;">
+            <p style="margin: 0 0 0.45rem; font-size: 0.8rem; font-weight: 800; color: #334155;">
+              Zehnerfeld: <span style="color: #FF6B6B;">${t.a} rote Punkte</span> sind da – wie viele <span style="color: #0284C7;">blaue Plätze</span> sind frei bis 10?
+            </p>
+            <div style="display: inline-flex; align-items: center; justify-content: center; gap: 5px; background: #FFFFFF; padding: 0.45rem 0.6rem; border-radius: 0.85rem; border: 1px solid #BAE6FD; flex-wrap: wrap;">
+              ${dotsHtml}
+            </div>
+          </div>
+        `;
+      } else if (t.mode === 'grundaufgaben') {
+        const toTen = 10 - t.a;
+        const rest = t.b - toTen;
+
+        let row1 = '';
+        for (let i = 0; i < 10; i++) {
+          const isRed = i < t.a;
+          const mr = i === 4 ? 'margin-right: 8px;' : '';
+          row1 += `<span style="width: 20px; height: 20px; border-radius: 999px; display: inline-block; ${mr} background: ${isRed ? '#FF6B6B' : '#339AF0'};"></span>`;
+        }
+        let row2 = '';
+        for (let i = 0; i < 10; i++) {
+          const isMint = i < rest;
+          const mr = i === 4 ? 'margin-right: 8px;' : '';
+          row2 += `<span style="width: 20px; height: 20px; border-radius: 999px; display: inline-block; ${mr} background: ${isMint ? '#099268' : '#E2E8F0'};"></span>`;
+        }
+
+        panel.innerHTML = `
+          <div style="text-align: center; display: flex; flex-direction: column; gap: 0.45rem;">
+            <div style="font-size: 0.8rem; font-weight: 800; color: #1E293B;">
+              💡 Rechentrick „Stopp bei der 10“:
+            </div>
+            <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.4rem; font-size: 0.78rem; font-weight: 700;">
+              <span style="background: #FFFFFF; padding: 0.25rem 0.6rem; border-radius: 0.65rem; border: 1px solid #BAE6FD;">
+                1. Erst bis zur 10: <span style="color: #FF6B6B;">${t.a}</span> + <span style="color: #0284C7;">${toTen}</span> = <strong>10</strong>
+              </span>
+              <span style="background: #FFFFFF; padding: 0.25rem 0.6rem; border-radius: 0.65rem; border: 1px solid #BAE6FD;">
+                2. Dann den Rest dazu: <strong>10</strong> + <span style="color: #099268;">${rest}</span> = <strong>?</strong>
+              </span>
+            </div>
+            <div style="display: inline-flex; flex-direction: column; gap: 5px; background: #FFFFFF; padding: 0.45rem 0.6rem; border-radius: 0.85rem; border: 1px solid #BAE6FD; margin: 0 auto;">
+              <div style="display: flex; gap: 4px; justify-content: center;">${row1}</div>
+              <div style="display: flex; gap: 4px; justify-content: center;">${row2}</div>
+            </div>
+          </div>
+        `;
+      } else if (t.mode === 'bis100_ohne') {
+        const z1 = Math.floor(t.a / 10);
+        const e1 = t.a % 10;
+        const z2 = Math.floor(t.b / 10);
+        const e2 = t.b % 10;
+
+        const renderBlocks = (z, e, zColor, eColor) => {
+          let html = '<div style="display: flex; align-items: flex-end; gap: 3px;">';
+          for (let i = 0; i < z; i++) {
+            html += `<div style="width: 10px; height: 38px; border-radius: 3px; background: ${zColor};" title="Zehnerstange"></div>`;
+          }
+          if (e > 0) {
+            html += '<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; margin-left: 4px;">';
+            for (let i = 0; i < e; i++) {
+              html += `<div style="width: 10px; height: 10px; border-radius: 2px; background: ${eColor};" title="Einerwürfel"></div>`;
+            }
+            html += '</div>';
+          }
+          html += '</div>';
+          return html;
+        };
+
+        panel.innerHTML = `
+          <div style="text-align: center;">
+            <p style="margin: 0 0 0.45rem; font-size: 0.8rem; font-weight: 800; color: #334155;">
+              Zähle einfach <span style="color: #D97706;">Zehnerstangen</span> und <span style="color: #0284C7;">Einerwürfel</span> zusammen:
+            </p>
+            <div style="display: inline-flex; align-items: center; justify-content: center; gap: 0.85rem; background: #FFFFFF; padding: 0.5rem 0.85rem; border-radius: 0.85rem; border: 1px solid #BAE6FD; flex-wrap: wrap;">
+              <div style="text-align: center;">
+                ${renderBlocks(z1, e1, '#FBBF24', '#339AF0')}
+                <div style="font-size: 0.75rem; font-weight: 800; color: #475569; margin-top: 3px;">${t.a}</div>
+              </div>
+              <span class="font-display" style="font-weight: 800; font-size: 1.25rem; color: #94A3B8;">+</span>
+              <div style="text-align: center;">
+                ${renderBlocks(z2, e2, '#FB923C', '#099268')}
+                <div style="font-size: 0.75rem; font-weight: 800; color: #475569; margin-top: 3px;">${t.b}</div>
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (t.mode === 'zwillinge') {
+        panel.innerHTML = `
+          <div style="text-align: center; font-size: 0.8rem; font-weight: 700; color: #334155;">
+            <p style="margin: 0 0 0.25rem;">👯 <strong>Zwillings-Trick:</strong> Die roten Einer (<span style="color: #FF6B6B; font-weight: 800;">${t.miniA} + ${t.miniB} = ${t.miniAnswer}</span>) bleiben hinten gleich!</p>
+            <p style="margin: 0;">Bei <strong>${t.maxiA} + ${t.maxiB}</strong> kommt einfach nur der Zehner dazu (aus <strong>${t.tens}</strong> wird <strong>${t.tens + 10}</strong>).</p>
+          </div>
+        `;
+      } else if (t.mode === 'bis100_mit') {
+        panel.innerHTML = `
+          <div style="text-align: center;">
+            <p style="margin: 0 0 0.3rem; font-size: 0.74rem; font-weight: 800; text-transform: uppercase; color: #92400E;">💡 Eselsbrücke über die Grundaufgabe:</p>
+            <div class="font-display" style="display: inline-block; background: #FFFFFF; padding: 0.45rem 0.85rem; border-radius: 0.85rem; border: 2px solid #FCD34D; font-weight: 800; font-size: 0.95rem; color: #1E293B;">
+              Weißt du noch? <span style="color: #FF6B6B;">${t.coreA} + ${t.coreB} = ${t.coreSum}</span>
+              <span style="margin: 0 0.35rem; color: #94A3B8;">➔</span>
+              Dann endet <strong>${t.a} + ${t.b}</strong> auch auf <span style="color: #FF6B6B; text-decoration: underline;">${t.coreSum - 10}</span>!
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    // =========================================================================
+    // 9. EINGABE & AUSWERTUNG
+    // =========================================================================
+    function pressDigit(digit) {
+      playSoundTap();
+      if (userInput.length >= 3) return;
+      userInput = userInput === '0' ? digit : userInput + digit;
+      renderTaskStage();
+    }
+
+    function pressBackspace() {
+      playSoundTap();
+      if (userInput.length > 0) {
+        userInput = userInput.slice(0, -1);
+        renderTaskStage();
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (!currentMode) return;
+      if (!document.getElementById('modal-treasure').classList.contains('hidden')) return;
+      if (!document.getElementById('modal-parent').classList.contains('hidden')) return;
+      if (!document.getElementById('modal-privacy').classList.contains('hidden')) return;
+      if (!document.getElementById('modal-unlock').classList.contains('hidden')) return;
+      if (!document.getElementById('modal-round-summary').classList.contains('hidden')) return;
+
+      if (e.key >= '0' && e.key <= '9') pressDigit(e.key);
+      else if (e.key === 'Backspace') pressBackspace();
+      else if (e.key === 'Enter') {
+        e.preventDefault();
+        submitAnswer();
+      }
+    });
+
+    function setFeedback(text, type = 'neutral') {
+      const el = document.getElementById('feedback-text');
+      el.textContent = text;
+      el.className = 'feedback-pill ';
+
+      if (type === 'success') {
+        el.className += 'animate-pop';
+        el.style.cssText = 'background: #DCFCE7; color: #166534; border: 1.5px solid #86EFAC;';
+      } else if (type === 'blitz') {
+        el.className += 'animate-pop';
+        el.style.cssText = 'background: #FEF3C7; color: #78350F; border: 1.5px solid #FCD34D;';
+      } else if (type === 'turbo') {
+        el.className += 'animate-pop';
+        el.style.cssText = 'background: linear-gradient(90deg, #FFEDD5, #FEF3C7, #FFEDD5); color: #7C2D12; border: 2px solid #FB923C;';
+      } else if (type === 'retry') {
+        el.style.cssText = 'background: #FFEDD5; color: #9A3412; border: 1.5px solid #FDBA74;';
+      } else {
+        el.style.cssText = 'background: transparent; color: #64748B; border: none;';
+      }
+    }
+
+    function submitAnswer() {
+      if (userInput === '') {
+        setFeedback('Tippe zuerst eine Zahl ein! 😊', 'retry');
+        playSoundGentleRetry();
+        return;
+      }
+
+      const numericVal = parseInt(userInput, 10);
+      const elapsedSec = (performance.now() - taskStartTime) / 1000;
+
+      if (numericVal === currentTask.answer) {
+        handleCorrectAnswer(elapsedSec);
+      } else {
+        handleIncorrectAnswer();
+      }
+    }
+
+    function handleIncorrectAnswer() {
+      playSoundGentleRetry();
+      hadMistakeOnCurrent = true;
+
+      if (turboStreak > 0) {
+        turboStreak = 0;
+        updateTurboAndRoundUI();
+      }
+
+      if (currentTask.key && (currentMode === 'grundaufgaben' || currentMode === 'zwillinge' || currentMode === 'bis100_mit')) {
+        const st = getCoreStat(currentTask.key);
+        st.attempts += 1;
+        st.weight = Math.min(15, st.weight + 4);
+        if (st.mastery < 2) st.mastery = 1;
+        persistProgress();
+      }
+
+      const box = document.getElementById('active-answer-box');
+      if (box) {
+        box.classList.remove('animate-wobble');
+        void box.offsetWidth;
+        box.classList.add('animate-wobble');
+        box.style.borderColor = '#FF6B6B';
+        box.style.background = '#FFF1F2';
+      }
+
+      const encouragements = [
+        'Fast! Probier es noch einmal – du schaffst das! 💪',
+        'Knapp daneben! Schau noch einmal genau hin. 🌟',
+        'Noch nicht ganz – nutze gerne oben die Hilfe-Taste! 💡'
+      ];
+      setFeedback(encouragements[Math.floor(Math.random() * encouragements.length)], 'retry');
+      userInput = '';
+      setTimeout(() => {
+        if (currentMode) renderTaskStage();
+      }, 420);
+    }
+
+    function handleCorrectAnswer(elapsedSec) {
+      const prof = appState.activeProfile;
+
+      if (currentMode === 'zwillinge' && currentTask.step === 1) {
+        currentTask.miniWasBlitz = !hadMistakeOnCurrent && !usedHelpOnCurrent && elapsedSec <= 4.5;
+        playSoundSuccess(currentTask.miniWasBlitz, false);
+        currentTask.step = 2;
+        currentTask.answer = currentTask.maxiAnswer;
+        currentTask.blitzThresholdSec = 6.0;
+        userInput = '';
+        taskStartTime = performance.now();
+        setFeedback(
+          currentTask.miniWasBlitz
+            ? '⚡ Blitz-Mini! Jetzt direkt die Maxi-Aufgabe! 👯'
+            : 'Super! Jetzt die große Zwillings-Aufgabe! 👯',
+          'success'
+        );
+        renderTaskStage();
+        return;
+      }
+
+      const isStepBlitz = !hadMistakeOnCurrent && !usedHelpOnCurrent && elapsedSec <= currentTask.blitzThresholdSec;
+      const isBlitz = currentMode === 'zwillinge' ? currentTask.miniWasBlitz && isStepBlitz : isStepBlitz;
+
+      let justIgnitedTurbo = false;
+      if (isBlitz) {
+        turboStreak += 1;
+        if (turboStreak === 3) justIgnitedTurbo = true;
+        if (turboStreak > (prof.bestTurboStreak || 0)) prof.bestTurboStreak = turboStreak;
+        if (turboStreak > roundBestStreak) roundBestStreak = turboStreak;
+      } else {
+        turboStreak = 0;
+      }
+
+      const isTurboActive = turboStreak >= 3;
+
+      if (justIgnitedTurbo) playSoundTurboIgnite();
+      else playSoundSuccess(isBlitz, isTurboActive);
+
+      if (currentTask.mode === 'verliebte') {
+        if (!prof.verliebteStats) prof.verliebteStats = {};
+        const prev = prof.verliebteStats[currentTask.key] || { correct: 0, mastered: false, blitz: false };
+        prev.correct += 1;
+        if (!hadMistakeOnCurrent) prev.mastered = true;
+        if (isBlitz) prev.blitz = true;
+        prof.verliebteStats[currentTask.key] = prev;
+      }
+
+      if (currentTask.key && (currentMode === 'grundaufgaben' || currentMode === 'zwillinge' || currentMode === 'bis100_mit')) {
+        const st = getCoreStat(currentTask.key);
+        st.attempts += 1;
+        st.correct += 1;
+
+        if (!hadMistakeOnCurrent && !usedHelpOnCurrent) {
+          st.weight = Math.max(1, st.weight - 2);
+          if (isBlitz) {
+            st.fastCount += 1;
+            st.mastery = 3;
+          } else if (st.mastery < 2) {
+            st.mastery = 2;
+          }
+        } else {
+          if (st.mastery < 2) st.mastery = 1;
+        }
+      }
+
+      let earnedStars = currentMode === 'zwillinge' ? 2 : 1;
+      if (isBlitz && isTurboActive) earnedStars += 1;
+
+      const oldStickerCount = Math.floor((prof.stars || 0) / 10);
+      prof.stars = (prof.stars || 0) + earnedStars;
+      prof.totalSolved = (prof.totalSolved || 0) + 1;
+      if (isBlitz) {
+        prof.totalBlitz = (prof.totalBlitz || 0) + 1;
+        roundBlitzCount += 1;
+      }
+      roundStarsEarned += earnedStars;
+      const newStickerCount = Math.floor(prof.stars / 10);
+
+      persistProgress();
+
+      roundResults.push(isBlitz ? 'blitz' : 'normal');
+      roundTaskIndex += 1;
+      updateTurboAndRoundUI();
+
+      if (justIgnitedTurbo) {
+        setFeedback(`🔥 TURBO-MODUS GEZÜNDET! +${earnedStars} Sterne! 🚀`, 'turbo');
+        launchConfetti(65, true);
+        spawnFlyingStarBadge(`🔥 +${earnedStars} ⭐`);
+      } else if (isBlitz && isTurboActive) {
+        setFeedback(`🔥 TURBO-BLITZ! +${earnedStars} Sterne (inkl. +1 Turbo-Bonus)!`, 'turbo');
+        launchConfetti(35, true);
+        spawnFlyingStarBadge(`+${earnedStars} ⭐`);
+      } else if (isBlitz) {
+        setFeedback(`⚡ BLITZ-ANTWORT! (${turboStreak}/3 zur Turbo-Flamme) +${earnedStars} ⭐`, 'blitz');
+        launchConfetti(25, false);
+        spawnFlyingStarBadge(`⚡ +${earnedStars} ⭐`);
+      } else {
+        const cheers = [
+          `Klasse gerechnet! +${earnedStars} ⭐`,
+          `Volltreffer! +${earnedStars} ⭐`,
+          `Spitze gemacht! +${earnedStars} ⭐`,
+          `Super gelöst! +${earnedStars} ⭐`
+        ];
+        setFeedback(cheers[Math.floor(Math.random() * cheers.length)], 'success');
+        spawnFlyingStarBadge(`+${earnedStars} ⭐`);
+      }
+
+      const unlockedNewSticker = newStickerCount > oldStickerCount && newStickerCount <= STICKERS.length;
+      const reachedEndOfRound = roundTaskIndex >= 10;
+
+      if (reachedEndOfRound) pendingRoundSummary = true;
+
+      if (unlockedNewSticker) {
+        const unlockedSticker = STICKERS[newStickerCount - 1];
+        setTimeout(() => showStickerUnlockModal(unlockedSticker), 550);
+      } else if (reachedEndOfRound) {
+        setTimeout(() => showRoundSummaryModal(), 900);
+      } else {
+        setTimeout(() => {
+          if (currentMode) nextTask();
+        }, 920);
+      }
+    }
+
+    // =========================================================================
+    // 10. MODALS, DSGVO-TRANSPARENZ & LÖSCHRECHT (ART. 17 DSGVO)
+    // =========================================================================
+    function showRoundSummaryModal() {
+      playSoundUnlock();
+      launchConfetti(80, roundBlitzCount >= 5);
+
+      document.getElementById('summary-stars').textContent = `+${roundStarsEarned}`;
+      document.getElementById('summary-blitz').textContent = `${roundBlitzCount} / 10`;
+      document.getElementById('summary-streak').textContent = `${roundBestStreak}×`;
+
+      const cheerEl = document.getElementById('round-summary-cheer');
+      if (roundBlitzCount >= 8) {
+        cheerEl.textContent = 'Wahnsinn! Du bist ein echter Überschall-Mathe-Profi! 🔥';
+      } else if (roundBlitzCount >= 4) {
+        cheerEl.textContent = 'Klasse! Viele Aufgaben hast du schon blitzschnell im Kopf gelöst! ⚡';
+      } else {
+        cheerEl.textContent = 'Prima gemacht! Jede gerechnete Aufgabe macht dich noch sicherer! 🌟';
+      }
+
+      document.getElementById('modal-round-summary').classList.remove('hidden');
+    }
+
+    function continueNextRound() {
+      playSoundTap();
+      document.getElementById('modal-round-summary').classList.add('hidden');
+      resetRoundTracking();
+      nextTask();
+    }
+
+    function finishRoundAndGoHome() {
+      document.getElementById('modal-round-summary').classList.add('hidden');
+      resetRoundTracking();
+      goHome();
+    }
+
+    function openTreasureModal() {
+      playSoundTap();
+      const prof = appState.activeProfile;
+      const stars = prof.stars || 0;
+      const unlockedCount = Math.min(STICKERS.length, Math.floor(stars / 10));
+      const starsInTier = stars % 10;
+      const allDone = unlockedCount >= STICKERS.length;
+
+      document.getElementById('modal-stars-total').textContent = stars;
+      document.getElementById('modal-blitz-total').textContent = prof.totalBlitz || 0;
+      document.getElementById('modal-best-streak').textContent = prof.bestTurboStreak || 0;
+
+      document.getElementById('modal-stars-next').textContent = allDone
+        ? 'Du hast alle 12 Weltraum-Sticker gesammelt! Unglaublich!'
+        : `Noch ${10 - starsInTier} Sterne bis zum nächsten Sticker!`;
+      document.getElementById('modal-stars-bar').style.width = allDone ? '100%' : `${starsInTier * 10}%`;
+
+      const grid = document.getElementById('sticker-grid');
+      grid.innerHTML = STICKERS.map((s, index) => {
+        const isUnlocked = index < unlockedCount;
+        const requiredStars = (index + 1) * 10;
+        if (isUnlocked) {
+          return `
+            <div style="background: linear-gradient(180deg, #FFFBEB, #FEF3C7); border: 2px solid #FCD34D; border-radius: 1rem; padding: 0.7rem; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+              <div style="font-size: 2.5rem; margin: 0.25rem 0;">${s.emoji}</div>
+              <div>
+                <div class="font-display" style="font-weight: 800; font-size: 0.85rem; color: #1E293B; line-height: 1.2;">${s.name}</div>
+                <div style="font-size: 0.7rem; font-weight: 600; color: #92400E; margin-top: 0.2rem;">${s.desc}</div>
+              </div>
+            </div>
+          `;
+        } else {
+          return `
+            <div style="background: #F1F5F9; border: 2px dashed #CBD5E1; border-radius: 1rem; padding: 0.7rem; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: space-between; opacity: 0.75;">
+              <div style="width: 2.8rem; height: 2.8rem; border-radius: 999px; background: #E2E8F0; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; margin: 0.25rem 0;">🔒</div>
+              <div>
+                <div class="font-display" style="font-weight: 800; font-size: 0.78rem; color: #64748B;">Sticker #${s.id}</div>
+                <div style="font-size: 0.72rem; font-weight: 800; color: #64748B; margin-top: 0.15rem;">Ab ${requiredStars} ⭐</div>
+              </div>
+            </div>
+          `;
+        }
+      }).join('');
+
+      document.getElementById('modal-treasure').classList.remove('hidden');
+    }
+
+    function showStickerUnlockModal(sticker) {
+      playSoundUnlock();
+      launchConfetti(95, true);
+      document.getElementById('unlock-sticker-art').textContent = sticker.emoji;
+      document.getElementById('unlock-sticker-name').textContent = sticker.name;
+      document.getElementById('unlock-sticker-desc').textContent = sticker.desc;
+      document.getElementById('modal-unlock').classList.remove('hidden');
+    }
+
+    function closeUnlockModal() {
+      playSoundTap();
+      document.getElementById('modal-unlock').classList.add('hidden');
+      if (pendingRoundSummary) {
+        pendingRoundSummary = false;
+        showRoundSummaryModal();
+      } else if (currentMode) {
+        nextTask();
+      }
+    }
+
+    function openParentModal() {
+      playSoundTap();
+      const prof = appState.activeProfile;
+      const coreStats = prof.coreStats || {};
+      const verliebteStats = prof.verliebteStats || {};
+
+      let blitzAss36 = 0;
+      let mastered36 = 0;
+      CORE_36_TASKS.forEach((t) => {
+        const m = coreStats[t.key]?.mastery || 0;
+        if (m === 3) blitzAss36++;
+        if (m >= 2) mastered36++;
+      });
+
+      document.getElementById('stat-blitz-ass').textContent = `${blitzAss36} / 36`;
+      document.getElementById('stat-mastered').textContent = `${mastered36} / 36`;
+      document.getElementById('stat-total-blitz').textContent = `${prof.totalBlitz || 0}`;
+      document.getElementById('stat-best-streak').textContent = `${prof.bestTurboStreak || 0}×`;
+
+      const grid36 = document.getElementById('parent-36-grid');
+      let rowsHtml = '';
+      for (let a = 2; a <= 9; a++) {
+        const group = CORE_36_TASKS.filter((t) => t.a === a);
+        const pills = group
+          .map((t) => {
+            const st = coreStats[t.key];
+            const m = st ? st.mastery : 0;
+
+            let bg = '#FFFFFF', fg = '#64748B', bd = '#E2E8F0', icon = '⚪';
+            if (m === 3) { bg = '#DCFCE7'; fg = '#14532D'; bd = '#4ADE80'; icon = '⚡'; }
+            else if (m === 2) { bg = '#FEF3C7'; fg = '#78350F'; bd = '#FCD34D'; icon = '🟡'; }
+            else if (m === 1) { bg = '#FFEDD5'; fg = '#7C2D12'; bd = '#FDBA74'; icon = '🟠'; }
+
+            return `
+              <button onclick="practiceSpecificCore('${t.key}')" style="background: ${bg}; color: ${fg}; border: 1.5px solid ${bd}; padding: 0.35rem 0.6rem; border-radius: 0.75rem; font-size: 0.8rem; font-weight: 800; display: inline-flex; align-items: center; gap: 0.25rem;" title="Diese Aufgabe jetzt direkt üben">
+                <span>${icon}</span>
+                <span>${t.a} + ${t.b}</span>
+              </button>
+            `;
+          })
+          .join('');
+
+        rowsHtml += `
+          <div class="core-row">
+            <div style="font-size: 0.76rem; font-weight: 800; color: #64748B; width: 6rem; flex-shrink: 0;">Reihe mit ${a}:</div>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;">${pills}</div>
+          </div>
+        `;
+      }
+      grid36.innerHTML = rowsHtml;
+
+      const gridVerliebte = document.getElementById('parent-verliebte-grid');
+      gridVerliebte.innerHTML = VERLIEBTE_PAIRS.map((p) => {
+        const st = verliebteStats[p.key];
+        const isBlitz = st?.blitz;
+        const ok = st?.mastered;
+        const bg = isBlitz ? '#DCFCE7' : ok ? '#FEF3C7' : '#F8FAFC';
+        const fg = isBlitz ? '#14532D' : ok ? '#78350F' : '#64748B';
+        const bd = isBlitz ? '#4ADE80' : ok ? '#FCD34D' : '#E2E8F0';
+        const icon = isBlitz ? '⚡' : ok ? '🟡' : '⚪';
+        return `
+          <div style="background: ${bg}; color: ${fg}; border: 1px solid ${bd}; border-radius: 0.75rem; padding: 0.4rem; text-align: center; font-size: 0.78rem; font-weight: 800;">
+            ${icon} ${p.a} + ${p.b}
+          </div>
+        `;
+      }).join('');
+
+      resetDeleteButtons();
+      document.getElementById('modal-parent').classList.remove('hidden');
+    }
+
+    function openPrivacyModal() {
+      playSoundTap();
+      updatePrivacyStatusDisplay();
+      resetDeleteButtons();
+      document.getElementById('modal-privacy').classList.remove('hidden');
+    }
+
+    function updatePrivacyStatusDisplay() {
+      const statusEl = document.getElementById('gdpr-storage-status');
+      if (!statusEl) return;
+
+      if (!isLocalStorageAvailable) {
+        statusEl.innerHTML = 'ℹ️ <strong>Status:</strong> Lokaler Browser-Speicher ist deaktiviert (z. B. Privater Modus). Die App läuft ausschließlich im flüchtigen Arbeitsspeicher.';
+        return;
+      }
+
+      const raw = window.localStorage.getItem(STORAGE_KEY);
+      if (!raw) {
+        statusEl.innerHTML = '✅ <strong>Status:</strong> Aktuell sind noch keine Lerndaten im lokalen Browser-Speicher abgelegt (0 Bytes).';
+      } else {
+        const bytes = new Blob([raw]).size;
+        statusEl.innerHTML = `✅ <strong>Status:</strong> Anonymer Lernstand aktiv gespeichert (${bytes} Bytes unter <code>${STORAGE_KEY}</code>). Keine Personenbezugsdaten enthalten.`;
+      }
+    }
+
+    function resetDeleteButtons() {
+      const parentCtrl = document.getElementById('parent-reset-controls');
+      if (parentCtrl) {
+        parentCtrl.innerHTML = `
+          <span style="font-size: 0.74rem; font-weight: 700; color: #166534;">
+            Speicherschlüssel: <code>mathe_rakete_2klasse_dsgvo_v1</code>
+          </span>
+          <button onclick="showDeleteConfirmation('parent-reset-controls')" class="btn-toy" style="background: #FFE4E6; border: 1.5px solid #FDA4AF; color: #9F1239; font-weight: 800; font-size: 0.76rem; padding: 0.4rem 0.8rem; border-radius: 0.8rem;">
+            🗑️ Alle lokalen Lerndaten sofort löschen
+          </button>
+        `;
+      }
+
+      const privacyCtrl = document.getElementById('privacy-delete-controls');
+      if (privacyCtrl) {
+        privacyCtrl.innerHTML = `
+          <button onclick="showDeleteConfirmation('privacy-delete-controls')" class="btn-toy shadow-toy-coral" style="background: #E11D48; color: #FFFFFF; font-weight: 800; font-size: 0.8rem; padding: 0.55rem 0.9rem; border-radius: 0.85rem;">
+            🗑️ Alle lokalen Lerndaten sofort löschen
+          </button>
+        `;
+      }
+    }
+
+    function showDeleteConfirmation(containerId) {
+      playSoundTap();
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      container.innerHTML = `
+        <span style="font-size: 0.78rem; font-weight: 800; color: #9F1239;">Wirklich alle Sterne &amp; Lernstände löschen?</span>
+        <button onclick="executeGdprDeletion()" class="btn-toy" style="background: #BE123C; color: #FFFFFF; font-weight: 800; font-size: 0.78rem; padding: 0.45rem 0.85rem; border-radius: 0.75rem;">
+          Ja, endgültig löschen
+        </button>
+        <button onclick="resetDeleteButtons()" class="btn-toy" style="background: #E2E8F0; color: #334155; font-weight: 800; font-size: 0.78rem; padding: 0.45rem 0.85rem; border-radius: 0.75rem;">
+          Abbrechen
+        </button>
+      `;
+    }
+
+    // Vollständige Löschung nach Art. 17 DSGVO
+    function executeGdprDeletion() {
+      playSoundTap();
+      if (isLocalStorageAvailable) {
+        try {
+          window.localStorage.removeItem(STORAGE_KEY);
+          for (const oldKey of LEGACY_KEYS) {
+            window.localStorage.removeItem(oldKey);
+          }
+        } catch (e) {
+          // Ignorieren falls blockiert
+        }
+      }
+
+      // Arbeitsspeicher-Stand ebenfalls komplett zurücksetzen
+      appState.activeProfile = createBlankProfile();
+      turboStreak = 0;
+      resetRoundTracking();
+      updateGlobalUI();
+      if (currentMode) updateTurboAndRoundUI();
+      updatePrivacyStatusDisplay();
+
+      // Geöffnete Modals aktualisieren und Bestätigung anzeigen
+      if (!document.getElementById('modal-parent').classList.contains('hidden')) {
+        openParentModal();
+      }
+      const privacyCtrl = document.getElementById('privacy-delete-controls');
+      if (privacyCtrl) {
+        privacyCtrl.innerHTML = `
+          <span style="background: #DCFCE7; color: #14532D; border: 1.5px solid #4ADE80; font-weight: 800; font-size: 0.8rem; padding: 0.45rem 0.85rem; border-radius: 0.8rem;">
+            ✅ Alle lokalen Daten wurden vollständig gelöscht!
+          </span>
+        `;
+      }
+      const parentCtrl = document.getElementById('parent-reset-controls');
+      if (parentCtrl) {
+        parentCtrl.innerHTML = `
+          <span style="font-size: 0.78rem; font-weight: 800; color: #14532D;">
+            ✅ Alle lokalen Lerndaten wurden gemäß Art. 17 DSGVO gelöscht.
+          </span>
+        `;
+      }
+    }
+
+    function practiceSpecificCore(key) {
+      forcedCoreKey = key;
+      closeModal('modal-parent');
+      startMode('grundaufgaben');
+    }
+
+    function closeModal(id) {
+      playSoundTap();
+      document.getElementById(id).classList.add('hidden');
+    }
+
+    // App initialisieren
+    window.addEventListener('DOMContentLoaded', () => {
+      loadProgress();
+      updateGlobalUI();
+    });
+  </script>
+</body>
+</html>
